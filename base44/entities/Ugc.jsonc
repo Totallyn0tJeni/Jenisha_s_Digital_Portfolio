@@ -1,0 +1,133 @@
+{
+  "name": "Ugc",
+  "type": "object",
+  "description": "User-generated content and creator campaigns \u2014 brand partnerships, TikTok, Instagram Reels, product photography, and more.",
+  "properties": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "brand": {
+      "type": "string",
+      "description": "Brand or company name"
+    },
+    "campaign": {
+      "type": "string",
+      "description": "Campaign name"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "Brand Partnership",
+        "Creator Campaign",
+        "TikTok",
+        "Instagram",
+        "Reels",
+        "Product Photography",
+        "UGC",
+        "Other"
+      ],
+      "default": "Brand Partnership"
+    },
+    "platform": {
+      "type": "string",
+      "enum": [
+        "TikTok",
+        "Instagram",
+        "YouTube",
+        "Mixed",
+        "Other"
+      ],
+      "default": "Instagram"
+    },
+    "deliverables": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "What was delivered (e.g. '3 Reels', '5 Stories', '1 TikTok')"
+    },
+    "cover_image": {
+      "type": "string",
+      "description": "Main cover image URL"
+    },
+    "gallery": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Additional images"
+    },
+    "video_url": {
+      "type": "string",
+      "description": "Video URL (Reel, TikTok, YouTube)"
+    },
+    "description": {
+      "type": "string"
+    },
+    "metrics": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          }
+        }
+      },
+      "description": "Key results (impressions, engagement, reach)"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "date": {
+      "type": "string",
+      "format": "date"
+    },
+    "featured": {
+      "type": "boolean",
+      "default": false
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "published",
+        "draft",
+        "archived"
+      ],
+      "default": "draft"
+    },
+    "order": {
+      "type": "number",
+      "default": 0
+    }
+  },
+  "required": [
+    "title",
+    "category"
+  ],
+  "rls": {
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "read": null,
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

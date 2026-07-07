@@ -1,0 +1,203 @@
+{
+  "name": "Work",
+  "type": "object",
+  "description": "Unified content model for all work types: software, AI, marketing, photography, UGC, brand partnerships, research, and more.",
+  "properties": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "slug": {
+      "type": "string",
+      "description": "URL-safe identifier for /work/:slug routes"
+    },
+    "tagline": {
+      "type": "string",
+      "description": "One-line summary"
+    },
+    "description": {
+      "type": "string",
+      "description": "Short description for cards and previews"
+    },
+    "work_type": {
+      "type": "string",
+      "enum": [
+        "software_project",
+        "ai_experiment",
+        "marketing_campaign",
+        "photography_collection",
+        "ugc_campaign",
+        "brand_partnership",
+        "research",
+        "case_study",
+        "startup_idea",
+        "design_project",
+        "open_source",
+        "robotics",
+        "competition",
+        "speaking_engagement",
+        "other"
+      ],
+      "default": "software_project"
+    },
+    "category": {
+      "type": "string",
+      "description": "Sub-category within the work type"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "collections": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Group works into named collections"
+    },
+    "hero_image": {
+      "type": "string",
+      "description": "Main cover image URL"
+    },
+    "gallery": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Additional images"
+    },
+    "tech_stack": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Tools, technologies, platforms used"
+    },
+    "problem": {
+      "type": "string",
+      "description": "Problem statement (for case studies)"
+    },
+    "solution": {
+      "type": "string",
+      "description": "Solution overview"
+    },
+    "case_study": {
+      "type": "string",
+      "description": "Full rich-text case study content"
+    },
+    "content": {
+      "type": "string",
+      "description": "Main body content (rich text / markdown)"
+    },
+    "links": {
+      "type": "object",
+      "properties": {
+        "github": {
+          "type": "string"
+        },
+        "demo": {
+          "type": "string"
+        },
+        "slides": {
+          "type": "string"
+        },
+        "documentation": {
+          "type": "string"
+        },
+        "external": {
+          "type": "string"
+        }
+      }
+    },
+    "metrics": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          }
+        }
+      },
+      "description": "Key results (impressions, engagement, etc.)"
+    },
+    "related_work_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Cross-linked Work IDs"
+    },
+    "date": {
+      "type": "string",
+      "format": "date",
+      "description": "Primary date for this work item"
+    },
+    "end_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "location": {
+      "type": "string"
+    },
+    "featured": {
+      "type": "boolean",
+      "default": false
+    },
+    "pinned": {
+      "type": "boolean",
+      "default": false
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "published",
+        "draft",
+        "scheduled",
+        "archived"
+      ],
+      "default": "draft"
+    },
+    "published_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "seo_title": {
+      "type": "string"
+    },
+    "seo_description": {
+      "type": "string"
+    },
+    "order": {
+      "type": "number",
+      "default": 0
+    }
+  },
+  "required": [
+    "title",
+    "work_type"
+  ],
+  "rls": {
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "read": null,
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

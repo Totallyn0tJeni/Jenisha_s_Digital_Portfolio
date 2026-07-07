@@ -1,0 +1,109 @@
+{
+  "name": "MediaAsset",
+  "type": "object",
+  "description": "Centralized media library \u2014 tracks all uploaded files with metadata and usage tracking.",
+  "properties": {
+    "file_url": {
+      "type": "string",
+      "required": true
+    },
+    "file_name": {
+      "type": "string"
+    },
+    "file_type": {
+      "type": "string",
+      "enum": [
+        "image",
+        "video",
+        "pdf",
+        "svg",
+        "document",
+        "audio",
+        "other"
+      ],
+      "default": "image"
+    },
+    "alt_text": {
+      "type": "string",
+      "description": "Accessibility and SEO alt text"
+    },
+    "caption": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "folder": {
+      "type": "string",
+      "description": "Logical folder grouping (e.g., 'hero', 'projects', 'photography')"
+    },
+    "width": {
+      "type": "number"
+    },
+    "height": {
+      "type": "number"
+    },
+    "size_bytes": {
+      "type": "number"
+    },
+    "is_featured": {
+      "type": "boolean",
+      "default": false
+    },
+    "usage_refs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "entity_type": {
+            "type": "string"
+          },
+          "entity_id": {
+            "type": "string"
+          },
+          "field": {
+            "type": "string"
+          }
+        }
+      },
+      "description": "Tracks where this asset is used across the platform"
+    },
+    "order": {
+      "type": "number",
+      "default": 0
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "archived"
+      ],
+      "default": "active"
+    }
+  },
+  "required": [
+    "file_url",
+    "file_type"
+  ],
+  "rls": {
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "read": null,
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

@@ -1,0 +1,132 @@
+{
+  "name": "TimelineEvent",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "date": {
+      "type": "string",
+      "format": "date",
+      "required": true
+    },
+    "end_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "career",
+        "education",
+        "award",
+        "project",
+        "event",
+        "milestone",
+        "volunteer",
+        "leadership"
+      ],
+      "default": "milestone"
+    },
+    "description": {
+      "type": "string"
+    },
+    "icon": {
+      "type": "string",
+      "description": "lucide-react icon name"
+    },
+    "image_url": {
+      "type": "string"
+    },
+    "is_milestone": {
+      "type": "boolean",
+      "default": false
+    },
+    "related_entity_type": {
+      "type": "string",
+      "description": "Polymorphic ref: 'Work', 'Experience', etc."
+    },
+    "related_entity_id": {
+      "type": "string"
+    },
+    "related_work_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Cross-linked Work IDs"
+    },
+    "related_blog_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Cross-linked BlogPost IDs"
+    },
+    "related_award_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Cross-linked Award IDs"
+    },
+    "related_certification_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Cross-linked Certification IDs"
+    },
+    "related_organization_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Cross-linked Organization IDs"
+    },
+    "external_link": {
+      "type": "string",
+      "description": "External URL for this event"
+    },
+    "external_link_label": {
+      "type": "string",
+      "description": "Label for the external link button"
+    },
+    "order": {
+      "type": "number",
+      "default": 0
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "published",
+        "draft",
+        "archived"
+      ],
+      "default": "draft"
+    }
+  },
+  "required": [
+    "title",
+    "date"
+  ],
+  "rls": {
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "read": null,
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

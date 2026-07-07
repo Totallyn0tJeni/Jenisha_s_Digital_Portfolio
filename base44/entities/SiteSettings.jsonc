@@ -1,0 +1,234 @@
+{
+  "name": "SiteSettings",
+  "type": "object",
+  "properties": {
+    "site_name": {
+      "type": "string",
+      "default": "Jenisha Patel"
+    },
+    "tagline": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string",
+      "description": "Site meta description for SEO"
+    },
+    "logo_url": {
+      "type": "string",
+      "description": "Uploaded logo \u2014 when null, name displays in navbar"
+    },
+    "favicon_url": {
+      "type": "string"
+    },
+    "hero_title": {
+      "type": "string"
+    },
+    "hero_subtitle": {
+      "type": "string"
+    },
+    "hero_image_url": {
+      "type": "string"
+    },
+    "hero_cta_primary": {
+      "type": "object",
+      "properties": {
+        "label": {
+          "type": "string"
+        },
+        "link": {
+          "type": "string"
+        },
+        "style": {
+          "type": "string",
+          "enum": [
+            "primary",
+            "outline",
+            "ghost"
+          ],
+          "default": "primary"
+        }
+      }
+    },
+    "hero_cta_secondary": {
+      "type": "object",
+      "properties": {
+        "label": {
+          "type": "string"
+        },
+        "link": {
+          "type": "string"
+        },
+        "style": {
+          "type": "string",
+          "enum": [
+            "primary",
+            "outline",
+            "ghost"
+          ],
+          "default": "outline"
+        }
+      }
+    },
+    "about_hero_title": {
+      "type": "string",
+      "description": "About page hero title"
+    },
+    "about_hero_subtitle": {
+      "type": "string",
+      "description": "About page hero subtitle"
+    },
+    "about_bio": {
+      "type": "string",
+      "description": "About page biography \u2014 separate paragraphs with double newlines"
+    },
+    "quick_facts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          }
+        }
+      },
+      "description": "Quick facts panel on the About page (Studying, Based in, Currently, etc.)"
+    },
+    "principles": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "icon": {
+            "type": "string",
+            "description": "lucide-react icon name"
+          },
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          }
+        }
+      },
+      "description": "How I Work principles on the About page"
+    },
+    "social_links": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "platform": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          },
+          "icon": {
+            "type": "string",
+            "description": "lucide-react icon name"
+          }
+        }
+      }
+    },
+    "theme_default": {
+      "type": "string",
+      "enum": [
+        "light",
+        "dark",
+        "system"
+      ],
+      "default": "light"
+    },
+    "accent_color": {
+      "type": "string",
+      "description": "Optional override for primary color (hex)"
+    },
+    "footer_text": {
+      "type": "string"
+    },
+    "footer_cta_title": {
+      "type": "string"
+    },
+    "footer_cta_subtitle": {
+      "type": "string"
+    },
+    "seo_defaults": {
+      "type": "object",
+      "properties": {
+        "meta_title": {
+          "type": "string"
+        },
+        "meta_description": {
+          "type": "string"
+        },
+        "og_image": {
+          "type": "string"
+        }
+      }
+    },
+    "resume_pdf_url": {
+      "type": "string",
+      "description": "Active resume PDF for download"
+    },
+    "stats": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          },
+          "icon": {
+            "type": "string"
+          }
+        }
+      },
+      "description": "Homepage stat counters (primary row)"
+    },
+    "secondary_stats": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          },
+          "icon": {
+            "type": "string"
+          }
+        }
+      },
+      "description": "Secondary stat counters shown in the About preview section"
+    }
+  },
+  "required": [
+    "site_name"
+  ],
+  "rls": {
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "read": null,
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

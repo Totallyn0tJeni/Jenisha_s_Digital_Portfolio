@@ -1,0 +1,179 @@
+{
+  "name": "Page",
+  "type": "object",
+  "description": "CMS-driven page. Sections array holds page builder blocks. The data model supports future block nesting via the 'blocks' field on each section.",
+  "properties": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "slug": {
+      "type": "string",
+      "description": "URL slug \u2014 'home', 'about', or custom for /p/:slug"
+    },
+    "route_path": {
+      "type": "string",
+      "description": "Full route path (e.g. '/', '/about', '/p/my-page)"
+    },
+    "page_type": {
+      "type": "string",
+      "enum": [
+        "builder",
+        "collection",
+        "custom"
+      ],
+      "default": "builder"
+    },
+    "hero_section": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "subtitle": {
+          "type": "string"
+        },
+        "image": {
+          "type": "string"
+        },
+        "cta_primary": {
+          "type": "object",
+          "properties": {
+            "label": {
+              "type": "string"
+            },
+            "link": {
+              "type": "string"
+            }
+          }
+        },
+        "cta_secondary": {
+          "type": "object",
+          "properties": {
+            "label": {
+              "type": "string"
+            },
+            "link": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "sections": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "hero",
+              "text",
+              "markdown",
+              "cards",
+              "gallery",
+              "carousel",
+              "grid",
+              "timeline",
+              "statistics",
+              "testimonials",
+              "cta",
+              "video",
+              "image-banner",
+              "quote",
+              "faq",
+              "accordion",
+              "tabs",
+              "before-after",
+              "embed",
+              "code-block",
+              "newsletter",
+              "social-feed",
+              "featured-work",
+              "featured-photo",
+              "blog-list",
+              "work-list",
+              "experience-list",
+              "leadership-spotlight",
+              "event-list",
+              "award-grid",
+              "logo-grid",
+              "custom-html"
+            ]
+          },
+          "title": {
+            "type": "string"
+          },
+          "config": {
+            "type": "object",
+            "description": "Type-specific configuration (content, layout, filters, etc.)"
+          },
+          "order": {
+            "type": "number"
+          },
+          "is_visible": {
+            "type": "boolean",
+            "default": true
+          },
+          "blocks": {
+            "type": "array",
+            "description": "Future: nested blocks within this section (Phase 2 block editor)",
+            "items": {
+              "type": "object"
+            }
+          }
+        }
+      }
+    },
+    "seo_title": {
+      "type": "string"
+    },
+    "seo_description": {
+      "type": "string"
+    },
+    "seo_image": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "published",
+        "draft"
+      ],
+      "default": "draft"
+    },
+    "published_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "order": {
+      "type": "number",
+      "default": 0
+    }
+  },
+  "required": [
+    "title"
+  ],
+  "rls": {
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "read": null,
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

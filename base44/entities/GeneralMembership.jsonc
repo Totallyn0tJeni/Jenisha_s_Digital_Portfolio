@@ -1,0 +1,60 @@
+{
+  "name": "GeneralMembership",
+  "type": "object",
+  "description": "General memberships \u2014 clubs, teams, and organizations where the user is a member (not a leadership role).",
+  "properties": {
+    "organization": {
+      "type": "string",
+      "required": true
+    },
+    "category": {
+      "type": "string",
+      "description": "Type of membership (e.g. Club, Team, Volunteer Group)",
+      "default": "Club"
+    },
+    "years": {
+      "type": "string",
+      "description": "Time period (e.g. '2022\u20132026')"
+    },
+    "description": {
+      "type": "string"
+    },
+    "logo_url": {
+      "type": "string"
+    },
+    "order": {
+      "type": "number",
+      "default": 0
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "published",
+        "draft",
+        "archived"
+      ],
+      "default": "draft"
+    }
+  },
+  "required": [
+    "organization"
+  ],
+  "rls": {
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "read": null,
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

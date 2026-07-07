@@ -1,0 +1,63 @@
+{
+  "name": "NavigationItem",
+  "type": "object",
+  "properties": {
+    "label": {
+      "type": "string",
+      "required": true
+    },
+    "path": {
+      "type": "string",
+      "description": "Internal route or external URL",
+      "required": true
+    },
+    "icon": {
+      "type": "string",
+      "description": "lucide-react icon name (optional)"
+    },
+    "order": {
+      "type": "number",
+      "default": 0
+    },
+    "is_visible": {
+      "type": "boolean",
+      "default": true
+    },
+    "is_external": {
+      "type": "boolean",
+      "default": false
+    },
+    "group": {
+      "type": "string",
+      "enum": [
+        "main",
+        "explore",
+        "footer",
+        "social"
+      ],
+      "default": "main"
+    }
+  },
+  "required": [
+    "label",
+    "path"
+  ],
+  "rls": {
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "read": null,
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}
