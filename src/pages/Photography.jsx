@@ -1,54 +1,91 @@
-const isNode = typeof window === 'undefined';
-const windowObj = isNode ? { localStorage: new Map() } : window;
-const storage = windowObj.localStorage;
+import { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
+import { base44 } from '@/api/base44Client';
+import SectionHeading from '@/components/SectionHeading';
+import EmptyState from '@/components/EmptyState';
+import ImagePlaceholder from '@/components/ImagePlaceholder';
 
-const toSnakeCase = (str) => {
-	return str.replace(/([A-Z])/g, '_$1').toLowerCase();
-}
+export default function Photography() {
+  const [photos, setPhotos] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [filter, setFilter] = useState('All');
+  const [lightbox, setLightbox] = useState(null);
 
-const getAppParamValue = (paramName, { defaultValue = undefined, removeFromUrl = false } = {}) => {
-	if (isNode) {
-		return defaultValue;
-	}
-	const storageKey = `base44_${toSnakeCase(paramName)}`;
-	const urlParams = new URLSearchParams(window.location.search);
-	const searchParam = urlParams.get(paramName);
-	if (removeFromUrl) {
-		urlParams.delete(paramName);
-		const newUrl = `${window.location.pathname}${urlParams.toString() ? `?${urlParams.toString()}` : ""
-			}${window.location.hash}`;
-		window.history.replaceState({}, document.title, newUrl);
-	}
-	if (searchParam) {
-		storage.setItem(storageKey, searchParam);
-		return searchParam;
-	}
-	if (defaultValue) {
-		storage.setItem(storageKey, defaultValue);
-		return defaultValue;
-	}
-	const storedValue = storage.getItem(storageKey);
-	if (storedValue) {
-		return storedValue;
-	}
-	return null;
-}
+  useEffect(() => {
+    (async () => {
+      try {
+        const data = await base44.entities.Photo.filter({ status: 'published' }, 'order', 200);
+        setPhotos(data);
+      } catch (e) { setPhotos([]); }
+      setLoading(false);
+    })();
+  }, []);
 
-const getAppParams = () => {
-	if (getAppParamValue("clear_access_token") === 'true') {
-		storage.removeItem('base44_access_token');
-		storage.removeItem('token');
-	}
-	return {
-		appId: getAppParamValue("app_id", { defaultValue: import.meta.env.VITE_BASE44_APP_ID }),
-		token: getAppParamValue("access_token", { removeFromUrl: true }),
-		fromUrl: getAppParamValue("from_url", { defaultValue: window.location.href }),
-		functionsVersion: getAppParamValue("functions_version", { defaultValue: import.meta.env.VITE_BASE44_FUNCTIONS_VERSION }),
-		appBaseUrl: getAppParamValue("app_base_url", { defaultValue: import.meta.env.VITE_BASE44_APP_BASE_URL }),
-	}
-}
+  const categories = ['All', ...new Set(photos.map((p) => p.category).filter(Boolean))];
+  const filtered = filter === 'All' ? photos : photos.filter((p) => p.category === filter);
 
+  return (
+    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>
+      <section className="px-4 md:px-8 pt-12 pb-8">
+        <div className="max-w-7xl mx-auto">
+          <SectionHeading eyebrow="Visual Storytelling" title="Photography" subtitle="Events, portraits, nature, and the world through my lens." />
+        </div>
+      </section>
 
-export const appParams = {
-	...getAppParams()
+      <section className="px-4 md:px-8 pb-20">
+        <div className="max-w-7xl mx-auto">
+          {photos.length > 0 && (
+            <div className="flex gap-2 overflow-x-auto scrollbar-hide pb-1 mb-8">
+              {categories.map((cat) => (
+                <button key={cat} onClick={() => setFilter(cat)} className={`px-4 py-1.5 rounded-full text-sm font-medium whitespace-nowrap transition-premium ${filter === cat ? 'bg-primary text-primary-foreground' : 'glass text-muted-foreground hover:text-foreground'}`}>
+                  {cat}
+                </button>
+              ))}
+            </div>
+          )}
+
+          {loading ? (
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+              {[...Array(8)].map((_, i) => <div key={i} className="aspect-square rounded-2xl shimmer" />)}
+            </div>
+          ) : filtered.length > 0 ? (
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+              {filtered.map((photo, i) => (
+                <motion.button
+                  key={photo.id}
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.04 }}
+                  onClick={() => setLightbox(photo)}
+                  className="aspect-square rounded-2xl overflow-hidden glass-card group cursor-pointer"
+                >
+                  <img src={photo.image_url} alt={photo.alt_text || photo.title || ''} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                </motion.button>
+              ))}
+            </div>
+          ) : (
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+              {[...Array(8)].map((_, i) => <ImagePlaceholder key={i} label="Upload Photo" aspect="square" />)}
+            </div>
+          )}
+        </div>
+      </section>
+
+      {lightbox && (
+        <div className="fixed inset-0 z-[90] bg-background/90 backdrop-blur-md flex items-center justify-center p-4" onClick={() => setLightbox(null)}>
+          <button className="absolute top-4 right-4 text-muted-foreground hover:text-foreground text-2xl" onClick={() => setLightbox(null)}>✕</button>
+          <div className="max-w-5xl max-h-[90vh] relative" onClick={(e) => e.stopPropagation()}>
+            <img src={lightbox.image_url} alt={lightbox.alt_text || ''} className="max-w-full max-h-[90vh] object-contain rounded-xl" />
+            {(lightbox.title || lightbox.caption) && (
+              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-background/80 to-transparent p-6 rounded-b-xl">
+                {lightbox.title && <h3 className="font-display font-semibold text-foreground">{lightbox.title}</h3>}
+                {lightbox.caption && <p className="text-sm text-muted-foreground">{lightbox.caption}</p>}
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+    </motion.div>
+  );
 }

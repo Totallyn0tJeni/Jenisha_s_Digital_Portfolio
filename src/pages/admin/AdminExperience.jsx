@@ -1,54 +1,38 @@
-const isNode = typeof window === 'undefined';
-const windowObj = isNode ? { localStorage: new Map() } : window;
-const storage = windowObj.localStorage;
+import AdminEntityManager from '@/components/AdminEntityManager';
 
-const toSnakeCase = (str) => {
-	return str.replace(/([A-Z])/g, '_$1').toLowerCase();
-}
+const types = ['Work', 'Volunteer', 'Leadership', 'Education'];
 
-const getAppParamValue = (paramName, { defaultValue = undefined, removeFromUrl = false } = {}) => {
-	if (isNode) {
-		return defaultValue;
-	}
-	const storageKey = `base44_${toSnakeCase(paramName)}`;
-	const urlParams = new URLSearchParams(window.location.search);
-	const searchParam = urlParams.get(paramName);
-	if (removeFromUrl) {
-		urlParams.delete(paramName);
-		const newUrl = `${window.location.pathname}${urlParams.toString() ? `?${urlParams.toString()}` : ""
-			}${window.location.hash}`;
-		window.history.replaceState({}, document.title, newUrl);
-	}
-	if (searchParam) {
-		storage.setItem(storageKey, searchParam);
-		return searchParam;
-	}
-	if (defaultValue) {
-		storage.setItem(storageKey, defaultValue);
-		return defaultValue;
-	}
-	const storedValue = storage.getItem(storageKey);
-	if (storedValue) {
-		return storedValue;
-	}
-	return null;
-}
+const fields = [
+  { name: 'organization', label: 'Organization', type: 'text', required: true },
+  { name: 'role_title', label: 'Role Title', type: 'text', required: true },
+  { name: 'type', label: 'Type', type: 'select', options: types, required: true },
+  { name: 'start_date', label: 'Start Date', type: 'date' },
+  { name: 'end_date', label: 'End Date', type: 'date' },
+  { name: 'is_current', label: 'Current', type: 'boolean' },
+  { name: 'location', label: 'Location', type: 'text' },
+  { name: 'description', label: 'Description', type: 'textarea' },
+  { name: 'achievements', label: 'Achievements', type: 'tags' },
+  { name: 'skills', label: 'Skills', type: 'tags' },
+  { name: 'status', label: 'Status', type: 'select', options: ['draft', 'published', 'archived'] },
+];
 
-const getAppParams = () => {
-	if (getAppParamValue("clear_access_token") === 'true') {
-		storage.removeItem('base44_access_token');
-		storage.removeItem('token');
-	}
-	return {
-		appId: getAppParamValue("app_id", { defaultValue: import.meta.env.VITE_BASE44_APP_ID }),
-		token: getAppParamValue("access_token", { removeFromUrl: true }),
-		fromUrl: getAppParamValue("from_url", { defaultValue: window.location.href }),
-		functionsVersion: getAppParamValue("functions_version", { defaultValue: import.meta.env.VITE_BASE44_FUNCTIONS_VERSION }),
-		appBaseUrl: getAppParamValue("app_base_url", { defaultValue: import.meta.env.VITE_BASE44_APP_BASE_URL }),
-	}
-}
+const columns = [
+  { key: 'role_title', label: 'Role' },
+  { key: 'organization', label: 'Organization' },
+  { key: 'type', label: 'Type' },
+  { key: 'is_current', label: 'Current', type: 'boolean' },
+];
 
-
-export const appParams = {
-	...getAppParams()
+export default function AdminExperience() {
+  return (
+    <AdminEntityManager
+      entityName="Experience"
+      title="Experience"
+      fields={fields}
+      columns={columns}
+      defaultValues={{ type: 'Work', status: 'draft', is_current: false, achievements: [], skills: [] }}
+      searchKeys={['organization', 'role_title']}
+      filterField="type"
+    />
+  );
 }

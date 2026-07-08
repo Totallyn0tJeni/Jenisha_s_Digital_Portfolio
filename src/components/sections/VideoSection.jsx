@@ -1,21 +1,35 @@
-import { motion } from 'framer-motion';
+import SectionHeading from '../SectionHeading';
 
-export default function SectionHeading({ eyebrow, title, subtitle, align = 'center' }) {
-  const alignment = align === 'left' ? 'items-start text-left' : 'items-center text-center';
+export default function VideoSection({ config = {}, section }) {
+  const url = config.url;
+  const title = config.title || section?.title;
+
+  if (!url) {
+    return (
+      <section className="py-20 md:py-28 px-4 md:px-8">
+        <div className="max-w-4xl mx-auto">
+          {title && <SectionHeading title={title} />}
+          <div className="aspect-video rounded-2xl bg-surface border-2 border-dashed border-primary/25 flex items-center justify-center text-muted-foreground/50">
+            Video will appear here once a URL is added.
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  const isYouTube = url.includes('youtube.com') || url.includes('youtu.be');
+  const embedUrl = isYouTube
+    ? url.replace('watch?v=', 'embed/').replace('youtu.be/', 'youtube.com/embed/')
+    : url;
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-80px' }}
-      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-      className={`flex flex-col gap-3 ${alignment}`}>
-      
-      {eyebrow &&
-      <span className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">{eyebrow}</span>
-      }
-      <h2 className="font-display font-bold text-3xl md:text-5xl text-foreground leading-tight max-w-3xl">{title}</h2>
-      {subtitle && <p className="text-muted-foreground text-base md:text-lg max-w-2xl leading-relaxed py-2">{subtitle}</p>}
-    </motion.div>);
-
+    <section className="py-20 md:py-28 px-4 md:px-8">
+      <div className="max-w-4xl mx-auto">
+        {title && <SectionHeading title={title} />}
+        <div className="aspect-video rounded-2xl overflow-hidden glass-card">
+          <iframe src={embedUrl} className="w-full h-full" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen title={title || 'Video'} />
+        </div>
+      </div>
+    </section>
+  );
 }

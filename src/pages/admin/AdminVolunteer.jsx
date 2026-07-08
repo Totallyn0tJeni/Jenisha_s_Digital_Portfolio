@@ -1,54 +1,38 @@
-const isNode = typeof window === 'undefined';
-const windowObj = isNode ? { localStorage: new Map() } : window;
-const storage = windowObj.localStorage;
+import AdminEntityManager from '@/components/AdminEntityManager';
 
-const toSnakeCase = (str) => {
-	return str.replace(/([A-Z])/g, '_$1').toLowerCase();
-}
+const causes = ['education', 'environment', 'community', 'health', 'stem', 'other'];
 
-const getAppParamValue = (paramName, { defaultValue = undefined, removeFromUrl = false } = {}) => {
-	if (isNode) {
-		return defaultValue;
-	}
-	const storageKey = `base44_${toSnakeCase(paramName)}`;
-	const urlParams = new URLSearchParams(window.location.search);
-	const searchParam = urlParams.get(paramName);
-	if (removeFromUrl) {
-		urlParams.delete(paramName);
-		const newUrl = `${window.location.pathname}${urlParams.toString() ? `?${urlParams.toString()}` : ""
-			}${window.location.hash}`;
-		window.history.replaceState({}, document.title, newUrl);
-	}
-	if (searchParam) {
-		storage.setItem(storageKey, searchParam);
-		return searchParam;
-	}
-	if (defaultValue) {
-		storage.setItem(storageKey, defaultValue);
-		return defaultValue;
-	}
-	const storedValue = storage.getItem(storageKey);
-	if (storedValue) {
-		return storedValue;
-	}
-	return null;
-}
+const fields = [
+  { name: 'organization', label: 'Organization', type: 'text', required: true },
+  { name: 'role', label: 'Role', type: 'text' },
+  { name: 'cause', label: 'Cause', type: 'select', options: causes },
+  { name: 'start_date', label: 'Start Date', type: 'date' },
+  { name: 'end_date', label: 'End Date', type: 'date' },
+  { name: 'is_current', label: 'Current', type: 'boolean' },
+  { name: 'description', label: 'Description', type: 'textarea' },
+  { name: 'hours', label: 'Hours', type: 'number' },
+  { name: 'logo_url', label: 'Logo URL', type: 'image' },
+  { name: 'achievements', label: 'Achievements', type: 'tags' },
+  { name: 'status', label: 'Status', type: 'select', options: ['draft', 'published', 'archived'] },
+];
 
-const getAppParams = () => {
-	if (getAppParamValue("clear_access_token") === 'true') {
-		storage.removeItem('base44_access_token');
-		storage.removeItem('token');
-	}
-	return {
-		appId: getAppParamValue("app_id", { defaultValue: import.meta.env.VITE_BASE44_APP_ID }),
-		token: getAppParamValue("access_token", { removeFromUrl: true }),
-		fromUrl: getAppParamValue("from_url", { defaultValue: window.location.href }),
-		functionsVersion: getAppParamValue("functions_version", { defaultValue: import.meta.env.VITE_BASE44_FUNCTIONS_VERSION }),
-		appBaseUrl: getAppParamValue("app_base_url", { defaultValue: import.meta.env.VITE_BASE44_APP_BASE_URL }),
-	}
-}
+const columns = [
+  { key: 'organization', label: 'Organization' },
+  { key: 'role', label: 'Role' },
+  { key: 'cause', label: 'Cause' },
+  { key: 'is_current', label: 'Current', type: 'boolean' },
+];
 
-
-export const appParams = {
-	...getAppParams()
+export default function AdminVolunteer() {
+  return (
+    <AdminEntityManager
+      entityName="VolunteerWork"
+      title="Volunteer Work"
+      fields={fields}
+      columns={columns}
+      defaultValues={{ status: 'draft', cause: 'community', is_current: false, achievements: [] }}
+      searchKeys={['organization', 'role']}
+      filterField="cause"
+    />
+  );
 }

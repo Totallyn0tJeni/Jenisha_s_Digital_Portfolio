@@ -1,54 +1,43 @@
-const isNode = typeof window === 'undefined';
-const windowObj = isNode ? { localStorage: new Map() } : window;
-const storage = windowObj.localStorage;
+import AdminEntityManager from '@/components/AdminEntityManager';
 
-const toSnakeCase = (str) => {
-	return str.replace(/([A-Z])/g, '_$1').toLowerCase();
-}
+const categories = ['career', 'education', 'award', 'project', 'event', 'milestone', 'volunteer', 'leadership'];
 
-const getAppParamValue = (paramName, { defaultValue = undefined, removeFromUrl = false } = {}) => {
-	if (isNode) {
-		return defaultValue;
-	}
-	const storageKey = `base44_${toSnakeCase(paramName)}`;
-	const urlParams = new URLSearchParams(window.location.search);
-	const searchParam = urlParams.get(paramName);
-	if (removeFromUrl) {
-		urlParams.delete(paramName);
-		const newUrl = `${window.location.pathname}${urlParams.toString() ? `?${urlParams.toString()}` : ""
-			}${window.location.hash}`;
-		window.history.replaceState({}, document.title, newUrl);
-	}
-	if (searchParam) {
-		storage.setItem(storageKey, searchParam);
-		return searchParam;
-	}
-	if (defaultValue) {
-		storage.setItem(storageKey, defaultValue);
-		return defaultValue;
-	}
-	const storedValue = storage.getItem(storageKey);
-	if (storedValue) {
-		return storedValue;
-	}
-	return null;
-}
+const fields = [
+  { name: 'title', label: 'Title', type: 'text', required: true },
+  { name: 'date', label: 'Date', type: 'date', required: true },
+  { name: 'end_date', label: 'End Date', type: 'date' },
+  { name: 'category', label: 'Category', type: 'select', options: categories },
+  { name: 'description', label: 'Description', type: 'textarea' },
+  { name: 'icon', label: 'Icon (lucide name)', type: 'text' },
+  { name: 'image_url', label: 'Image URL', type: 'image' },
+  { name: 'is_milestone', label: 'Milestone', type: 'boolean' },
+  { name: 'external_link', label: 'External Link URL', type: 'url' },
+  { name: 'external_link_label', label: 'External Link Label', type: 'text' },
+  { name: 'related_work_ids', label: 'Related Work IDs', type: 'tags' },
+  { name: 'related_blog_ids', label: 'Related Blog IDs', type: 'tags' },
+  { name: 'related_award_ids', label: 'Related Award IDs', type: 'tags' },
+  { name: 'related_certification_ids', label: 'Related Certification IDs', type: 'tags' },
+  { name: 'related_organization_ids', label: 'Related Organization IDs', type: 'tags' },
+  { name: 'status', label: 'Status', type: 'select', options: ['draft', 'published', 'archived'] },
+];
 
-const getAppParams = () => {
-	if (getAppParamValue("clear_access_token") === 'true') {
-		storage.removeItem('base44_access_token');
-		storage.removeItem('token');
-	}
-	return {
-		appId: getAppParamValue("app_id", { defaultValue: import.meta.env.VITE_BASE44_APP_ID }),
-		token: getAppParamValue("access_token", { removeFromUrl: true }),
-		fromUrl: getAppParamValue("from_url", { defaultValue: window.location.href }),
-		functionsVersion: getAppParamValue("functions_version", { defaultValue: import.meta.env.VITE_BASE44_FUNCTIONS_VERSION }),
-		appBaseUrl: getAppParamValue("app_base_url", { defaultValue: import.meta.env.VITE_BASE44_APP_BASE_URL }),
-	}
-}
+const columns = [
+  { key: 'title', label: 'Title' },
+  { key: 'date', label: 'Date' },
+  { key: 'category', label: 'Category' },
+  { key: 'is_milestone', label: 'Milestone', type: 'boolean' },
+];
 
-
-export const appParams = {
-	...getAppParams()
+export default function AdminTimeline() {
+  return (
+    <AdminEntityManager
+      entityName="TimelineEvent"
+      title="Timeline"
+      fields={fields}
+      columns={columns}
+      defaultValues={{ status: 'draft', category: 'milestone', is_milestone: false, related_work_ids: [], related_blog_ids: [], related_award_ids: [], related_certification_ids: [], related_organization_ids: [] }}
+      searchKeys={['title', 'description']}
+      filterField="category"
+    />
+  );
 }

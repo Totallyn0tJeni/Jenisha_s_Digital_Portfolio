@@ -1,54 +1,64 @@
-const isNode = typeof window === 'undefined';
-const windowObj = isNode ? { localStorage: new Map() } : window;
-const storage = windowObj.localStorage;
+import { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
+import { base44 } from '@/api/base44Client';
+import { ExternalLink } from 'lucide-react';
+import SectionHeading from '@/components/SectionHeading';
+import EmptyState from '@/components/EmptyState';
 
-const toSnakeCase = (str) => {
-	return str.replace(/([A-Z])/g, '_$1').toLowerCase();
-}
+const typeIcons = { article: '📄', tool: '🔧', template: '📋', guide: '📖', video: '🎬', pdf: '📕', course: '🎓', other: '🔗' };
 
-const getAppParamValue = (paramName, { defaultValue = undefined, removeFromUrl = false } = {}) => {
-	if (isNode) {
-		return defaultValue;
-	}
-	const storageKey = `base44_${toSnakeCase(paramName)}`;
-	const urlParams = new URLSearchParams(window.location.search);
-	const searchParam = urlParams.get(paramName);
-	if (removeFromUrl) {
-		urlParams.delete(paramName);
-		const newUrl = `${window.location.pathname}${urlParams.toString() ? `?${urlParams.toString()}` : ""
-			}${window.location.hash}`;
-		window.history.replaceState({}, document.title, newUrl);
-	}
-	if (searchParam) {
-		storage.setItem(storageKey, searchParam);
-		return searchParam;
-	}
-	if (defaultValue) {
-		storage.setItem(storageKey, defaultValue);
-		return defaultValue;
-	}
-	const storedValue = storage.getItem(storageKey);
-	if (storedValue) {
-		return storedValue;
-	}
-	return null;
-}
+export default function Resources() {
+  const [items, setItems] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-const getAppParams = () => {
-	if (getAppParamValue("clear_access_token") === 'true') {
-		storage.removeItem('base44_access_token');
-		storage.removeItem('token');
-	}
-	return {
-		appId: getAppParamValue("app_id", { defaultValue: import.meta.env.VITE_BASE44_APP_ID }),
-		token: getAppParamValue("access_token", { removeFromUrl: true }),
-		fromUrl: getAppParamValue("from_url", { defaultValue: window.location.href }),
-		functionsVersion: getAppParamValue("functions_version", { defaultValue: import.meta.env.VITE_BASE44_FUNCTIONS_VERSION }),
-		appBaseUrl: getAppParamValue("app_base_url", { defaultValue: import.meta.env.VITE_BASE44_APP_BASE_URL }),
-	}
-}
+  useEffect(() => {
+    (async () => {
+      try {
+        const data = await base44.entities.Resource.filter({ status: 'published' }, 'order', 100);
+        setItems(data);
+      } catch (e) { setItems([]); }
+      setLoading(false);
+    })();
+  }, []);
 
-
-export const appParams = {
-	...getAppParams()
+  return (
+    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>
+      <section className="px-4 md:px-8 pt-12 pb-20">
+        <div className="max-w-5xl mx-auto">
+          <SectionHeading eyebrow="Knowledge" title="Resources" subtitle="Articles, tools, and guides I recommend." />
+          {loading ? (
+            <div className="grid sm:grid-cols-2 gap-4">{[...Array(4)].map((_, i) => <div key={i} className="h-24 rounded-2xl shimmer" />)}</div>
+          ) : items.length > 0 ? (
+            <div className="grid sm:grid-cols-2 gap-4">
+              {items.map((item, i) => (
+                <motion.a
+                  key={item.id}
+                  href={item.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  initial={{ opacity: 0, y: 16 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.05 }}
+                  className="glass-card p-5 group flex items-start gap-4"
+                >
+                  <div className="w-11 h-11 rounded-xl bg-primary/10 flex items-center justify-center text-xl shrink-0">{typeIcons[item.resource_type] || '🔗'}</div>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2">
+                      <h3 className="font-display font-semibold text-foreground group-hover:text-primary transition-premium">{item.title}</h3>
+                      <ExternalLink className="w-3.5 h-3.5 text-muted-foreground opacity-0 group-hover:opacity-100 transition-premium" />
+                    </div>
+                    {item.description && <p className="text-sm text-muted-foreground mt-1 leading-relaxed line-clamp-2">{item.description}</p>}
+                    {item.category && <span className="inline-block mt-2 text-xs text-muted-foreground bg-muted px-2 py-0.5 rounded-full">{item.category}</span>}
+                  </div>
+                </motion.a>
+              ))}
+            </div>
+          ) : (
+            <EmptyState title="Add your first resource" description="Articles, tools, and guides will appear here once added." />
+          )}
+        </div>
+      </section>
+    </motion.div>
+  );
 }

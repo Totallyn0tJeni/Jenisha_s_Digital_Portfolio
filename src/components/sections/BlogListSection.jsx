@@ -1,54 +1,45 @@
-const isNode = typeof window === 'undefined';
-const windowObj = isNode ? { localStorage: new Map() } : window;
-const storage = windowObj.localStorage;
+import { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
+import { ArrowUpRight } from 'lucide-react';
+import { base44 } from '@/api/base44Client';
+import BlogCard from '../BlogCard';
+import SectionHeading from '../SectionHeading';
 
-const toSnakeCase = (str) => {
-	return str.replace(/([A-Z])/g, '_$1').toLowerCase();
-}
+export default function BlogListSection({ config = {}, section }) {
+  const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const count = config.count || 3;
 
-const getAppParamValue = (paramName, { defaultValue = undefined, removeFromUrl = false } = {}) => {
-	if (isNode) {
-		return defaultValue;
-	}
-	const storageKey = `base44_${toSnakeCase(paramName)}`;
-	const urlParams = new URLSearchParams(window.location.search);
-	const searchParam = urlParams.get(paramName);
-	if (removeFromUrl) {
-		urlParams.delete(paramName);
-		const newUrl = `${window.location.pathname}${urlParams.toString() ? `?${urlParams.toString()}` : ""
-			}${window.location.hash}`;
-		window.history.replaceState({}, document.title, newUrl);
-	}
-	if (searchParam) {
-		storage.setItem(storageKey, searchParam);
-		return searchParam;
-	}
-	if (defaultValue) {
-		storage.setItem(storageKey, defaultValue);
-		return defaultValue;
-	}
-	const storedValue = storage.getItem(storageKey);
-	if (storedValue) {
-		return storedValue;
-	}
-	return null;
-}
+  useEffect(() => {
+    (async () => {
+      try {
+        const data = await base44.entities.BlogPost.filter({ status: 'published' }, '-published_date', count);
+        setPosts(data);
+      } catch (e) { setPosts([]); }
+      setLoading(false);
+    })();
+  }, [count]);
 
-const getAppParams = () => {
-	if (getAppParamValue("clear_access_token") === 'true') {
-		storage.removeItem('base44_access_token');
-		storage.removeItem('token');
-	}
-	return {
-		appId: getAppParamValue("app_id", { defaultValue: import.meta.env.VITE_BASE44_APP_ID }),
-		token: getAppParamValue("access_token", { removeFromUrl: true }),
-		fromUrl: getAppParamValue("from_url", { defaultValue: window.location.href }),
-		functionsVersion: getAppParamValue("functions_version", { defaultValue: import.meta.env.VITE_BASE44_FUNCTIONS_VERSION }),
-		appBaseUrl: getAppParamValue("app_base_url", { defaultValue: import.meta.env.VITE_BASE44_APP_BASE_URL }),
-	}
-}
-
-
-export const appParams = {
-	...getAppParams()
+  return (
+    <section className="py-20 md:py-28 px-4 md:px-8">
+      <div className="max-w-7xl mx-auto">
+        <div className="flex items-end justify-between mb-10">
+          {section?.title && <SectionHeading title={section.title} align="left" />}
+          <Link to="/blog" className="hidden md:inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:text-primary/80 transition-premium">
+            View All <ArrowUpRight className="w-4 h-4" />
+          </Link>
+        </div>
+        {posts.length > 0 ? (
+          <div className="grid md:grid-cols-3 gap-6">
+            {posts.map((post, i) => <BlogCard key={post.id} post={post} index={i} />)}
+          </div>
+        ) : (
+          <div className="text-center py-12">
+            <p className="text-muted-foreground/50 italic">Publish your first article to see it here.</p>
+          </div>
+        )}
+      </div>
+    </section>
+  );
 }

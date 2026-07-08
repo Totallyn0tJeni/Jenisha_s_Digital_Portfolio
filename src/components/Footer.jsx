@@ -1,54 +1,86 @@
-const isNode = typeof window === 'undefined';
-const windowObj = isNode ? { localStorage: new Map() } : window;
-const storage = windowObj.localStorage;
+import { Link } from 'react-router-dom';
+import { ArrowUp, FileDown } from 'lucide-react';
+import { useSiteSettings, useNavigation } from '@/hooks/useSiteSettings';
+import SocialIcons from './SocialIcons';
 
-const toSnakeCase = (str) => {
-	return str.replace(/([A-Z])/g, '_$1').toLowerCase();
-}
+export default function Footer() {
+  const { settings } = useSiteSettings();
+  const { main, explore } = useNavigation();
 
-const getAppParamValue = (paramName, { defaultValue = undefined, removeFromUrl = false } = {}) => {
-	if (isNode) {
-		return defaultValue;
-	}
-	const storageKey = `base44_${toSnakeCase(paramName)}`;
-	const urlParams = new URLSearchParams(window.location.search);
-	const searchParam = urlParams.get(paramName);
-	if (removeFromUrl) {
-		urlParams.delete(paramName);
-		const newUrl = `${window.location.pathname}${urlParams.toString() ? `?${urlParams.toString()}` : ""
-			}${window.location.hash}`;
-		window.history.replaceState({}, document.title, newUrl);
-	}
-	if (searchParam) {
-		storage.setItem(storageKey, searchParam);
-		return searchParam;
-	}
-	if (defaultValue) {
-		storage.setItem(storageKey, defaultValue);
-		return defaultValue;
-	}
-	const storedValue = storage.getItem(storageKey);
-	if (storedValue) {
-		return storedValue;
-	}
-	return null;
-}
+  const navGroups = [
+    { title: 'Navigate', items: main.length > 0 ? main : [
+      { label: 'Home', path: '/' },
+      { label: 'About', path: '/about' },
+      { label: 'Work', path: '/work' },
+      { label: 'Contact', path: '/contact' },
+    ]},
+    { title: 'Explore', items: explore.length > 0 ? explore : [
+      { label: 'UGC', path: '/ugc' },
+      { label: 'Blog', path: '/blog' },
+      { label: 'Photography', path: '/photography' },
+      { label: 'Experience', path: '/experience' },
+      { label: 'Leadership', path: '/leadership' },
+      { label: 'Awards', path: '/awards' },
+      { label: 'Timeline', path: '/timeline' },
+    ]},
+  ];
 
-const getAppParams = () => {
-	if (getAppParamValue("clear_access_token") === 'true') {
-		storage.removeItem('base44_access_token');
-		storage.removeItem('token');
-	}
-	return {
-		appId: getAppParamValue("app_id", { defaultValue: import.meta.env.VITE_BASE44_APP_ID }),
-		token: getAppParamValue("access_token", { removeFromUrl: true }),
-		fromUrl: getAppParamValue("from_url", { defaultValue: window.location.href }),
-		functionsVersion: getAppParamValue("functions_version", { defaultValue: import.meta.env.VITE_BASE44_FUNCTIONS_VERSION }),
-		appBaseUrl: getAppParamValue("app_base_url", { defaultValue: import.meta.env.VITE_BASE44_APP_BASE_URL }),
-	}
-}
+  return (
+    <footer className="relative z-10 border-t border-border mt-24 bg-surface/30">
+      <div className="max-w-7xl mx-auto px-4 md:px-8 py-16">
+        <div className="grid md:grid-cols-4 gap-12 mb-12">
+          <div className="md:col-span-2">
+            <h3 className="font-display font-bold text-2xl text-foreground mb-4">
+              {settings?.site_name || 'Jenisha Patel'}
+            </h3>
+            <p className="text-muted-foreground text-sm leading-relaxed max-w-sm">
+              {settings?.tagline || 'Building at the intersection of technology, leadership & creative impact.'}
+            </p>
+            <div className="mt-6 space-y-4">
+              <SocialIcons settings={settings} size="md" />
+              {settings?.resume_pdf_url && (
+                <a href={settings.resume_pdf_url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full font-semibold text-sm glass text-foreground hover:border-primary/30 transition-premium">
+                  <FileDown className="w-4 h-4" /> Download Résumé
+                </a>
+              )}
+            </div>
+          </div>
 
+          {navGroups.map((group) => (
+            <div key={group.title}>
+              <h4 className="text-sm font-semibold text-foreground mb-4">{group.title}</h4>
+              <ul className="space-y-3">
+                {group.items.map((link) => (
+                  <li key={link.path}>
+                    {link.is_external ? (
+                      <a href={link.path} target="_blank" rel="noopener noreferrer" className="text-sm text-muted-foreground hover:text-primary transition-premium">
+                        {link.label}
+                      </a>
+                    ) : (
+                      <Link to={link.path} className="text-sm text-muted-foreground hover:text-primary transition-premium">
+                        {link.label}
+                      </Link>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
 
-export const appParams = {
-	...getAppParams()
+        <div className="flex flex-col md:flex-row items-center justify-between gap-4 pt-8 border-t border-border">
+          <p className="text-sm text-muted-foreground">
+            © {new Date().getFullYear()} {settings?.site_name || 'Jenisha Patel'}. {settings?.footer_text || 'All rights reserved.'}
+          </p>
+          <a
+            href="#top"
+            onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+            className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-premium"
+          >
+            Back to top <ArrowUp className="w-4 h-4" />
+          </a>
+        </div>
+      </div>
+    </footer>
+  );
 }

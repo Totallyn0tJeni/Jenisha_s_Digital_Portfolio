@@ -1,70 +1,120 @@
-import { createContext, useContext, useState, useEffect, useCallback } from 'react';
+import { Outlet, Link, useLocation, useNavigate } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useState, useEffect } from 'react';
+import {
+  LayoutDashboard, FileText, Briefcase, Image, Award, Mail, Users,
+  LogOut, Menu, X, ExternalLink, Calendar, Building2, Heart, GraduationCap,
+  Trophy, Star, FolderOpen, Settings, Search, FileDown, BookOpen, Type, Globe, Sparkle
+} from 'lucide-react';
+import { base44 } from '@/api/base44Client';
+import LogoPlaceholder from './LogoPlaceholder';
+import ThemeToggle from './ThemeToggle';
+import { useSiteSettings } from '@/hooks/useSiteSettings';
 
-const ThemeContext = createContext();
+const sidebarLinks = [
+  { label: 'Dashboard', path: '/admin', icon: LayoutDashboard },
+  { section: 'Content' },
+  { label: 'Pages', path: '/admin/pages', icon: FileText },
+  { label: 'Navigation', path: '/admin/navigation', icon: Type },
+  { label: 'Work', path: '/admin/work', icon: Briefcase },
+  { label: 'UGC Content', path: '/admin/ugc', icon: Sparkle },
+  { label: 'Blog', path: '/admin/blog', icon: BookOpen },
+  { label: 'Photography', path: '/admin/photography', icon: Image },
+  { section: 'Career' },
+  { label: 'Experience', path: '/admin/experience', icon: Briefcase },
+  { label: 'Leadership', path: '/admin/leadership', icon: Users },
+  { label: 'Organizations', path: '/admin/organizations', icon: Building2 },
+  { label: 'Volunteer', path: '/admin/volunteer', icon: Heart },
+  { label: 'General Membership', path: '/admin/general-membership', icon: Users },
+  { label: 'Timeline', path: '/admin/timeline', icon: Calendar },
+  { section: 'Achievements' },
+  { label: 'Awards', path: '/admin/awards', icon: Trophy },
+  { label: 'Certifications', path: '/admin/certifications', icon: Award },
+  { label: 'Education', path: '/admin/education', icon: GraduationCap },
+  { label: 'Testimonials', path: '/admin/testimonials', icon: Star },
+  { label: 'Resources', path: '/admin/resources', icon: BookOpen },
+  { section: 'System' },
+  { label: 'Resume', path: '/admin/resume', icon: FileDown },
+  { label: 'Media Library', path: '/admin/media', icon: FolderOpen },
+  { label: 'Messages', path: '/admin/messages', icon: Mail },
+  { label: 'Settings', path: '/admin/settings', icon: Settings },
+  { label: 'Users', path: '/admin/users', icon: Users },
+];
 
-/**
- * Theme provider supporting light, dark, and system modes.
- * Detects prefers-color-scheme on first visit, defaults to light.
- * Persists choice to localStorage and (when logged in) to user profile.
- */
-export function ThemeProvider({ children }) {
-  const [theme, setThemeState] = useState('light');
-  const [resolvedTheme, setResolvedTheme] = useState('light');
+export default function AdminLayout() {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const { settings } = useSiteSettings();
 
-  const applyTheme = useCallback((mode) => {
-    let actual = mode;
-    if (mode === 'system') {
-      actual = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-    }
-    setResolvedTheme(actual);
-    if (actual === 'dark') {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
-  }, []);
+  useEffect(() => { setSidebarOpen(false); }, [location.pathname]);
 
-  useEffect(() => {
-    const stored = localStorage.getItem('jp-theme');
-    if (stored && ['light', 'dark', 'system'].includes(stored)) {
-      setThemeState(stored);
-      applyTheme(stored);
-    } else {
-      // First visit — default to light per user spec
-      setThemeState('light');
-      applyTheme('light');
-    }
+  const handleLogout = async () => {
+    await base44.auth.logout('/');
+  };
 
-    // Listen for system changes (only affects "system" mode)
-    const mq = window.matchMedia('(prefers-color-scheme: dark)');
-    const handler = () => {
-      if (localStorage.getItem('jp-theme') === 'system') {
-        applyTheme('system');
-      }
-    };
-    mq.addEventListener('change', handler);
-    return () => mq.removeEventListener('change', handler);
-  }, [applyTheme]);
-
-  const setTheme = useCallback((mode) => {
-    setThemeState(mode);
-    localStorage.setItem('jp-theme', mode);
-    applyTheme(mode);
-  }, [applyTheme]);
-
-  const toggleTheme = useCallback(() => {
-    setTheme(resolvedTheme === 'dark' ? 'light' : 'dark');
-  }, [resolvedTheme, setTheme]);
+  const SidebarContent = () => (
+    <>
+      <div className="p-5 border-b border-border">
+        <LogoPlaceholder logoUrl={settings?.logo_url} siteName={settings?.site_name} size="sm" />
+        <p className="text-xs text-muted-foreground mt-2">Admin Dashboard</p>
+      </div>
+      <nav className="flex-1 p-3 space-y-0.5 overflow-y-auto scrollbar-thin">
+        {sidebarLinks.map((link, i) => {
+          if (link.section) {
+            return <p key={i} className="px-3 pt-4 pb-1 text-xs font-semibold uppercase tracking-wider text-muted-foreground/60">{link.section}</p>;
+          }
+          const active = location.pathname === link.path;
+          return (
+            <Link key={link.path} to={link.path} onClick={() => setSidebarOpen(false)} className={`flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium transition-premium ${active ? 'bg-primary/10 text-primary border border-primary/20' : 'text-muted-foreground hover:text-foreground hover:bg-primary/5'}`}>
+              <link.icon className="w-4 h-4" /> {link.label}
+            </Link>
+          );
+        })}
+      </nav>
+      <div className="p-3 border-t border-border space-y-0.5">
+        <Link to="/" className="flex items-center gap-3 px-3 py-2 rounded-xl text-sm text-muted-foreground hover:text-foreground hover:bg-primary/5 transition-premium">
+          <ExternalLink className="w-4 h-4" /> View Site
+        </Link>
+        <button onClick={handleLogout} className="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-sm text-muted-foreground hover:text-destructive hover:bg-destructive/5 transition-premium">
+          <LogOut className="w-4 h-4" /> Logout
+        </button>
+      </div>
+    </>
+  );
 
   return (
-    <ThemeContext.Provider value={{ theme, resolvedTheme, setTheme, toggleTheme }}>
-      {children}
-    </ThemeContext.Provider>
-  );
-}
+    <div className="min-h-screen bg-background flex">
+      <aside className="hidden lg:flex w-64 flex-col border-r border-border bg-surface/30 fixed h-screen z-30">
+        <SidebarContent />
+      </aside>
 
-export function useTheme() {
-  const ctx = useContext(ThemeContext);
-  if (!ctx) throw new Error('useTheme must be used within ThemeProvider');
-  return ctx;
+      <AnimatePresence>
+        {sidebarOpen && (
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="lg:hidden fixed inset-0 z-50 bg-background/80 backdrop-blur-sm" onClick={() => setSidebarOpen(false)}>
+            <motion.aside initial={{ x: '-100%' }} animate={{ x: 0 }} exit={{ x: '-100%' }} className="w-64 h-full bg-surface-elevated border-r border-border flex flex-col" onClick={(e) => e.stopPropagation()}>
+              <SidebarContent />
+            </motion.aside>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <div className="flex-1 lg:ml-64">
+        <header className="flex items-center justify-between p-4 border-b border-border bg-surface/30 sticky top-0 z-20">
+          <button onClick={() => setSidebarOpen(true)} className="lg:hidden text-foreground"><Menu className="w-5 h-5" /></button>
+          <Link to="/" className="lg:hidden font-display font-bold text-lg text-foreground">{settings?.site_name?.split(' ')[0] || 'Admin'}</Link>
+          <div className="hidden lg:block" />
+          <div className="flex items-center gap-2">
+            <button onClick={() => navigate('/search')} className="w-9 h-9 rounded-full flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-primary/8 transition-premium">
+              <Search className="w-4 h-4" />
+            </button>
+            <ThemeToggle variant="icon" />
+          </div>
+        </header>
+        <main className="p-4 md:p-8">
+          <Outlet />
+        </main>
+      </div>
+    </div>
+  );
 }

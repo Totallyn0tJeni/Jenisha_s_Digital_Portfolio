@@ -1,54 +1,44 @@
-const isNode = typeof window === 'undefined';
-const windowObj = isNode ? { localStorage: new Map() } : window;
-const storage = windowObj.localStorage;
+import AdminEntityManager from '@/components/AdminEntityManager';
 
-const toSnakeCase = (str) => {
-	return str.replace(/([A-Z])/g, '_$1').toLowerCase();
-}
+const categories = ['Brand Partnership', 'Creator Campaign', 'TikTok', 'Instagram', 'Reels', 'Product Photography', 'UGC', 'Other'];
+const platforms = ['TikTok', 'Instagram', 'YouTube', 'Mixed', 'Other'];
 
-const getAppParamValue = (paramName, { defaultValue = undefined, removeFromUrl = false } = {}) => {
-	if (isNode) {
-		return defaultValue;
-	}
-	const storageKey = `base44_${toSnakeCase(paramName)}`;
-	const urlParams = new URLSearchParams(window.location.search);
-	const searchParam = urlParams.get(paramName);
-	if (removeFromUrl) {
-		urlParams.delete(paramName);
-		const newUrl = `${window.location.pathname}${urlParams.toString() ? `?${urlParams.toString()}` : ""
-			}${window.location.hash}`;
-		window.history.replaceState({}, document.title, newUrl);
-	}
-	if (searchParam) {
-		storage.setItem(storageKey, searchParam);
-		return searchParam;
-	}
-	if (defaultValue) {
-		storage.setItem(storageKey, defaultValue);
-		return defaultValue;
-	}
-	const storedValue = storage.getItem(storageKey);
-	if (storedValue) {
-		return storedValue;
-	}
-	return null;
-}
+const fields = [
+  { name: 'title', label: 'Title', type: 'text', required: true },
+  { name: 'brand', label: 'Brand', type: 'text' },
+  { name: 'campaign', label: 'Campaign', type: 'text' },
+  { name: 'category', label: 'Category', type: 'select', options: categories, required: true },
+  { name: 'platform', label: 'Platform', type: 'select', options: platforms },
+  { name: 'cover_image', label: 'Cover Image URL', type: 'image' },
+  { name: 'video_url', label: 'Video URL', type: 'url' },
+  { name: 'description', label: 'Description', type: 'textarea' },
+  { name: 'deliverables', label: 'Deliverables', type: 'tags' },
+  { name: 'gallery', label: 'Gallery (Image URLs)', type: 'tags' },
+  { name: 'metrics', label: 'Metrics / Results', type: 'metrics-list' },
+  { name: 'tags', label: 'Tags', type: 'tags' },
+  { name: 'date', label: 'Date', type: 'date' },
+  { name: 'featured', label: 'Featured', type: 'boolean' },
+  { name: 'status', label: 'Status', type: 'select', options: ['draft', 'published', 'archived'] },
+];
 
-const getAppParams = () => {
-	if (getAppParamValue("clear_access_token") === 'true') {
-		storage.removeItem('base44_access_token');
-		storage.removeItem('token');
-	}
-	return {
-		appId: getAppParamValue("app_id", { defaultValue: import.meta.env.VITE_BASE44_APP_ID }),
-		token: getAppParamValue("access_token", { removeFromUrl: true }),
-		fromUrl: getAppParamValue("from_url", { defaultValue: window.location.href }),
-		functionsVersion: getAppParamValue("functions_version", { defaultValue: import.meta.env.VITE_BASE44_FUNCTIONS_VERSION }),
-		appBaseUrl: getAppParamValue("app_base_url", { defaultValue: import.meta.env.VITE_BASE44_APP_BASE_URL }),
-	}
-}
+const columns = [
+  { key: 'cover_image', label: 'Cover', type: 'image' },
+  { key: 'title', label: 'Title' },
+  { key: 'brand', label: 'Brand' },
+  { key: 'category', label: 'Category' },
+  { key: 'featured', label: 'Featured', type: 'boolean', toggleField: 'featured' },
+];
 
-
-export const appParams = {
-	...getAppParams()
+export default function AdminUGC() {
+  return (
+    <AdminEntityManager
+      entityName="Ugc"
+      title="UGC Content"
+      fields={fields}
+      columns={columns}
+      defaultValues={{ category: 'Brand Partnership', platform: 'Instagram', status: 'draft', featured: false, deliverables: [], tags: [], gallery: [], metrics: [] }}
+      searchKeys={['title', 'brand', 'campaign', 'category']}
+      filterField="category"
+    />
+  );
 }
