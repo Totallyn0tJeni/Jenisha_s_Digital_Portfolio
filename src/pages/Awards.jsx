@@ -1,54 +1,37 @@
-const isNode = typeof window === 'undefined';
-const windowObj = isNode ? { localStorage: new Map() } : window;
-const storage = windowObj.localStorage;
+import { motion } from 'framer-motion';
+import SectionHeading from '@/components/SectionHeading';
+import EmptyState from '@/components/EmptyState';
+import { awards as awardsData } from '@/data/awards';
 
-const toSnakeCase = (str) => {
-	return str.replace(/([A-Z])/g, '_$1').toLowerCase();
-}
+export default function Awards() {
+  const awards = [...awardsData].sort((a, b) => a.order - b.order);
 
-const getAppParamValue = (paramName, { defaultValue = undefined, removeFromUrl = false } = {}) => {
-	if (isNode) {
-		return defaultValue;
-	}
-	const storageKey = `base44_${toSnakeCase(paramName)}`;
-	const urlParams = new URLSearchParams(window.location.search);
-	const searchParam = urlParams.get(paramName);
-	if (removeFromUrl) {
-		urlParams.delete(paramName);
-		const newUrl = `${window.location.pathname}${urlParams.toString() ? `?${urlParams.toString()}` : ""
-			}${window.location.hash}`;
-		window.history.replaceState({}, document.title, newUrl);
-	}
-	if (searchParam) {
-		storage.setItem(storageKey, searchParam);
-		return searchParam;
-	}
-	if (defaultValue) {
-		storage.setItem(storageKey, defaultValue);
-		return defaultValue;
-	}
-	const storedValue = storage.getItem(storageKey);
-	if (storedValue) {
-		return storedValue;
-	}
-	return null;
-}
-
-const getAppParams = () => {
-	if (getAppParamValue("clear_access_token") === 'true') {
-		storage.removeItem('base44_access_token');
-		storage.removeItem('token');
-	}
-	return {
-		appId: getAppParamValue("app_id", { defaultValue: import.meta.env.VITE_BASE44_APP_ID }),
-		token: getAppParamValue("access_token", { removeFromUrl: true }),
-		fromUrl: getAppParamValue("from_url", { defaultValue: window.location.href }),
-		functionsVersion: getAppParamValue("functions_version", { defaultValue: import.meta.env.VITE_BASE44_FUNCTIONS_VERSION }),
-		appBaseUrl: getAppParamValue("app_base_url", { defaultValue: import.meta.env.VITE_BASE44_APP_BASE_URL }),
-	}
-}
-
-
-export const appParams = {
-	...getAppParams()
+  return (
+    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>
+      <section className="px-4 md:px-8 pt-12 pb-20">
+        <div className="max-w-4xl mx-auto">
+          <SectionHeading eyebrow="Recognition" title="Awards" subtitle="Achievements and honors earned along the way." />
+          {awards.length > 0 ? (
+            <div className="grid sm:grid-cols-2 gap-4">
+              {awards.map((award, i) => (
+                <motion.div key={award.id} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.05 }} className="glass-card p-6">
+                  <div className="flex items-start gap-4">
+                    <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary shrink-0 text-xl">🏆</div>
+                    <div>
+                      <h3 className="font-display font-semibold text-foreground">{award.title}</h3>
+                      <p className="text-sm text-primary">{award.organization}</p>
+                      {award.date && <p className="text-xs text-muted-foreground mt-1">{new Date(award.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long' })}</p>}
+                      {award.description && <p className="text-sm text-muted-foreground mt-2 leading-relaxed">{award.description}</p>}
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          ) : (
+            <EmptyState title="Your awards will appear here" description="Add entries to src/data/awards/items/." />
+          )}
+        </div>
+      </section>
+    </motion.div>
+  );
 }

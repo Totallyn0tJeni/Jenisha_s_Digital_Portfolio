@@ -1,9 +1,14 @@
-import { clsx } from "clsx"
-import { twMerge } from "tailwind-merge"
+import { cn } from "@/lib/utils"
 
-export function cn(...inputs) {
-  return twMerge(clsx(inputs))
-} 
+function Skeleton({
+  className,
+  ...props
+}) {
+  return (
+    (<div
+      className={cn("animate-pulse rounded-md bg-primary/10", className)}
+      {...props} />)
+  );
+}
 
-
-export const isIframe = window.self !== window.top;
+export { Skeleton }

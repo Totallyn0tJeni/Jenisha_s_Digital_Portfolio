@@ -1,43 +1,74 @@
-import { useState } from 'react';
-import { motion } from 'framer-motion';
-import { Mail } from 'lucide-react';
-import SectionHeading from '../SectionHeading';
+import { Toaster } from "@/components/ui/toaster"
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import PageNotFound from './pages/PageNotFound';
+import ScrollToTop from './components/ScrollToTop';
+import { ThemeProvider } from '@/lib/ThemeContext';
 
-export default function NewsletterSection({ config = {}, section }) {
-  const [email, setEmail] = useState('');
-  const [submitted, setSubmitted] = useState(false);
+// Pages
+import Home from './pages/Home';
+import About from './pages/About';
+import Work from './pages/Work';
+import WorkDetail from './pages/WorkDetail';
+import Blog from './pages/Blog';
+import BlogDetail from './pages/BlogDetail';
+import Photography from './pages/Photography';
+import Experience from './pages/Experience';
+import Leadership from './pages/Leadership';
+import Organizations from './pages/Organizations';
+import Volunteer from './pages/Volunteer';
+import Speaking from './pages/Speaking';
+import Awards from './pages/Awards';
+import Certifications from './pages/Certifications';
+import Education from './pages/Education';
+import Timeline from './pages/Timeline';
+import CV from './pages/CV';
+import Resume from './pages/Resume';
+import Resources from './pages/Resources';
+import Testimonials from './pages/Testimonials';
+import Contact from './pages/Contact';
+import Search from './pages/Search';
+import UGC from './pages/UGC';
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (!email) return;
-    setSubmitted(true);
-    setEmail('');
-    setTimeout(() => setSubmitted(false), 3000);
-  };
+// Layout for public site
+import Layout from './components/Layout';
 
+function App() {
   return (
-    <section className="py-20 md:py-28 px-4 md:px-8">
-      <div className="max-w-2xl mx-auto text-center">
-        {section?.title && <SectionHeading title={section.title} />}
-        <div className="glass-card p-8 md:p-10">
-          <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center text-primary mx-auto mb-5">
-            <Mail className="w-7 h-7" strokeWidth={1.5} />
-          </div>
-          {config.description && <p className="text-muted-foreground mb-6">{config.description}</p>}
-          <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="your@email.com"
-              className="flex-1 px-4 py-3 rounded-full bg-surface border border-border text-foreground placeholder:text-muted-foreground text-sm focus:outline-none focus:border-primary/50"
-            />
-            <button type="submit" className="px-6 py-3 rounded-full font-semibold text-sm bg-primary text-primary-foreground hover:bg-primary/90 transition-premium">
-              {submitted ? 'Subscribed!' : 'Subscribe'}
-            </button>
-          </form>
-        </div>
-      </div>
-    </section>
-  );
+    <ThemeProvider>
+      <Router>
+        <ScrollToTop />
+        <Routes>
+          <Route element={<Layout />}>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/work" element={<Work />} />
+            <Route path="/work/:id" element={<WorkDetail />} />
+            <Route path="/blog" element={<Blog />} />
+            <Route path="/blog/:id" element={<BlogDetail />} />
+            <Route path="/photography" element={<Photography />} />
+            <Route path="/experience" element={<Experience />} />
+            <Route path="/leadership" element={<Leadership />} />
+            <Route path="/organizations" element={<Organizations />} />
+            <Route path="/volunteer" element={<Volunteer />} />
+            <Route path="/speaking" element={<Speaking />} />
+            <Route path="/awards" element={<Awards />} />
+            <Route path="/certifications" element={<Certifications />} />
+            <Route path="/education" element={<Education />} />
+            <Route path="/timeline" element={<Timeline />} />
+            <Route path="/cv" element={<CV />} />
+            <Route path="/resume" element={<Resume />} />
+            <Route path="/resources" element={<Resources />} />
+            <Route path="/testimonials" element={<Testimonials />} />
+            <Route path="/ugc" element={<UGC />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/search" element={<Search />} />
+          </Route>
+          <Route path="*" element={<PageNotFound />} />
+        </Routes>
+        <Toaster />
+      </Router>
+    </ThemeProvider>
+  )
 }
+
+export default App

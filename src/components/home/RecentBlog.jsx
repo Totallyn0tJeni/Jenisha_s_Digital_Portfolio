@@ -1,36 +1,44 @@
-import { motion } from 'framer-motion';
-import { Sparkles } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { ArrowUpRight } from 'lucide-react';
+import SectionHeading from '@/components/SectionHeading';
+import EmptyState from '@/components/EmptyState';
 
-/**
- * Empty state component for collections.
- * Shows an elegant message when no content exists yet.
- *
- * Props:
- * - title: headline (e.g., "Your first project will appear here")
- * - description: supporting text
- * - action: optional button { label, onClick }
- */
-export default function EmptyState({ title, description, action }) {
+export default function RecentBlog({ posts, loading }) {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 12 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-      className="flex flex-col items-center justify-center text-center py-16 px-6 max-w-md mx-auto"
-    >
-      <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center text-primary/40 mb-5">
-        <Sparkles className="w-7 h-7" strokeWidth={1.5} />
+    <section className="px-4 md:px-8 py-16 md:py-24">
+      <div className="max-w-7xl mx-auto">
+        <div className="flex items-end justify-between mb-10 flex-wrap gap-4">
+          <SectionHeading eyebrow="Recent Writing" title="Ideas, tutorials, and thoughts" align="left" />
+          <Link to="/blog" className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:text-primary/80 transition-premium">
+            View All Posts <ArrowUpRight className="w-4 h-4" />
+          </Link>
+        </div>
+        {loading ? (
+          <div className="grid md:grid-cols-3 gap-6">{[...Array(3)].map((_, i) => <div key={i} className="h-64 rounded-2xl shimmer" />)}</div>
+        ) : posts.length > 0 ? (
+          <div className="grid md:grid-cols-3 gap-6">
+            {posts.map((post) => (
+              <Link key={post.id} to={`/blog/${post.id}`} className="glass-card overflow-hidden group">
+                <div className="aspect-[16/10] overflow-hidden bg-gradient-soft">
+                  {post.cover_image ? (
+                    <img src={post.cover_image} alt={post.cover_alt_text || post.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" loading="lazy" />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center text-primary/20"><ArrowUpRight className="w-8 h-8" /></div>
+                  )}
+                </div>
+                <div className="p-5">
+                  <p className="text-xs text-muted-foreground font-mono mb-2">
+                    {post.category}{post.published_date ? ` · ${new Date(post.published_date).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}` : ''}
+                  </p>
+                  <h3 className="font-display font-semibold text-lg text-foreground leading-snug group-hover:text-primary transition-premium">{post.title}</h3>
+                </div>
+              </Link>
+            ))}
+          </div>
+        ) : (
+          <EmptyState title="Your latest writing will appear here" description="Publish blog posts from the admin dashboard to feature them on your homepage." />
+        )}
       </div>
-      <h3 className="font-display font-semibold text-xl text-foreground mb-2">{title}</h3>
-      {description && <p className="text-muted-foreground text-sm leading-relaxed mb-6">{description}</p>}
-      {action && (
-        <button
-          onClick={action.onClick}
-          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold bg-primary text-primary-foreground hover:bg-primary/90 transition-premium"
-        >
-          {action.label}
-        </button>
-      )}
-    </motion.div>
+    </section>
   );
 }

@@ -1,54 +1,39 @@
-const isNode = typeof window === 'undefined';
-const windowObj = isNode ? { localStorage: new Map() } : window;
-const storage = windowObj.localStorage;
+import { motion } from 'framer-motion';
+import SectionHeading from '@/components/SectionHeading';
+import EmptyState from '@/components/EmptyState';
+import { testimonials as testimonialsData } from '@/data/testimonials';
 
-const toSnakeCase = (str) => {
-	return str.replace(/([A-Z])/g, '_$1').toLowerCase();
-}
+export default function Testimonials() {
+  const items = testimonialsData;
 
-const getAppParamValue = (paramName, { defaultValue = undefined, removeFromUrl = false } = {}) => {
-	if (isNode) {
-		return defaultValue;
-	}
-	const storageKey = `base44_${toSnakeCase(paramName)}`;
-	const urlParams = new URLSearchParams(window.location.search);
-	const searchParam = urlParams.get(paramName);
-	if (removeFromUrl) {
-		urlParams.delete(paramName);
-		const newUrl = `${window.location.pathname}${urlParams.toString() ? `?${urlParams.toString()}` : ""
-			}${window.location.hash}`;
-		window.history.replaceState({}, document.title, newUrl);
-	}
-	if (searchParam) {
-		storage.setItem(storageKey, searchParam);
-		return searchParam;
-	}
-	if (defaultValue) {
-		storage.setItem(storageKey, defaultValue);
-		return defaultValue;
-	}
-	const storedValue = storage.getItem(storageKey);
-	if (storedValue) {
-		return storedValue;
-	}
-	return null;
-}
-
-const getAppParams = () => {
-	if (getAppParamValue("clear_access_token") === 'true') {
-		storage.removeItem('base44_access_token');
-		storage.removeItem('token');
-	}
-	return {
-		appId: getAppParamValue("app_id", { defaultValue: import.meta.env.VITE_BASE44_APP_ID }),
-		token: getAppParamValue("access_token", { removeFromUrl: true }),
-		fromUrl: getAppParamValue("from_url", { defaultValue: window.location.href }),
-		functionsVersion: getAppParamValue("functions_version", { defaultValue: import.meta.env.VITE_BASE44_FUNCTIONS_VERSION }),
-		appBaseUrl: getAppParamValue("app_base_url", { defaultValue: import.meta.env.VITE_BASE44_APP_BASE_URL }),
-	}
-}
-
-
-export const appParams = {
-	...getAppParams()
+  return (
+    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>
+      <section className="px-4 md:px-8 pt-12 pb-20">
+        <div className="max-w-5xl mx-auto">
+          <SectionHeading eyebrow="Kind Words" title="Testimonials" subtitle="What people say about working with me." />
+          {items.length > 0 ? (
+            <div className="grid sm:grid-cols-2 gap-5">
+              {items.map((t, i) => (
+                <motion.div key={t.id} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.05 }} className="glass-card p-6">
+                  <div className="flex gap-0.5 mb-3">
+                    {[...Array(5)].map((_, idx) => <span key={idx} className={idx < (t.rating || 5) ? 'text-amber-400' : 'text-muted-foreground/30'}>★</span>)}
+                  </div>
+                  <p className="text-foreground/80 leading-relaxed mb-5 italic">"{t.content}"</p>
+                  <div className="flex items-center gap-3">
+                    {t.avatar_url ? <img src={t.avatar_url} alt={t.author_name} className="w-10 h-10 rounded-full object-cover" /> : <div className="w-10 h-10 rounded-full bg-primary/15 flex items-center justify-center text-primary font-semibold">{t.author_name?.[0]}</div>}
+                    <div>
+                      <p className="text-sm font-semibold text-foreground">{t.author_name}</p>
+                      <p className="text-xs text-muted-foreground">{[t.author_role, t.author_organization].filter(Boolean).join(' · ')}</p>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          ) : (
+            <EmptyState title="Add your first testimonial" description="Add entries to src/data/testimonials.js." />
+          )}
+        </div>
+      </section>
+    </motion.div>
+  );
 }

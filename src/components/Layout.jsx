@@ -1,54 +1,37 @@
-const isNode = typeof window === 'undefined';
-const windowObj = isNode ? { localStorage: new Map() } : window;
-const storage = windowObj.localStorage;
+import { Outlet } from 'react-router-dom';
+import { AnimatePresence } from 'framer-motion';
+import { useLocation } from 'react-router-dom';
+import { useState } from 'react';
+import Navbar from './Navbar';
+import Footer from './Footer';
+import CommandPalette from './CommandPalette';
 
-const toSnakeCase = (str) => {
-	return str.replace(/([A-Z])/g, '_$1').toLowerCase();
-}
+export default function Layout() {
+  const location = useLocation();
+  const [commandOpen, setCommandOpen] = useState(false);
 
-const getAppParamValue = (paramName, { defaultValue = undefined, removeFromUrl = false } = {}) => {
-	if (isNode) {
-		return defaultValue;
-	}
-	const storageKey = `base44_${toSnakeCase(paramName)}`;
-	const urlParams = new URLSearchParams(window.location.search);
-	const searchParam = urlParams.get(paramName);
-	if (removeFromUrl) {
-		urlParams.delete(paramName);
-		const newUrl = `${window.location.pathname}${urlParams.toString() ? `?${urlParams.toString()}` : ""
-			}${window.location.hash}`;
-		window.history.replaceState({}, document.title, newUrl);
-	}
-	if (searchParam) {
-		storage.setItem(storageKey, searchParam);
-		return searchParam;
-	}
-	if (defaultValue) {
-		storage.setItem(storageKey, defaultValue);
-		return defaultValue;
-	}
-	const storedValue = storage.getItem(storageKey);
-	if (storedValue) {
-		return storedValue;
-	}
-	return null;
-}
+  return (
+    <div className="min-h-screen relative overflow-x-hidden" id="top">
+      {/* Ambient background — subtle lavender orbs */}
+      <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+        <div
+          className="absolute w-[500px] h-[500px] rounded-full blur-[120px] opacity-[0.07]"
+          style={{ background: 'hsl(var(--primary))', top: '-100px', left: '-100px' }}
+        />
+        <div
+          className="absolute w-[400px] h-[400px] rounded-full blur-[120px] opacity-[0.05]"
+          style={{ background: 'hsl(var(--primary-light))', bottom: '10%', right: '-50px' }}
+        />
+      </div>
 
-const getAppParams = () => {
-	if (getAppParamValue("clear_access_token") === 'true') {
-		storage.removeItem('base44_access_token');
-		storage.removeItem('token');
-	}
-	return {
-		appId: getAppParamValue("app_id", { defaultValue: import.meta.env.VITE_BASE44_APP_ID }),
-		token: getAppParamValue("access_token", { removeFromUrl: true }),
-		fromUrl: getAppParamValue("from_url", { defaultValue: window.location.href }),
-		functionsVersion: getAppParamValue("functions_version", { defaultValue: import.meta.env.VITE_BASE44_FUNCTIONS_VERSION }),
-		appBaseUrl: getAppParamValue("app_base_url", { defaultValue: import.meta.env.VITE_BASE44_APP_BASE_URL }),
-	}
-}
-
-
-export const appParams = {
-	...getAppParams()
+      <Navbar onCommandOpen={() => setCommandOpen(true)} />
+      <main className="relative z-10 pt-24">
+        <AnimatePresence mode="wait">
+          <Outlet key={location.pathname} />
+        </AnimatePresence>
+      </main>
+      <Footer />
+      <CommandPalette open={commandOpen} onClose={() => setCommandOpen(false)} />
+    </div>
+  );
 }
