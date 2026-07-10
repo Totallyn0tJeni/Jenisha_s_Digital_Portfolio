@@ -15,5 +15,5 @@ export default {
   icon: "book-open",
   order: 7,
   featured: false,
-  summary: "",
+  summary: "Led interactive literacy and STEAM programs for children aged 3–12 and represented the library at community outreach events.",
 }

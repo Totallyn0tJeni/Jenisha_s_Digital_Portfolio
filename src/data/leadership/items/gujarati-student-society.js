@@ -15,5 +15,5 @@ export default {
   icon: "megaphone",
   order: 5,
   featured: false,
-  summary: "",
+  summary: "Led marketing strategy and social media presence for a cultural student society, planning and analyzing content campaigns.",
 }

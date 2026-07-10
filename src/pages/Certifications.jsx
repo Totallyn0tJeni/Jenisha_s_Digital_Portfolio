@@ -1,7 +1,10 @@
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
+import { Calendar } from 'lucide-react';
 import SectionHeading from '@/components/SectionHeading';
 import EmptyState from '@/components/EmptyState';
 import { certifications as certificationsData } from '@/data/certifications';
+import { getTimelineEventById } from '@/data/timelineEvents';
 
 export default function Certifications() {
   const certs = [...certificationsData].sort((a, b) => a.order - b.order);
@@ -61,6 +64,14 @@ export default function Certifications() {
                                   Verify credential →
                                 </a>
                               )}
+                              {(() => {
+                                const timelineId = `cert-${cert.id}`;
+                                return getTimelineEventById(timelineId) ? (
+                                  <Link to={`/timeline?highlight=${timelineId}`} className="inline-flex items-center gap-1.5 text-xs text-primary hover:text-primary/80 transition-premium mt-2">
+                                    <Calendar className="w-3 h-3" /> View in Timeline
+                                  </Link>
+                                ) : null;
+                              })()}
                               {children.length > 0 && (
                                 <div className="mt-3 pt-3 border-t border-border/60">
                                   <p className="text-xs text-muted-foreground mb-1.5">Includes {children.length} module certificate{children.length > 1 ? 's' : ''}:</p>

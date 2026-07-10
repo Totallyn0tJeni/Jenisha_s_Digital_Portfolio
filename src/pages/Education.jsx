@@ -1,7 +1,10 @@
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
+import { Calendar } from 'lucide-react';
 import SectionHeading from '@/components/SectionHeading';
 import EmptyState from '@/components/EmptyState';
 import { education as educationData } from '@/data/education';
+import { getTimelineEventById } from '@/data/timelineEvents';
 
 export default function Education() {
   const items = [...educationData].sort((a, b) => a.order - b.order);
@@ -40,6 +43,14 @@ export default function Education() {
                           {item.courses.map((c, idx) => <span key={idx} className="skill-tag">{c}</span>)}
                         </div>
                       )}
+                      {(() => {
+                        const timelineId = `edu-${item.id}-start`;
+                        return getTimelineEventById(timelineId) ? (
+                          <Link to={`/timeline?highlight=${timelineId}`} className="inline-flex items-center gap-1.5 text-xs text-primary hover:text-primary/80 transition-premium mt-3">
+                            <Calendar className="w-3 h-3" /> View in Timeline
+                          </Link>
+                        ) : null;
+                      })()}
                     </div>
                   </div>
                 </motion.div>

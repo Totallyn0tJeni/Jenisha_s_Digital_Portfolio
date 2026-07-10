@@ -15,5 +15,5 @@ export default {
   icon: "heart-handshake",
   order: 3,
   featured: false,
-  summary: "",
+  summary: "Directed communications and social media strategy for a nonprofit promoting gender diversity and accessibility in tech.",
 }

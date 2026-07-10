@@ -1,7 +1,10 @@
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
+import { Calendar } from 'lucide-react';
 import SectionHeading from '@/components/SectionHeading';
 import EmptyState from '@/components/EmptyState';
 import { awards as awardsData } from '@/data/awards';
+import { getTimelineEventById } from '@/data/timelineEvents';
 
 export default function Awards() {
   const awards = [...awardsData].sort((a, b) => a.order - b.order);
@@ -13,19 +16,28 @@ export default function Awards() {
           <SectionHeading eyebrow="Recognition" title="Awards" subtitle="Achievements and honors earned along the way." />
           {awards.length > 0 ? (
             <div className="grid sm:grid-cols-2 gap-4">
-              {awards.map((award, i) => (
-                <motion.div key={award.id} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.05 }} className="glass-card p-6">
-                  <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary shrink-0 text-xl">🏆</div>
-                    <div>
-                      <h3 className="font-display font-semibold text-foreground">{award.title}</h3>
-                      <p className="text-sm text-primary">{award.organization}</p>
-                      {award.date && <p className="text-xs text-muted-foreground mt-1">{new Date(award.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long' })}</p>}
-                      {award.description && <p className="text-sm text-muted-foreground mt-2 leading-relaxed">{award.description}</p>}
+              {awards.map((award, i) => {
+                const timelineId = `award-${award.id}`;
+                const hasTimelineEntry = !!getTimelineEventById(timelineId);
+                return (
+                  <motion.div key={award.id} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.05 }} className="glass-card p-6">
+                    <div className="flex items-start gap-4">
+                      <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary shrink-0 text-xl">🏆</div>
+                      <div>
+                        <h3 className="font-display font-semibold text-foreground">{award.title}</h3>
+                        <p className="text-sm text-primary">{award.organization}</p>
+                        {award.date && <p className="text-xs text-muted-foreground mt-1">{new Date(award.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long' })}</p>}
+                        {award.description && <p className="text-sm text-muted-foreground mt-2 leading-relaxed">{award.description}</p>}
+                        {hasTimelineEntry && (
+                          <Link to={`/timeline?highlight=${timelineId}`} className="inline-flex items-center gap-1.5 text-xs text-primary hover:text-primary/80 transition-premium mt-2">
+                            <Calendar className="w-3 h-3" /> View in Timeline
+                          </Link>
+                        )}
+                      </div>
                     </div>
-                  </div>
-                </motion.div>
-              ))}
+                  </motion.div>
+                );
+              })}
             </div>
           ) : (
             <EmptyState title="Your awards will appear here" description="Add entries to src/data/awards/items/." />

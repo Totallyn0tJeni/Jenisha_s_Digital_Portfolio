@@ -15,5 +15,5 @@ export default {
   icon: "cpu",
   order: 2,
   featured: false,
-  summary: "",
+  summary: "Managed branding, social media, and scouting strategy for a competitive FIRST Robotics team across four seasons, from the business and media side.",
 }

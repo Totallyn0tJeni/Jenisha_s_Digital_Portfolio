@@ -70,6 +70,26 @@ To feature a role on the homepage: set `featured: true` and write a short
 `leadership/items/`. To unfeature it, flip it back to `false`. The homepage
 picks it up automatically — no other file needs to change.
 
+### Timeline (fully derived — don't hand-maintain it)
+
+`src/data/timelineEvents.js` generates the Timeline page's events from the
+dated fields already in `education.js`, `experience/`, `leadership/`,
+`awards/`, `certifications/`, and `work/` (featured items only). It's the
+single source of truth — editing a role's `start_date`, adding a new award,
+etc. automatically updates the Timeline; there's nothing to keep in sync.
+
+`src/data/timeline/` (hand-authored) is reserved for genuine one-off
+milestones that don't belong to any other collection — currently just two
+entries. Don't add something here if it already has a date somewhere else;
+extend `timelineEvents.js`'s generator instead so it stays derived.
+
+Timeline entries link back to their source (`/experience/:id`, `/work/:id`,
+or the relevant listing page for awards/certifications/education, which
+don't have individual detail pages). Detail pages that do exist
+(`ExperienceDetail`, `WorkDetail`) show a "View in Timeline" link back,
+using `getTimelineEventIdForRole` / `getTimelineEventIdForWork` from
+`timelineEvents.js` so the id format is never hardcoded in two places.
+
 ### 2. Single-file data (bounded lists)
 
 For content that will only ever have a handful of entries, a plain array or

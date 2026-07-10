@@ -15,5 +15,5 @@ export default {
   icon: "sparkles",
   order: 4,
   featured: false,
-  summary: "",
+  summary: "Led marketing strategy and brand development for a student academic organization, coordinating a small marketing team.",
 }

@@ -1,12 +1,13 @@
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
 import { Download, Star, Award } from 'lucide-react';
 import { useSiteSettings } from '@/hooks/useSiteSettings';
 import EmptyState from '@/components/EmptyState';
 import ContinueExploring from '@/components/ContinueExploring';
 import SectionHeading from '@/components/SectionHeading';
+import RoleCard from '@/components/cards/RoleCard';
 import { experience as experienceData } from '@/data/experience';
 import { leadership as leadershipData } from '@/data/leadership';
+import { allRoles } from '@/data/experienceRoles';
 import { volunteerWork as volunteerData } from '@/data/volunteerWork';
 import { education as educationData } from '@/data/education';
 import { awards as awardsData } from '@/data/awards';
@@ -18,6 +19,8 @@ const formatDate = (dateStr) => dateStr ? new Date(dateStr).toLocaleDateString('
 export default function Experience() {
   const experiences = [...experienceData].filter((e) => e.type === 'Work').sort((a, b) => a.order - b.order);
   const leadership = [...leadershipData].sort((a, b) => a.order - b.order);
+  const experienceRoleCards = allRoles.filter((r) => r.source === 'experience' && r.type === 'Work').sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
+  const leadershipRoleCards = allRoles.filter((r) => r.source === 'leadership').sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
   const volunteer = [...volunteerData].sort((a, b) => (a.order || 0) - (b.order || 0));
   const education = [...educationData].sort((a, b) => a.order - b.order);
   const awards = [...awardsData].sort((a, b) => a.order - b.order);
@@ -92,113 +95,30 @@ export default function Experience() {
       ) : (
         <>
           {/* Professional Experience */}
-          {experiences.length > 0 && (
+          {experienceRoleCards.length > 0 && (
             <section className="px-4 md:px-8 py-12">
               <div className="max-w-5xl mx-auto">
                 <span className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-[0.14em] text-primary mb-6">
                   <span className="w-4 h-px bg-primary" /> Professional Experience
                 </span>
-                <div className="relative pl-8">
-                  <div className="absolute left-2 top-2 bottom-2 w-px bg-gradient-to-b from-primary to-transparent" />
-                  <div className="space-y-8">
-                    {experiences.map((exp, i) => (
-                      <motion.div key={exp.id} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.05 }} className="relative">
-                        <div className="absolute -left-8 top-1.5 w-3 h-3 rounded-full bg-background border-2 border-primary shadow-[0_0_0_4px_hsl(var(--primary)/0.14)]" />
-                        <h3 className="font-display font-semibold text-lg text-foreground">
-                          <Link to={`/experience/${exp.id}`} className="hover:text-primary transition-premium">{exp.role_title}</Link>
-                        </h3>
-                        <p className="text-sm text-primary font-mono mt-0.5">{exp.organization}{exp.location ? ` — ${exp.location}` : ''}</p>
-                        <p className="text-xs font-mono text-muted-foreground mt-1">
-                          {formatDate(exp.start_date)}{exp.is_current ? ' – Present' : exp.end_date ? ` – ${formatDate(exp.end_date)}` : ''}
-                        </p>
-                        {exp.description && <p className="text-sm text-muted-foreground mt-3 leading-relaxed">{exp.description}</p>}
-                        {exp.achievements?.length > 0 && (
-                          <ul className="mt-3 space-y-1.5">
-                            {exp.achievements.map((a, idx) => <li key={idx} className="flex gap-2 text-sm text-muted-foreground"><span className="text-muted-foreground/50">—</span> {a}</li>)}
-                          </ul>
-                        )}
-                        {exp.skills?.length > 0 && (
-                          <div className="flex flex-wrap gap-1.5 mt-3">{exp.skills.map((s, idx) => <span key={idx} className="skill-tag">{s}</span>)}</div>
-                        )}
-                      </motion.div>
-                    ))}
-                  </div>
+                <p className="text-sm text-muted-foreground mb-6 -mt-2">Click any role for full responsibilities, achievements, and metrics.</p>
+                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                  {experienceRoleCards.map((role, i) => <RoleCard key={role.id} role={role} index={i} />)}
                 </div>
               </div>
             </section>
           )}
 
-          {/* Leadership Experience — full executive-portfolio detail */}
-          {leadership.length > 0 && (
+          {/* Leadership Experience — concise preview cards; click through for full detail */}
+          {leadershipRoleCards.length > 0 && (
             <section className="px-4 md:px-8 py-12 border-t border-border/50">
               <div className="max-w-5xl mx-auto">
                 <span className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-[0.14em] text-primary mb-6">
                   <span className="w-4 h-px bg-primary" /> Leadership Experience
                 </span>
-                <div className="space-y-6">
-                  {leadership.map((role, idx) => (
-                    <motion.div
-                      key={role.id}
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true, margin: '-60px' }}
-                      transition={{ delay: idx * 0.04, duration: 0.5 }}
-                      className="glass-card p-6 md:p-10"
-                    >
-                      <div className="flex items-start justify-between gap-4 flex-wrap mb-1">
-                        <Link to={`/experience/${role.id}`} className="font-display font-semibold text-xl md:text-2xl text-foreground hover:text-primary transition-premium">{role.organization}</Link>
-                        {(role.start_date || role.end_date) && (
-                          <span className="text-xs font-mono text-muted-foreground whitespace-nowrap pt-1">
-                            {formatDate(role.start_date)}{role.is_current ? ' – Present' : role.end_date ? ` – ${formatDate(role.end_date)}` : ''}
-                          </span>
-                        )}
-                      </div>
-
-                      <p className="text-base font-semibold text-primary mt-2">{role.position}</p>
-                      {role.location && <p className="text-xs text-muted-foreground mt-1">{role.location}</p>}
-
-                      {role.secondary_positions?.length > 0 && (
-                        <div className="mt-3 space-y-1">
-                          {role.secondary_positions.map((sp, i) => (
-                            <p key={i} className="text-sm text-muted-foreground flex gap-2"><span className="text-primary/60">↳</span> {sp}</p>
-                          ))}
-                        </div>
-                      )}
-
-                      {role.description && <p className="text-sm text-muted-foreground mt-4 leading-relaxed">{role.description}</p>}
-
-                      {role.responsibilities?.length > 0 && (
-                        <ul className="mt-4 space-y-2.5">
-                          {role.responsibilities.map((r, i) => (
-                            <li key={i} className="flex gap-2.5 text-sm text-muted-foreground leading-relaxed"><span className="text-primary shrink-0">•</span> {r}</li>
-                          ))}
-                        </ul>
-                      )}
-
-                      {role.achievements?.length > 0 && (
-                        <div className="mt-5 pt-5 border-t border-border/60">
-                          <h4 className="text-xs font-mono uppercase tracking-[0.12em] text-primary mb-2.5">Achievements</h4>
-                          <ul className="space-y-1.5">
-                            {role.achievements.map((a, i) => (
-                              <li key={i} className="flex gap-2.5 text-sm text-foreground leading-relaxed"><span className="text-primary shrink-0">—</span> {a}</li>
-                            ))}
-                          </ul>
-                        </div>
-                      )}
-
-                      {role.impact_metrics?.length > 0 && (
-                        <div className="flex flex-wrap gap-2 mt-4">
-                          {role.impact_metrics.map((m, i) => (
-                            <span key={i} className="text-xs font-mono px-3 py-1.5 rounded-full bg-primary/10 text-primary border border-primary/20">{m}</span>
-                          ))}
-                        </div>
-                      )}
-
-                      {role.skills?.length > 0 && (
-                        <div className="flex flex-wrap gap-1.5 mt-4">{role.skills.map((s, i) => <span key={i} className="skill-tag">{s}</span>)}</div>
-                      )}
-                    </motion.div>
-                  ))}
+                <p className="text-sm text-muted-foreground mb-6 -mt-2">Click any role for full responsibilities, achievements, and metrics.</p>
+                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                  {leadershipRoleCards.map((role, i) => <RoleCard key={role.id} role={role} index={i} />)}
                 </div>
               </div>
             </section>

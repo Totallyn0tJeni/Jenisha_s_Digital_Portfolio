@@ -1,15 +1,11 @@
-import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Briefcase, Megaphone, Cpu, HeartHandshake, Sparkles, Video, BookOpen, Globe, Users } from 'lucide-react';
-
-const iconMap = { briefcase: Briefcase, megaphone: Megaphone, cpu: Cpu, 'heart-handshake': HeartHandshake, sparkles: Sparkles, video: Video, 'book-open': BookOpen, globe: Globe, users: Users };
-
-const formatDate = (dateStr) => dateStr ? new Date(dateStr).toLocaleDateString('en-US', { year: 'numeric', month: 'short' }) : '';
+import { ArrowRight } from 'lucide-react';
+import RoleCard from '@/components/cards/RoleCard';
 
 // Pulls directly from the Experience data source (src/data/experienceRoles.js,
 // which merges src/data/experience/ and src/data/leadership/). No separate
 // homepage collection — toggle `featured: true` on a role's own data file to
-// have it appear here.
+// have it appear here. Card UI is shared with the Experience page via RoleCard.
 export default function FeaturedRoles({ roles, loading }) {
   if (!loading && roles.length === 0) return null;
 
@@ -32,28 +28,7 @@ export default function FeaturedRoles({ roles, loading }) {
             <div className="grid md:grid-cols-3 gap-6">{[...Array(3)].map((_, i) => <div key={i} className="h-48 rounded-2xl shimmer" />)}</div>
           ) : (
             <div className="grid md:grid-cols-3 gap-6">
-              {roles.map((role, i) => {
-                const Icon = iconMap[role.icon] || Briefcase;
-                return (
-                  <motion.div key={role.id} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08, duration: 0.5 }}>
-                    <Link to={`/experience/${role.id}`} className="glass-card overflow-hidden block group h-full">
-                      <div className="aspect-[4/3] bg-gradient-soft flex items-center justify-center">
-                        <Icon className="w-8 h-8 text-primary/40 group-hover:text-primary/70 transition-premium" />
-                      </div>
-                      <div className="p-5">
-                        <h4 className="font-semibold text-foreground group-hover:text-primary transition-premium">{role.title}</h4>
-                        <p className="text-sm text-primary font-mono mt-1">{role.organization}</p>
-                        {role.start_date && (
-                          <p className="text-xs text-muted-foreground mt-2 font-mono">
-                            {formatDate(role.start_date)} – {role.is_current ? 'Present' : formatDate(role.end_date) || ''}
-                          </p>
-                        )}
-                        {role.summary && <p className="text-sm text-muted-foreground mt-3 leading-relaxed line-clamp-2">{role.summary}</p>}
-                      </div>
-                    </Link>
-                  </motion.div>
-                );
-              })}
+              {roles.map((role, i) => <RoleCard key={role.id} role={role} index={i} />)}
             </div>
           )}
         </div>

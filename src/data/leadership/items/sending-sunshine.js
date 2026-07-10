@@ -15,5 +15,5 @@ export default {
   icon: "megaphone",
   order: 8,
   featured: false,
-  summary: "",
+  summary: "Advertising Manager for a school initiative focused on community care packages and outreach.",
 }

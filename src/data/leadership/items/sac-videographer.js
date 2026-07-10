@@ -15,5 +15,5 @@ export default {
   icon: "video",
   order: 6,
   featured: false,
-  summary: "",
+  summary: "Captured event photography and videography for major student events, helping drive attendance through promotional content.",
 }

@@ -1,8 +1,9 @@
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowLeft, Briefcase } from 'lucide-react';
+import { ArrowLeft, Briefcase, Calendar } from 'lucide-react';
 import EmptyState from '@/components/EmptyState';
 import { getRoleById } from '@/data/experienceRoles';
+import { getTimelineEventIdForRole, getTimelineEventById } from '@/data/timelineEvents';
 
 const formatDate = (dateStr) => dateStr ? new Date(dateStr).toLocaleDateString('en-US', { year: 'numeric', month: 'short' }) : '';
 
@@ -10,6 +11,8 @@ export default function ExperienceDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
   const role = getRoleById(id);
+  const timelineEventId = role ? getTimelineEventIdForRole(role.source, role.id) : null;
+  const hasTimelineEntry = timelineEventId && !!getTimelineEventById(timelineEventId);
 
   if (!role) {
     return (
@@ -26,6 +29,11 @@ export default function ExperienceDetail() {
           <Link to="/experience" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-premium mb-8">
             <ArrowLeft className="w-4 h-4" /> Back to Experience
           </Link>
+          {hasTimelineEntry && (
+            <Link to={`/timeline?highlight=${timelineEventId}`} className="inline-flex items-center gap-2 text-sm text-primary hover:text-primary/80 transition-premium mb-8 ml-4">
+              <Calendar className="w-4 h-4" /> View in Timeline
+            </Link>
+          )}
 
           <div className="flex items-center gap-3 mb-4 flex-wrap">
             <span className="px-3 py-1 rounded-full text-xs font-semibold capitalize bg-primary/15 text-primary">

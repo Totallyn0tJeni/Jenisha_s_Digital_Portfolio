@@ -1,10 +1,11 @@
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowLeft, ExternalLink, Github, Monitor, FileText } from 'lucide-react';
+import { ArrowLeft, ExternalLink, Github, Monitor, FileText, Calendar } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import ImagePlaceholder from '@/components/ImagePlaceholder';
 import EmptyState from '@/components/EmptyState';
 import { getWorkById } from '@/data/work';
+import { getTimelineEventIdForWork, getTimelineEventById } from '@/data/timelineEvents';
 
 const linkIcons = { github: Github, demo: ExternalLink, slides: Monitor, documentation: FileText, external: ExternalLink };
 
@@ -12,6 +13,8 @@ export default function WorkDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
   const work = getWorkById(id);
+  const timelineEventId = work ? getTimelineEventIdForWork(work.slug || work.id) : null;
+  const hasTimelineEntry = timelineEventId && !!getTimelineEventById(timelineEventId);
 
   if (!work) {
     return (
@@ -28,6 +31,11 @@ export default function WorkDetail() {
           <Link to="/work" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-premium mb-8">
             <ArrowLeft className="w-4 h-4" /> Back to Work
           </Link>
+          {hasTimelineEntry && (
+            <Link to={`/timeline?highlight=${timelineEventId}`} className="inline-flex items-center gap-2 text-sm text-primary hover:text-primary/80 transition-premium mb-8 ml-4">
+              <Calendar className="w-4 h-4" /> View in Timeline
+            </Link>
+          )}
 
           <div className="flex items-center gap-3 mb-4 flex-wrap">
             <span className="px-3 py-1 rounded-full text-xs font-semibold capitalize bg-primary/15 text-primary">

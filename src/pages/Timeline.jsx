@@ -1,15 +1,16 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { ExternalLink, Star, Image as ImageIcon, ChevronDown } from 'lucide-react';
 import EmptyState from '@/components/EmptyState';
 import ContinueExploring from '@/components/ContinueExploring';
-import { timeline as timelineData } from '@/data/timeline';
+import { timelineEvents } from '@/data/timelineEvents';
 
 const categoryConfig = {
   career: { color: 'bg-violet-500/15 text-violet-400', dot: 'border-violet-500', label: 'Career' },
   education: { color: 'bg-blue-500/15 text-blue-400', dot: 'border-blue-500', label: 'Education' },
   award: { color: 'bg-amber-500/15 text-amber-400', dot: 'border-amber-500', label: 'Award' },
+  certification: { color: 'bg-cyan-500/15 text-cyan-400', dot: 'border-cyan-500', label: 'Certification' },
   project: { color: 'bg-emerald-500/15 text-emerald-400', dot: 'border-emerald-500', label: 'Project' },
   event: { color: 'bg-pink-500/15 text-pink-400', dot: 'border-pink-500', label: 'Event' },
   milestone: { color: 'bg-fuchsia-500/15 text-fuchsia-400', dot: 'border-fuchsia-500', label: 'Milestone' },
@@ -18,8 +19,11 @@ const categoryConfig = {
 };
 
 export default function Timeline() {
-  const events = timelineData;
+  const events = timelineEvents;
+  const [searchParams] = useSearchParams();
+  const highlightId = searchParams.get('highlight');
   const [filter, setFilter] = useState('all');
+  const highlightRef = useRef(null);
 
   // Sort chronologically (newest first)
   const sorted = [...events].sort((a, b) => new Date(b.date) - new Date(a.date));
@@ -28,15 +32,24 @@ export default function Timeline() {
   const availableCategories = [...new Set(sorted.map((e) => e.category))].filter(Boolean);
   const filtered = filter === 'all' ? sorted : sorted.filter((e) => e.category === filter);
 
-  // Group by year — most recent year open by default
+  // Group by year — most recent year open by default, or the highlighted event's year if deep-linked
   const byYear = filtered.reduce((acc, e) => {
     const year = e.date ? new Date(e.date).getFullYear() : 'Undated';
     (acc[year] ||= []).push(e);
     return acc;
   }, {});
   const years = Object.keys(byYear).sort((a, b) => b - a);
-  const [openYears, setOpenYears] = useState(() => new Set(years.slice(0, 1)));
-  useEffect(() => { setOpenYears(new Set(years.slice(0, 1))); }, [filter]);
+  const highlightYear = highlightId ? String(new Date(events.find((e) => e.id === highlightId)?.date || '').getFullYear()) : null;
+  const [openYears, setOpenYears] = useState(() => new Set(highlightYear ? [highlightYear] : years.slice(0, 1)));
+  useEffect(() => { setOpenYears(new Set(highlightYear ? [highlightYear] : years.slice(0, 1))); }, [filter]);
+
+  useEffect(() => {
+    if (highlightId && highlightRef.current) {
+      const timer = setTimeout(() => highlightRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' }), 300);
+      return () => clearTimeout(timer);
+    }
+  }, [highlightId, openYears]);
+
   const toggleYear = (year) => {
     setOpenYears((prev) => {
       const next = new Set(prev);
@@ -106,13 +119,21 @@ export default function Timeline() {
                         <div className="space-y-6">
                           {yearEvents.map((event, i) => {
                             const cat = categoryConfig[event.category] || categoryConfig.milestone;
+                            const isHighlighted = event.id === highlightId;
                             return (
-                              <motion.div key={event.id} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.04, duration: 0.4 }} className="relative">
+                              <motion.div
+                                key={event.id}
+                                ref={isHighlighted ? highlightRef : null}
+                                initial={{ opacity: 0, y: 12 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: i * 0.04, duration: 0.4 }}
+                                className="relative"
+                              >
                                 <div className={`absolute -left-8 top-1.5 w-3 h-3 rounded-full bg-background border-2 ${cat.dot} shadow-[0_0_0_4px_hsl(var(--primary)/0.08)]`} />
                                 {event.is_milestone && (
                                   <div className="absolute -left-8 top-1.5 w-3 h-3 rounded-full bg-background border-2 border-amber-400 shadow-[0_0_0_4px_hsl(38_92%_50%/0.15)] animate-pulse" />
                                 )}
-                                <div className="bg-surface/60 rounded-xl p-4 md:p-5 border border-border/60">
+                                <div className={`bg-surface/60 rounded-xl p-4 md:p-5 border transition-premium ${isHighlighted ? 'border-primary ring-2 ring-primary/30' : 'border-border/60'}`}>
                                   <div className="flex items-center gap-3 mb-2 flex-wrap">
                                     <span className={`px-2.5 py-0.5 rounded-full text-xs font-semibold ${cat.color}`}>{cat.label}</span>
                                     <time className="text-xs font-mono text-muted-foreground">{formatDate(event.date)}</time>
@@ -131,8 +152,8 @@ export default function Timeline() {
                                     </div>
                                   )}
 
-                                  {event.related_entity_type && event.related_entity_id && (
-                                    <Link to={`/${event.related_entity_type.toLowerCase()}/${event.related_entity_id}`} className="inline-flex items-center gap-1.5 text-xs text-primary hover:text-primary/80 mt-3 transition-premium">
+                                  {event.related_path && (
+                                    <Link to={event.related_path} className="inline-flex items-center gap-1.5 text-xs text-primary hover:text-primary/80 mt-3 transition-premium">
                                       <ExternalLink className="w-3 h-3" /> View related {event.related_entity_type}
                                     </Link>
                                   )}
@@ -148,7 +169,7 @@ export default function Timeline() {
               })}
             </div>
           ) : (
-            <EmptyState title="Your timeline will appear here" description="Add timeline events to src/data/timeline/items/ to tell your story chronologically." />
+            <EmptyState title="Your timeline will appear here" description="Populated automatically from education, experience, leadership, awards, certifications, and featured work — add dates to those entries to see them here." />
           )}
         </div>
       </section>

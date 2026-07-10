@@ -15,5 +15,5 @@ export default {
   icon: "globe",
   order: 9,
   featured: false,
-  summary: "",
+  summary: "Built the website for a school initiative supporting the Art Club and Arts SHSM program.",
 }
