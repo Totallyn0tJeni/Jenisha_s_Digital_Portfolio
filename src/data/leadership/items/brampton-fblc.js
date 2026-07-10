@@ -14,4 +14,6 @@ export default {
   skills: ["Board Governance", "Strategic Planning", "Operations", "Team Leadership", "Policy Development"],
   icon: "users",
   order: 0,
+  featured: true,
+  summary: "Board member and Chief Director overseeing operations and marketing for a student-led entrepreneurship nonprofit.",
 }

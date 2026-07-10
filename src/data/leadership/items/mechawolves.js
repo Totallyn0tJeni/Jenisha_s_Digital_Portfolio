@@ -14,4 +14,6 @@ export default {
   skills: ["Marketing", "Data Analysis", "Photography", "Team Leadership", "Sponsorship Management"],
   icon: "cpu",
   order: 2,
+  featured: false,
+  summary: "",
 }

@@ -14,4 +14,6 @@ export default {
   skills: ["Web Development", "Design"],
   icon: "globe",
   order: 9,
+  featured: false,
+  summary: "",
 }

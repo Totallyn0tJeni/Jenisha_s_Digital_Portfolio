@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { Download, Star, Award } from 'lucide-react';
 import { useSiteSettings } from '@/hooks/useSiteSettings';
 import EmptyState from '@/components/EmptyState';
@@ -103,7 +104,9 @@ export default function Experience() {
                     {experiences.map((exp, i) => (
                       <motion.div key={exp.id} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.05 }} className="relative">
                         <div className="absolute -left-8 top-1.5 w-3 h-3 rounded-full bg-background border-2 border-primary shadow-[0_0_0_4px_hsl(var(--primary)/0.14)]" />
-                        <h3 className="font-display font-semibold text-lg text-foreground">{exp.role_title}</h3>
+                        <h3 className="font-display font-semibold text-lg text-foreground">
+                          <Link to={`/experience/${exp.id}`} className="hover:text-primary transition-premium">{exp.role_title}</Link>
+                        </h3>
                         <p className="text-sm text-primary font-mono mt-0.5">{exp.organization}{exp.location ? ` — ${exp.location}` : ''}</p>
                         <p className="text-xs font-mono text-muted-foreground mt-1">
                           {formatDate(exp.start_date)}{exp.is_current ? ' – Present' : exp.end_date ? ` – ${formatDate(exp.end_date)}` : ''}
@@ -143,7 +146,7 @@ export default function Experience() {
                       className="glass-card p-6 md:p-10"
                     >
                       <div className="flex items-start justify-between gap-4 flex-wrap mb-1">
-                        <h3 className="font-display font-semibold text-xl md:text-2xl text-foreground">{role.organization}</h3>
+                        <Link to={`/experience/${role.id}`} className="font-display font-semibold text-xl md:text-2xl text-foreground hover:text-primary transition-premium">{role.organization}</Link>
                         {(role.start_date || role.end_date) && (
                           <span className="text-xs font-mono text-muted-foreground whitespace-nowrap pt-1">
                             {formatDate(role.start_date)}{role.is_current ? ' – Present' : role.end_date ? ` – ${formatDate(role.end_date)}` : ''}

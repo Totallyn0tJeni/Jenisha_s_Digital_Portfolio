@@ -14,4 +14,6 @@ export default {
   skills: ["Event Management", "Branding", "Web Development", "Outreach", "Public Relations"],
   icon: "megaphone",
   order: 1,
+  featured: true,
+  summary: "Directed branding and outreach for WolfHacks, growing it into a 300+ participant student hackathon across two years.",
 }

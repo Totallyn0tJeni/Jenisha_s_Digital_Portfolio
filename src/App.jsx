@@ -14,6 +14,7 @@ import Blog from './pages/Blog';
 import BlogDetail from './pages/BlogDetail';
 import Photography from './pages/Photography';
 import Experience from './pages/Experience';
+import ExperienceDetail from './pages/ExperienceDetail';
 import Leadership from './pages/Leadership';
 import Organizations from './pages/Organizations';
 import Volunteer from './pages/Volunteer';
@@ -49,6 +50,7 @@ function App() {
             <Route path="/blog/:id" element={<BlogDetail />} />
             <Route path="/photography" element={<Photography />} />
             <Route path="/experience" element={<Experience />} />
+            <Route path="/experience/:id" element={<ExperienceDetail />} />
             <Route path="/leadership" element={<Leadership />} />
             <Route path="/organizations" element={<Organizations />} />
             <Route path="/volunteer" element={<Volunteer />} />

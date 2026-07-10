@@ -57,6 +57,19 @@ Shared helpers for these live in `src/data/_collectionUtils.js`
 growth collection later (e.g. `timeline/`, `testimonials/`) rather than
 reinventing sorting/loading logic.
 
+### Homepage "Featured Roles"
+
+`src/data/experienceRoles.js` merges `experience/` and `leadership/` into one
+normalized list (they represent the same *kind* of thing — a role someone
+held — with slightly different field names). It's the single source of
+truth for both the homepage's Featured Roles section and the `/experience/:id`
+detail page — nothing else stores a separate copy of this data.
+
+To feature a role on the homepage: set `featured: true` and write a short
+`summary` (1–2 sentences) on that role's own file in `experience/items/` or
+`leadership/items/`. To unfeature it, flip it back to `false`. The homepage
+picks it up automatically — no other file needs to change.
+
 ### 2. Single-file data (bounded lists)
 
 For content that will only ever have a handful of entries, a plain array or

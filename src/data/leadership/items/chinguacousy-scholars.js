@@ -14,4 +14,6 @@ export default {
   skills: ["Marketing Strategy", "Brand Development", "Team Coordination"],
   icon: "sparkles",
   order: 4,
+  featured: false,
+  summary: "",
 }

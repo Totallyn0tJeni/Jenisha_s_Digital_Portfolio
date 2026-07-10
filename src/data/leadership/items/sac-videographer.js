@@ -14,4 +14,6 @@ export default {
   skills: ["Videography", "Event Coordination", "Content Creation"],
   icon: "video",
   order: 6,
+  featured: false,
+  summary: "",
 }

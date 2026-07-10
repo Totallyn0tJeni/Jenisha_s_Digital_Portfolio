@@ -13,4 +13,6 @@ export default {
   icon: "briefcase",
   icon_color: "violet",
   order: 0,
+  featured: true,
+  summary: "Leading marketing, content, and community outreach for a STEM and robotics education organization — from social campaigns to event promotion.",
 }

@@ -14,4 +14,6 @@ export default {
   skills: ["Marketing Strategy", "Analytics", "Content Planning"],
   icon: "megaphone",
   order: 5,
+  featured: false,
+  summary: "",
 }

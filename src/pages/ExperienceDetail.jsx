@@ -1,0 +1,140 @@
+import { useParams, Link, useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import { ArrowLeft, Briefcase } from 'lucide-react';
+import EmptyState from '@/components/EmptyState';
+import { getRoleById } from '@/data/experienceRoles';
+
+const formatDate = (dateStr) => dateStr ? new Date(dateStr).toLocaleDateString('en-US', { year: 'numeric', month: 'short' }) : '';
+
+export default function ExperienceDetail() {
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const role = getRoleById(id);
+
+  if (!role) {
+    return (
+      <div className="px-4 pt-20">
+        <EmptyState title="Role not found" description="This role may have been removed or renamed." action={{ label: 'Back to Experience', onClick: () => navigate('/experience') }} />
+      </div>
+    );
+  }
+
+  return (
+    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>
+      <article className="px-4 md:px-8 pt-12 pb-20">
+        <div className="max-w-4xl mx-auto">
+          <Link to="/experience" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-premium mb-8">
+            <ArrowLeft className="w-4 h-4" /> Back to Experience
+          </Link>
+
+          <div className="flex items-center gap-3 mb-4 flex-wrap">
+            <span className="px-3 py-1 rounded-full text-xs font-semibold capitalize bg-primary/15 text-primary">
+              {role.source === 'experience' ? 'Professional Experience' : 'Leadership'}
+            </span>
+            {(role.start_date || role.end_date) && (
+              <time className="text-sm text-muted-foreground">
+                {formatDate(role.start_date)}{role.is_current ? ' – Present' : role.end_date ? ` – ${formatDate(role.end_date)}` : ''}
+              </time>
+            )}
+          </div>
+
+          <h1 className="font-display font-bold text-4xl md:text-6xl text-foreground leading-tight mb-3">{role.title}</h1>
+          <p className="text-xl text-primary font-medium mb-2">{role.organization}</p>
+          {role.location && <p className="text-sm text-muted-foreground mb-8">{role.location}</p>}
+
+          {role.secondary_positions?.length > 0 && (
+            <div className="mb-8 space-y-1">
+              {role.secondary_positions.map((sp, i) => (
+                <p key={i} className="text-sm text-muted-foreground flex gap-2"><span className="text-primary/60">↳</span> {sp}</p>
+              ))}
+            </div>
+          )}
+
+          <div className="rounded-2xl overflow-hidden glass-card mb-12 aspect-[21/9] flex items-center justify-center bg-gradient-soft">
+            <Briefcase className="w-10 h-10 text-primary/40" />
+          </div>
+
+          <div className="grid lg:grid-cols-3 gap-10">
+            <div className="lg:col-span-2 space-y-8">
+              {role.description && (
+                <div>
+                  <h2 className="font-display font-semibold text-xl text-foreground mb-3">Overview</h2>
+                  <p className="text-muted-foreground leading-relaxed">{role.description}</p>
+                </div>
+              )}
+
+              {role.responsibilities?.length > 0 && (
+                <div>
+                  <h2 className="font-display font-semibold text-xl text-foreground mb-3">Responsibilities</h2>
+                  <ul className="space-y-2.5">
+                    {role.responsibilities.map((r, i) => (
+                      <li key={i} className="flex gap-2.5 text-muted-foreground leading-relaxed"><span className="text-primary shrink-0">•</span> {r}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              {role.achievements?.length > 0 && (
+                <div>
+                  <h2 className="font-display font-semibold text-xl text-foreground mb-3">Achievements</h2>
+                  <ul className="space-y-2.5">
+                    {role.achievements.map((a, i) => (
+                      <li key={i} className="flex gap-2.5 text-muted-foreground leading-relaxed"><span className="text-primary shrink-0">—</span> {a}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              {role.media?.length > 0 && (
+                <div>
+                  <h2 className="font-display font-semibold text-xl text-foreground mb-3">Media</h2>
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                    {role.media.map((img, i) => (
+                      <div key={i} className="aspect-square rounded-xl overflow-hidden glass-card">
+                        <img src={img} alt="" className="w-full h-full object-cover" />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {role.documents?.length > 0 && (
+                <div>
+                  <h2 className="font-display font-semibold text-xl text-foreground mb-3">Documents</h2>
+                  <div className="grid sm:grid-cols-2 gap-3">
+                    {role.documents.map((d, i) => (
+                      <a key={i} href={d.url} target="_blank" rel="noopener noreferrer" className="glass-card p-4 flex items-center gap-3 hover:border-primary/30 transition-premium text-sm text-foreground">
+                        {d.title || 'View document'}
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+
+            <aside className="space-y-6">
+              {role.impact_metrics?.length > 0 && (
+                <div className="glass-card p-5">
+                  <h3 className="text-sm font-semibold text-foreground mb-3">Impact</h3>
+                  <div className="flex flex-wrap gap-2">
+                    {role.impact_metrics.map((m, i) => (
+                      <span key={i} className="text-xs font-mono px-3 py-1.5 rounded-full bg-primary/10 text-primary border border-primary/20">{m}</span>
+                    ))}
+                  </div>
+                </div>
+              )}
+              {role.skills?.length > 0 && (
+                <div className="glass-card p-5">
+                  <h3 className="text-sm font-semibold text-foreground mb-3">Skills & Technologies</h3>
+                  <div className="flex flex-wrap gap-2">
+                    {role.skills.map((s, i) => <span key={i} className="skill-tag">{s}</span>)}
+                  </div>
+                </div>
+              )}
+            </aside>
+          </div>
+        </div>
+      </article>
+    </motion.div>
+  );
+}

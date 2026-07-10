@@ -14,4 +14,6 @@ export default {
   skills: ["Advertising", "Community Outreach"],
   icon: "megaphone",
   order: 8,
+  featured: false,
+  summary: "",
 }

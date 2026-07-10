@@ -14,4 +14,6 @@ export default {
   skills: ["Social Media Strategy", "Community Building", "Graphic Design", "Analytics"],
   icon: "heart-handshake",
   order: 3,
+  featured: false,
+  summary: "",
 }

@@ -14,4 +14,6 @@ export default {
   skills: ["Community Outreach", "Program Facilitation"],
   icon: "book-open",
   order: 7,
+  featured: false,
+  summary: "",
 }
