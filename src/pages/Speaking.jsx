@@ -1,6 +1,5 @@
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
-import { ArrowLeft, MapPin, Users } from 'lucide-react';
+import { MapPin } from 'lucide-react';
 import SectionHeading from '@/components/SectionHeading';
 import EmptyState from '@/components/EmptyState';
 import { work as workData } from '@/data/work';

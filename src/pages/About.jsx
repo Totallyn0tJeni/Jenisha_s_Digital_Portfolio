@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Search, Users, Camera, TrendingUp, FileDown } from 'lucide-react';
+import { ArrowRight, Search, Users, Camera, TrendingUp, Code2, Atom, Server, GitBranch, Database, Plug, Cpu, Layout, Sparkles, Figma, Palette, LayoutTemplate, Eye, Share2, Target, PenTool, BarChart2, Mail, Handshake, Video, Film, BookOpen, Briefcase, Rocket, Calendar, Mic, ClipboardList, Landmark, GraduationCap, Puzzle, Clock, MessageCircle, FileText } from 'lucide-react';
 import { useSiteSettings } from '@/hooks/useSiteSettings';
 import ResumeDownload from '@/components/ResumeDownload';
 import ContinueExploring from '@/components/ContinueExploring';
@@ -10,12 +10,13 @@ import { skills as skillsData } from '@/data/skills';
 import { memberships as membershipsData } from '@/data/memberships';
 
 const iconMap = { Search, Users, Camera, TrendingUp };
+const skillIconMap = { Code2, Atom, Server, GitBranch, Database, Plug, Cpu, Layout, Sparkles, Figma, Palette, LayoutTemplate, Eye, Share2, Target, PenTool, BarChart2, Mail, Handshake, Camera, Video, Film, BookOpen, TrendingUp, Briefcase, Rocket, Users, Calendar, Mic, ClipboardList, Landmark, GraduationCap, Puzzle, Clock, MessageCircle, Search, FileText };
 
 export default function About() {
   const { settings } = useSiteSettings();
   const education = [...educationData].sort((a, b) => a.order - b.order);
   const skills = [...skillsData].sort((a, b) => a.order - b.order);
-  const memberships = [...membershipsData].sort((a, b) => a.order - b.order);
+  const memberships = [...membershipsData].filter((m) => m.category !== 'Participated In').sort((a, b) => a.order - b.order);
   const loading = false;
 
   const bio = settings?.about_bio || '';
@@ -182,7 +183,15 @@ export default function About() {
               {Object.entries(skillGroups).map(([category, items]) => (
                 <div key={category}>
                   <h4 className="text-xs font-mono uppercase tracking-[0.08em] text-muted-foreground mb-3">{category}</h4>
-                  <div className="flex flex-wrap gap-2">{items.map((skill, i) => <span key={skill.id || i} className="skill-tag">{skill.name}</span>)}</div>
+                  <div className="flex flex-wrap gap-2">{items.map((skill, i) => {
+                    const SkillIcon = skillIconMap[skill.icon];
+                    return (
+                      <span key={skill.id || i} className="skill-tag inline-flex items-center gap-1.5">
+                        {SkillIcon && <SkillIcon className="w-3 h-3" />}
+                        {skill.name}
+                      </span>
+                    );
+                  })}</div>
                 </div>
               ))}
             </div>

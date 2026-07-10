@@ -56,7 +56,7 @@ export default function CV() {
             {leadership.length > 0 && (
               <CVSection title="Leadership">
                 {leadership.map((l) => (
-                  <CVEntry key={l.id} title={l.role_title} org={l.organization} date={formatRange(l.start_date, l.end_date, l.is_current)}>
+                  <CVEntry key={l.id} title={l.position} org={l.organization} date={formatRange(l.start_date, l.end_date, l.is_current)}>
                     {l.description}
                   </CVEntry>
                 ))}

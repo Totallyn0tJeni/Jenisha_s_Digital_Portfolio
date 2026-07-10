@@ -4,12 +4,12 @@ import { ArrowRight, Briefcase, Clock, Users, Trophy, Award, Camera, FileDown, C
 
 const exploreLinks = [
   { icon: Briefcase, title: 'Work', description: 'Projects, software, and creative work', path: '/work' },
-  { icon: Clock, title: 'Experience', description: 'Work history, education, and certifications', path: '/experience' },
-  { icon: Users, title: 'Leadership', description: 'Organizations I\'ve led and served', path: '/leadership' },
+  { icon: Clock, title: 'Experience', description: 'Professional, leadership, and volunteer history', path: '/experience' },
   { icon: Trophy, title: 'Awards', description: 'Recognition and achievements', path: '/awards' },
   { icon: Award, title: 'Certifications', description: 'Professional certificates and courses', path: '/certifications' },
   { icon: Calendar, title: 'Timeline', description: 'My journey from start to now', path: '/timeline' },
   { icon: Camera, title: 'Photography', description: 'Captured moments and visual stories', path: '/photography' },
+  { icon: Users, title: 'Organizations', description: 'Where I show up and stay involved', path: '/organizations' },
   { icon: FileDown, title: 'Resume', description: 'Download the full PDF version', path: '/resume' },
 ];
 

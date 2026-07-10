@@ -2,15 +2,15 @@ import { ImagePlus } from 'lucide-react';
 
 /**
  * Reusable image placeholder.
- * Shows a dashed-border box with upload prompt text.
+ * Shows a dashed-border box with tasteful "coming soon" text.
  * Used everywhere an image is expected but not yet uploaded.
  *
  * Props:
- * - label: text shown (e.g., "Upload Hero Image")
+ * - label: text shown (e.g., "Portfolio Media Coming Soon")
  * - aspect: 'square' | 'video' | 'wide' | 'tall' | 'auto'
  * - className: additional classes
  */
-export default function ImagePlaceholder({ label = 'Upload Image', aspect = 'auto', className = '' }) {
+export default function ImagePlaceholder({ label = 'Portfolio Media Coming Soon', aspect = 'auto', className = '' }) {
   const aspectClass = {
     square: 'aspect-square',
     video: 'aspect-video',

@@ -9,8 +9,8 @@ export const siteSettings = {
 
   logo_url: '',
   favicon_url: '',
-  hero_image_url: '"C:\\Users\\Patel\\Downloads\\Jenisha_s_Digital_Portfolio\\0955be6b-295b-4266-b653-5ec6efeafc61.png"',
-  resume_pdf_url: '"C:\\Users\\Patel\\Downloads\\Jenisha_s_Digital_Portfolio\\Jenisha\'s Resume 2026 - Condensed V1.pdf"',
+  hero_image_url: '',
+  resume_pdf_url: 'https://media.base44.com/files/public/6a4736c352c574e239e79508/8b525c18b_Jenisha_s_Resume_2026_-_Condensed_V1.pdf',
   theme_default: 'system',
 
   hero_title: 'Driven by curiosity. Focused on impact.',
@@ -24,9 +24,9 @@ export const siteSettings = {
     "A closer look at how a robotics pit, a marketing deck, and a code editor all somehow became the same job.",
   about_bio: `I'm Jenisha — a first-year Computer Science Co-op student at McMaster University, working toward an Honours Bachelor of Applied Science with a minor in Innovation. Before university, I spent four years at Chinguacousy Secondary School stacking up leadership roles the way other people collect course credits: one led to the next, and eventually there were more executive titles than could fit on a single résumé page.
 
-  My throughline is communication — figuring out how to make something complicated (a robot's scouting data, a hackathon's brand system, a home automation dashboard) legible to the people who actually have to use it. That's shown up as marketing direction for a FIRST Robotics team, board-level governance for a youth business nonprofit, and, increasingly, as code.
+My throughline is communication — figuring out how to make something complicated (a robot's scouting data, a hackathon's brand system, a home automation dashboard) legible to the people who actually have to use it. That's shown up as marketing direction for a FIRST Robotics team, board-level governance for a youth business nonprofit, and, increasingly, as code.
 
-  Outside of the résumé: I'm usually the one holding the camera at team events, not just posing for them.`,
+Outside of the résumé: I'm usually the one holding the camera at team events, not just posing for them.`,
 
   quick_facts: [
     { label: 'Studying', value: 'Computer Science 1 (Co-op), McMaster University' },
@@ -63,15 +63,15 @@ export const siteSettings = {
   ],
 
   stats: [
-    { icon: 'Briefcase', value: '10+', label: 'Organizations' },
-    { icon: 'Users', value: '20+', label: 'Executive Titles' },
-    { icon: 'Heart', value: '1000+', label: 'Volunteer Hours' },
+    { icon: 'Briefcase', value: '9', label: 'Organizations Led' },
+    { icon: 'Users', value: '18+', label: 'Executive Titles' },
+    { icon: 'Heart', value: '500+', label: 'Volunteer Hours' },
     { icon: 'Trophy', value: '15+', label: 'Awards' },
   ],
   secondary_stats: [
-    { value: '3+', label: 'Years Coding' },
+    { value: '2+', label: 'Years Coding' },
     { value: '5+', label: 'Hackathons' },
-    { value: '15+', label: 'Languages & Tools' },
+    { value: '8+', label: 'Languages & Tools' },
     { value: '50+', label: 'Events Participated' },
   ],
 
@@ -79,32 +79,16 @@ export const siteSettings = {
   footer_cta_subtitle: "I'm always open to new opportunities, collaborations, and conversations.",
   footer_text: 'Built with intention.',
 
-  currently: {
-    studying:
-        "Computer Science Co-op @ McMaster University",
-
-    building:
-        "Personal Productivity Platform",
-
-    working:
-        "Marketing & Communications Specialist @ Zebra Robotics",
-
-    learning:
-        "Next.js, AI Agents, System Design"
-  },
-
   social_links: [
     { platform: 'LinkedIn', url: 'https://www.linkedin.com/in/jenisha-patel18' },
     { platform: 'GitHub', url: 'https://github.com/Totallyn0tJeni' },
     { platform: 'Instagram', url: 'https://www.instagram.com/jenisha_ptl08/' },
     { platform: 'TikTok', url: 'https://www.tiktok.com/@tottallyn0t_jeni' },
     { platform: 'VSCO', url: 'https://vsco.co/tottalyn0tjeni/gallery' },
-    { platform: 'YouTube', url: 'https://www.youtube.com/@tottallyn0tjeni' },
   ],
 
   // Contact email used by the Contact page (mailto fallback — no backend to store messages anymore).
   contact_email: 'jeni.1245690@gmail.com',
-  mcmaster_email: 'patej191@mcmaster.ca',
   contact_phone: '(437) 424-4413',
   contact_location: 'Brampton, ON, Canada',
 };

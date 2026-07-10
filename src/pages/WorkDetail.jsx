@@ -29,36 +29,49 @@ export default function WorkDetail() {
             <ArrowLeft className="w-4 h-4" /> Back to Work
           </Link>
 
-          <div className="flex items-center gap-3 mb-4">
+          <div className="flex items-center gap-3 mb-4 flex-wrap">
             <span className="px-3 py-1 rounded-full text-xs font-semibold capitalize bg-primary/15 text-primary">
               {(work.work_type || 'work').replace(/_/g, ' ')}
             </span>
+            {work.status && work.status !== 'completed' && (
+              <span className="px-3 py-1 rounded-full text-xs font-semibold capitalize bg-amber-500/15 text-amber-500">{work.status}</span>
+            )}
             {work.date && <time className="text-sm text-muted-foreground">{new Date(work.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long' })}</time>}
           </div>
 
           <h1 className="font-display font-bold text-4xl md:text-6xl text-foreground leading-tight mb-4">{work.title}</h1>
+          {(work.role || work.organization) && (
+            <p className="text-sm text-primary font-medium mb-2">{[work.role, work.organization].filter(Boolean).join(' · ')}</p>
+          )}
           {work.tagline && <p className="text-xl text-muted-foreground leading-relaxed mb-6">{work.tagline}</p>}
 
-          {/* Links */}
-          {work.links && Object.entries(work.links).filter(([, v]) => v).length > 0 && (
-            <div className="flex flex-wrap gap-3 mb-10">
-              {Object.entries(work.links).filter(([, v]) => v).map(([key, url]) => {
-                const Icon = linkIcons[key] || ExternalLink;
-                return (
-                  <a key={key} href={url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium glass text-foreground hover:border-primary/30 transition-premium">
-                    <Icon className="w-4 h-4" /> <span className="capitalize">{key}</span>
-                  </a>
-                );
-              })}
-            </div>
-          )}
+          {/* Links, embeds & downloads */}
+          {(() => {
+            const linkEntries = Object.entries(work.links || {}).filter(([, v]) => v);
+            const embedEntries = Object.entries(work.embeds || {}).filter(([, v]) => v);
+            const downloadEntries = (work.downloads || []).filter((d) => d.url).map((d) => [d.label || 'Download', d.url]);
+            const all = [...linkEntries, ...embedEntries, ...downloadEntries];
+            if (all.length === 0) return null;
+            return (
+              <div className="flex flex-wrap gap-3 mb-10">
+                {all.map(([key, url], i) => {
+                  const Icon = linkIcons[key] || ExternalLink;
+                  return (
+                    <a key={`${key}-${i}`} href={url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium glass text-foreground hover:border-primary/30 transition-premium">
+                      <Icon className="w-4 h-4" /> <span className="capitalize">{key.replace(/_/g, ' ')}</span>
+                    </a>
+                  );
+                })}
+              </div>
+            );
+          })()}
 
           {/* Hero Image */}
           <div className="rounded-2xl overflow-hidden glass-card mb-12">
             {work.hero_image ? (
               <img src={work.hero_image} alt={work.title} className="w-full object-cover" />
             ) : (
-              <ImagePlaceholder label="Upload hero image" aspect="wide" />
+              <ImagePlaceholder label="Portfolio Media Coming Soon" aspect="wide" />
             )}
           </div>
 
@@ -97,6 +110,58 @@ export default function WorkDetail() {
                   </ReactMarkdown>
                 </div>
               )}
+              {work.outcomes && work.outcomes.length > 0 && (
+                <div>
+                  <h2 className="font-display font-semibold text-xl text-foreground mb-3">Outcomes</h2>
+                  <ul className="space-y-2">
+                    {work.outcomes.map((o, i) => (
+                      <li key={i} className="flex gap-2.5 text-muted-foreground leading-relaxed"><span className="text-primary shrink-0">—</span> {o}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+              {work.testimonials && work.testimonials.length > 0 && (
+                <div className="space-y-4">
+                  <h2 className="font-display font-semibold text-xl text-foreground mb-1">Testimonials</h2>
+                  {work.testimonials.map((t, i) => (
+                    <blockquote key={i} className="glass-card p-5 border-l-2 border-primary">
+                      <p className="text-muted-foreground italic leading-relaxed">&ldquo;{t.quote}&rdquo;</p>
+                      {t.author && <p className="text-sm text-foreground font-medium mt-2">— {t.author}</p>}
+                    </blockquote>
+                  ))}
+                </div>
+              )}
+              {(work.videos?.length > 0 || work.youtube_urls?.length > 0) && (
+                <div>
+                  <h2 className="font-display font-semibold text-xl text-foreground mb-3">Video</h2>
+                  <div className="space-y-4">
+                    {work.youtube_urls?.map((url, i) => (
+                      <div key={`yt-${i}`} className="aspect-video rounded-xl overflow-hidden glass-card">
+                        <iframe src={url.replace('watch?v=', 'embed/')} title={`Video ${i + 1}`} className="w-full h-full" allowFullScreen loading="lazy" />
+                      </div>
+                    ))}
+                    {work.videos?.map((v, i) => (
+                      <a key={`v-${i}`} href={v.url} target="_blank" rel="noopener noreferrer" className="glass-card p-4 flex items-center gap-3 hover:border-primary/30 transition-premium">
+                        <Monitor className="w-5 h-5 text-primary shrink-0" />
+                        <span className="text-sm text-foreground">{v.title || 'Watch video'}</span>
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              )}
+              {(work.pdfs?.length > 0 || work.documents?.length > 0) && (
+                <div>
+                  <h2 className="font-display font-semibold text-xl text-foreground mb-3">Documents</h2>
+                  <div className="grid sm:grid-cols-2 gap-3">
+                    {[...(work.pdfs || []), ...(work.documents || [])].map((d, i) => (
+                      <a key={i} href={d.url} target="_blank" rel="noopener noreferrer" className="glass-card p-4 flex items-center gap-3 hover:border-primary/30 transition-premium">
+                        <FileText className="w-5 h-5 text-primary shrink-0" />
+                        <span className="text-sm text-foreground truncate">{d.title || 'View document'}</span>
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* Sidebar */}
@@ -107,6 +172,22 @@ export default function WorkDetail() {
                   <div className="flex flex-wrap gap-2">
                     {work.tech_stack.map((tech, i) => <span key={i} className="skill-tag">{tech}</span>)}
                   </div>
+                </div>
+              )}
+              {work.skills && work.skills.length > 0 && (
+                <div className="glass-card p-5">
+                  <h3 className="text-sm font-semibold text-foreground mb-3">Skills Applied</h3>
+                  <div className="flex flex-wrap gap-2">
+                    {work.skills.map((s, i) => <span key={i} className="skill-tag">{s}</span>)}
+                  </div>
+                </div>
+              )}
+              {work.collaborators && work.collaborators.length > 0 && (
+                <div className="glass-card p-5">
+                  <h3 className="text-sm font-semibold text-foreground mb-3">Collaborators</h3>
+                  <ul className="space-y-1.5">
+                    {work.collaborators.map((c, i) => <li key={i} className="text-sm text-muted-foreground">{typeof c === 'string' ? c : c.name}</li>)}
+                  </ul>
                 </div>
               )}
               {work.metrics && work.metrics.length > 0 && (
@@ -146,6 +227,20 @@ export default function WorkDetail() {
               </div>
             </div>
           )}
+
+          {/* Additional named galleries */}
+          {work.galleries && Object.entries(work.galleries).filter(([, imgs]) => imgs?.length > 0).map(([name, imgs]) => (
+            <div key={name} className="mt-12">
+              <h2 className="font-display font-semibold text-xl text-foreground mb-5 capitalize">{name.replace(/_/g, ' ')}</h2>
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                {imgs.map((img, i) => (
+                  <div key={i} className="aspect-square rounded-xl overflow-hidden glass-card">
+                    <img src={img} alt="" className="w-full h-full object-cover" />
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
         </div>
       </article>
     </motion.div>

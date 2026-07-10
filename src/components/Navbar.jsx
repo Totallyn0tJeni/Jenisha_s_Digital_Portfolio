@@ -28,7 +28,6 @@ export default function Navbar({ onCommandOpen }) {
     { label: 'UGC', path: '/ugc' },
     { label: 'Photography', path: '/photography' },
     { label: 'Experience', path: '/experience' },
-    { label: 'Leadership', path: '/leadership' },
     { label: 'Blog', path: '/blog' },
     { label: 'Contact', path: '/contact' },
   ];

@@ -16,7 +16,7 @@ export default function LeadershipHighlight({ roles, loading }) {
                 Leading with purpose.<br /><span className="text-gradient">Creating meaningful change.</span>
               </h2>
             </div>
-            <Link to="/leadership" className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full font-semibold text-sm bg-primary text-primary-foreground hover:bg-primary/90 transition-premium group">
+            <Link to="/experience" className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full font-semibold text-sm bg-primary text-primary-foreground hover:bg-primary/90 transition-premium group">
               Explore Leadership <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </Link>
           </div>
@@ -30,7 +30,7 @@ export default function LeadershipHighlight({ roles, loading }) {
                     <Briefcase className="w-8 h-8 text-primary/40" />
                   </div>
                   <div className="p-5">
-                    <h4 className="font-semibold text-foreground">{role.role_title}</h4>
+                    <h4 className="font-semibold text-foreground">{role.position}</h4>
                     <p className="text-sm text-primary font-mono mt-1">{role.organization}</p>
                     {role.start_date && <p className="text-xs text-muted-foreground mt-2 font-mono">{role.start_date} – {role.is_current ? 'Present' : role.end_date || ''}</p>}
                   </div>

@@ -50,6 +50,7 @@ Collections using this pattern today:
 | `organizations/` | Home "Organizations & Communities" strip | `order` |
 | `memberships/` | Leadership page "Everywhere else I show up" | `order` |
 | `timeline/` | Timeline page | `date` (desc) |
+| `marketingContent/` | Marketing page (small posts/graphics only — large campaigns are filtered from `work/`, never duplicated) | `order` |
 
 Shared helpers for these live in `src/data/_collectionUtils.js`
 (`loadItems`, `sortByOrder`, `sortByDateDesc`) — reuse them if you add a new
@@ -61,11 +62,13 @@ reinventing sorting/loading logic.
 For content that will only ever have a handful of entries, a plain array or
 object in one file is simpler and there's no reason to split it:
 
-- `siteSettings.js` — hero copy, bio, stats, social links, footer CTA
+- `siteSettings.js` — hero copy, bio, stats, social links, footer CTA, contact info
 - `navigation.js` — navbar / footer links
 - `education.js` — schools attended (realistically caps out around 4–6, ever)
 - `skills.js` — skill tags grouped by category
 - `resume.js` — résumé file links
+- `ugcSettings.js` — UGC page copy: niches, services, packages, retainers, add-ons, FAQ
+- `photographySettings.js` — Photography page copy: services, equipment, packages, FAQ
 - `volunteerWork.js`, `testimonials.js`, `resources.js`, `ugc.js`
   — currently empty; add entries directly to the array. **If any of these
   grows large, convert it to the folder pattern above** — copy the shape of

@@ -1,7 +1,6 @@
 import { motion } from 'framer-motion';
 import SectionHeading from '@/components/SectionHeading';
 import EmptyState from '@/components/EmptyState';
-import ImagePlaceholder from '@/components/ImagePlaceholder';
 import { organizations as organizationsData } from '@/data/organizations';
 
 export default function Organizations() {

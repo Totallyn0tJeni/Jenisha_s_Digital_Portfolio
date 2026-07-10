@@ -27,7 +27,7 @@ export default function Search() {
       ...work.filter((w) => match(w.title) || match(w.tagline) || match(w.description)).map((w) => ({ type: 'Work', label: w.title, subtitle: w.work_type?.replace(/_/g, ' '), path: `/work/${w.slug || w.id}` })),
       ...blogPosts.filter((b) => match(b.title) || match(b.excerpt)).map((b) => ({ type: 'Blog', label: b.title, subtitle: b.category, path: `/blog/${b.id}` })),
       ...photos.filter((p) => match(p.title) || match(p.category)).map((p) => ({ type: 'Photo', label: p.title || p.category, subtitle: p.category, path: '/photography' })),
-      ...leadership.filter((l) => match(l.organization) || match(l.role_title)).map((l) => ({ type: 'Leadership', label: l.role_title, subtitle: l.organization, path: '/leadership' })),
+      ...leadership.filter((l) => match(l.organization) || match(l.position)).map((l) => ({ type: 'Leadership', label: l.position, subtitle: l.organization, path: '/experience' })),
       ...organizations.filter((o) => match(o.name)).map((o) => ({ type: 'Organization', label: o.name, subtitle: o.role, path: '/organizations' })),
       ...awards.filter((a) => match(a.title) || match(a.organization)).map((a) => ({ type: 'Award', label: a.title, subtitle: a.organization, path: '/awards' })),
       ...timeline.filter((t) => match(t.title) || match(t.description)).map((t) => ({ type: 'Timeline', label: t.title, subtitle: t.date ? new Date(t.date).toLocaleDateString('en-US', { year: 'numeric', month: 'short' }) : '', path: '/timeline' })),

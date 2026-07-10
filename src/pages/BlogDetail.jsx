@@ -3,7 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowLeft, Calendar, Clock, Tag } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
-import { blogPosts, getPostById, getPostsByCategory } from '@/data/blog';
+import { getPostById, getPostsByCategory } from '@/data/blog';
 
 export default function BlogDetail() {
   const { id } = useParams();

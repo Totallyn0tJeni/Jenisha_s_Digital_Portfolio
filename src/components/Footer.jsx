@@ -19,7 +19,6 @@ export default function Footer() {
       { label: 'Blog', path: '/blog' },
       { label: 'Photography', path: '/photography' },
       { label: 'Experience', path: '/experience' },
-      { label: 'Leadership', path: '/leadership' },
       { label: 'Awards', path: '/awards' },
       { label: 'Timeline', path: '/timeline' },
     ]},

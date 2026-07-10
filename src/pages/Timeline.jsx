@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { ExternalLink, Star, Image as ImageIcon } from 'lucide-react';
+import { ExternalLink, Star, Image as ImageIcon, ChevronDown } from 'lucide-react';
 import EmptyState from '@/components/EmptyState';
 import ContinueExploring from '@/components/ContinueExploring';
 import { timeline as timelineData } from '@/data/timeline';
@@ -27,6 +27,23 @@ export default function Timeline() {
   // Get unique categories that exist in the data
   const availableCategories = [...new Set(sorted.map((e) => e.category))].filter(Boolean);
   const filtered = filter === 'all' ? sorted : sorted.filter((e) => e.category === filter);
+
+  // Group by year — most recent year open by default
+  const byYear = filtered.reduce((acc, e) => {
+    const year = e.date ? new Date(e.date).getFullYear() : 'Undated';
+    (acc[year] ||= []).push(e);
+    return acc;
+  }, {});
+  const years = Object.keys(byYear).sort((a, b) => b - a);
+  const [openYears, setOpenYears] = useState(() => new Set(years.slice(0, 1)));
+  useEffect(() => { setOpenYears(new Set(years.slice(0, 1))); }, [filter]);
+  const toggleYear = (year) => {
+    setOpenYears((prev) => {
+      const next = new Set(prev);
+      next.has(year) ? next.delete(year) : next.add(year);
+      return next;
+    });
+  };
 
   const formatDate = (dateStr) => dateStr ? new Date(dateStr).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }) : '';
 
@@ -70,45 +87,68 @@ export default function Timeline() {
       <section className="px-4 md:px-8 pb-16">
         <div className="max-w-4xl mx-auto">
           {filtered.length > 0 ? (
-            <div className="relative pl-8">
-              <div className="absolute left-2 top-2 bottom-2 w-px bg-gradient-to-b from-primary via-primary/40 to-transparent" />
-              <div className="space-y-8">
-                {filtered.map((event, i) => {
-                  const cat = categoryConfig[event.category] || categoryConfig.milestone;
-                  return (
-                    <motion.div key={event.id} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-40px' }} transition={{ delay: i * 0.04, duration: 0.5 }} className="relative">
-                      <div className={`absolute -left-8 top-1.5 w-3 h-3 rounded-full bg-background border-2 ${cat.dot} shadow-[0_0_0_4px_hsl(var(--primary)/0.08)]`} />
-                      {event.is_milestone && (
-                        <div className="absolute -left-8 top-1.5 w-3 h-3 rounded-full bg-background border-2 border-amber-400 shadow-[0_0_0_4px_hsl(38_92%_50%/0.15)] animate-pulse" />
-                      )}
-                      <div className="glass-card p-5 md:p-6">
-                        <div className="flex items-center gap-3 mb-3 flex-wrap">
-                          <span className={`px-2.5 py-0.5 rounded-full text-xs font-semibold ${cat.color}`}>{cat.label}</span>
-                          <time className="text-xs font-mono text-muted-foreground">{formatDate(event.date)}</time>
-                          {event.is_milestone && <span className="flex items-center gap-1 text-xs text-amber-400"><Star className="w-3 h-3 fill-amber-400" /> Milestone</span>}
-                        </div>
-                        <h3 className="font-display font-semibold text-lg text-foreground">{event.title}</h3>
-                        {event.description && <p className="text-sm text-muted-foreground mt-2 leading-relaxed">{event.description}</p>}
-
-                        {event.image_url && (
-                          <div className="mt-4 rounded-xl overflow-hidden border border-border">
-                            <img src={event.image_url} alt={event.title} className="w-full max-h-64 object-cover" loading="lazy" />
-                          </div>
-                        )}
-
-                        {event.related_entity_type && event.related_entity_id && (
-                          <Link to={`/${event.related_entity_type.toLowerCase()}/${event.related_entity_id}`} className="inline-flex items-center gap-1.5 text-xs text-primary hover:text-primary/80 mt-4 transition-premium">
-                            <ExternalLink className="w-3 h-3" /> View related {event.related_entity_type}
-                          </Link>
-                        )}
+            <div className="space-y-4">
+              {years.map((year) => {
+                const isOpen = openYears.has(year);
+                const yearEvents = byYear[year];
+                return (
+                  <div key={year} className="glass-card overflow-hidden">
+                    <button onClick={() => toggleYear(year)} className="w-full flex items-center justify-between gap-4 p-5 text-left hover:bg-primary/5 transition-premium">
+                      <div className="flex items-center gap-3">
+                        <span className="font-display font-bold text-xl text-foreground">{year}</span>
+                        <span className="text-xs font-mono text-muted-foreground px-2.5 py-0.5 rounded-full bg-surface border border-border">{yearEvents.length} event{yearEvents.length > 1 ? 's' : ''}</span>
                       </div>
-                    </motion.div>
-                  );
-                })}
-              </div>
+                      <ChevronDown className={`w-4 h-4 text-muted-foreground transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+                    </button>
+                    {isOpen && (
+                      <div className="relative pl-8 pr-5 pb-6">
+                        <div className="absolute left-6 top-0 bottom-6 w-px bg-gradient-to-b from-primary via-primary/40 to-transparent" />
+                        <div className="space-y-6">
+                          {yearEvents.map((event, i) => {
+                            const cat = categoryConfig[event.category] || categoryConfig.milestone;
+                            return (
+                              <motion.div key={event.id} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.04, duration: 0.4 }} className="relative">
+                                <div className={`absolute -left-8 top-1.5 w-3 h-3 rounded-full bg-background border-2 ${cat.dot} shadow-[0_0_0_4px_hsl(var(--primary)/0.08)]`} />
+                                {event.is_milestone && (
+                                  <div className="absolute -left-8 top-1.5 w-3 h-3 rounded-full bg-background border-2 border-amber-400 shadow-[0_0_0_4px_hsl(38_92%_50%/0.15)] animate-pulse" />
+                                )}
+                                <div className="bg-surface/60 rounded-xl p-4 md:p-5 border border-border/60">
+                                  <div className="flex items-center gap-3 mb-2 flex-wrap">
+                                    <span className={`px-2.5 py-0.5 rounded-full text-xs font-semibold ${cat.color}`}>{cat.label}</span>
+                                    <time className="text-xs font-mono text-muted-foreground">{formatDate(event.date)}</time>
+                                    {event.is_milestone && <span className="flex items-center gap-1 text-xs text-amber-400"><Star className="w-3 h-3 fill-amber-400" /> Milestone</span>}
+                                  </div>
+                                  <h3 className="font-display font-semibold text-base text-foreground">{event.title}</h3>
+                                  {event.description && <p className="text-sm text-muted-foreground mt-1.5 leading-relaxed">{event.description}</p>}
+
+                                  {event.image_url ? (
+                                    <div className="mt-3 rounded-xl overflow-hidden border border-border">
+                                      <img src={event.image_url} alt={event.title} className="w-full max-h-64 object-cover" loading="lazy" />
+                                    </div>
+                                  ) : (
+                                    <div className="mt-3 rounded-xl border border-dashed border-primary/20 bg-surface/50 flex items-center justify-center gap-2 py-3 text-xs text-muted-foreground/70">
+                                      <ImageIcon className="w-3.5 h-3.5" /> Photo coming soon
+                                    </div>
+                                  )}
+
+                                  {event.related_entity_type && event.related_entity_id && (
+                                    <Link to={`/${event.related_entity_type.toLowerCase()}/${event.related_entity_id}`} className="inline-flex items-center gap-1.5 text-xs text-primary hover:text-primary/80 mt-3 transition-premium">
+                                      <ExternalLink className="w-3 h-3" /> View related {event.related_entity_type}
+                                    </Link>
+                                  )}
+                                </div>
+                              </motion.div>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
             </div>
           ) : (
-            <EmptyState title="Your timeline will appear here" description="Add timeline events to src/data/timeline.js to tell your story chronologically." />
+            <EmptyState title="Your timeline will appear here" description="Add timeline events to src/data/timeline/items/ to tell your story chronologically." />
           )}
         </div>
       </section>

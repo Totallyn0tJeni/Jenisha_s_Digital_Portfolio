@@ -1,19 +1,47 @@
 import { motion } from 'framer-motion';
-import { ExternalLink } from 'lucide-react';
+import { ExternalLink, FileDown } from 'lucide-react';
 import SectionHeading from '@/components/SectionHeading';
 import EmptyState from '@/components/EmptyState';
-import { resources as resourcesData } from '@/data/resources';
+import { resources as resourcesData, DOWNLOAD_CATEGORIES } from '@/data/resources';
 
 const typeIcons = { article: '📄', tool: '🔧', template: '📋', guide: '📖', video: '🎬', pdf: '📕', course: '🎓', other: '🔗' };
 
 export default function Resources() {
-  const items = resourcesData;
+  const downloads = resourcesData.filter((r) => r.resource_type === 'download');
+  const items = resourcesData.filter((r) => r.resource_type !== 'download');
+  const downloadsByCategory = DOWNLOAD_CATEGORIES.map((cat) => ({
+    category: cat,
+    item: downloads.find((d) => d.download_category === cat),
+  }));
 
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>
-      <section className="px-4 md:px-8 pt-12 pb-20">
+      <section className="px-4 md:px-8 pt-12 pb-16">
         <div className="max-w-5xl mx-auto">
-          <SectionHeading eyebrow="Knowledge" title="Resources" subtitle="Articles, tools, and guides I recommend." />
+          <SectionHeading eyebrow="Downloads" title="Downloadable Materials" subtitle="Media kit, brand assets, and rate cards — grab what you need." />
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-8">
+            {downloadsByCategory.map(({ category, item }) => (
+              <div key={category} className="glass-card p-5 flex items-center gap-4">
+                <div className="w-11 h-11 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
+                  <FileDown className="w-5 h-5 text-primary" />
+                </div>
+                <div className="min-w-0 flex-1">
+                  <p className="font-medium text-foreground text-sm">{category}</p>
+                  {item?.file_url ? (
+                    <a href={item.file_url} target="_blank" rel="noopener noreferrer" className="text-xs text-primary hover:text-primary/80 transition-premium">Download →</a>
+                  ) : (
+                    <p className="text-xs text-muted-foreground">Coming soon</p>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="px-4 md:px-8 pb-20 border-t border-border/50 pt-16">
+        <div className="max-w-5xl mx-auto">
+          <SectionHeading eyebrow="Knowledge" title="Curated Links" subtitle="Articles, tools, and guides I recommend." />
           {items.length > 0 ? (
             <div className="grid sm:grid-cols-2 gap-4">
               {items.map((item, i) => (

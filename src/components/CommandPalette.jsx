@@ -55,8 +55,8 @@ export default function CommandPalette({ open, onClose }) {
         .map((b) => ({ type: 'Blog', label: b.title, subtitle: 'Article', path: `/blog/${b.id}` })),
       ...photos.filter((p) => match(p.title) || match(p.category))
         .map((p) => ({ type: 'Photo', label: p.title || p.category, subtitle: p.category, path: '/photography' })),
-      ...leadership.filter((l) => match(l.organization) || match(l.role_title))
-        .map((l) => ({ type: 'Leadership', label: l.role_title, subtitle: l.organization, path: '/leadership' })),
+      ...leadership.filter((l) => match(l.organization) || match(l.position))
+        .map((l) => ({ type: 'Leadership', label: l.position, subtitle: l.organization, path: '/experience' })),
       ...organizations.filter((o) => match(o.name))
         .map((o) => ({ type: 'Organization', label: o.name, subtitle: o.role, path: '/organizations' })),
       ...awards.filter((a) => match(a.title) || match(a.organization))

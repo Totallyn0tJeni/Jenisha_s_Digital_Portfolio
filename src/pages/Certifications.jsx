@@ -14,7 +14,7 @@ export default function Certifications() {
   }, {});
 
   const grouped = topLevel.reduce((acc, cert) => {
-    const key = cert.category || 'Other';
+    const key = cert.issuer || 'Other';
     (acc[key] ||= []).push(cert);
     return acc;
   }, {});
@@ -23,12 +23,12 @@ export default function Certifications() {
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>
       <section className="px-4 md:px-8 pt-12 pb-20">
         <div className="max-w-5xl mx-auto">
-          <SectionHeading eyebrow="Credentials" title="Certifications" subtitle={`${certs.length}+ certificates across five focus areas, grouped below.`} />
+          <SectionHeading eyebrow="Credentials" title="Certifications" subtitle={`${certs.length}+ certificates, grouped by issuer.`} />
           {certs.length > 0 ? (
             <div className="space-y-10 mt-4">
-              {Object.entries(grouped).map(([category, items], gi) => (
-                <div key={category}>
-                  <h3 className="text-xs font-mono uppercase tracking-[0.14em] text-primary mb-4">{category}</h3>
+              {Object.entries(grouped).map(([issuer, items], gi) => (
+                <div key={issuer}>
+                  <h3 className="text-xs font-mono uppercase tracking-[0.14em] text-primary mb-4">{issuer}</h3>
                   <div className="grid sm:grid-cols-2 gap-4">
                     {items.map((cert, i) => {
                       const children = childrenByParent[cert.title] || [];
