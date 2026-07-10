@@ -1,67 +1,54 @@
-import { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
-import { base44 } from '@/api/base44Client';
-import SectionHeading from '@/components/SectionHeading';
-import BlogCard from '@/components/BlogCard';
-import EmptyState from '@/components/EmptyState';
+const isNode = typeof window === 'undefined';
+const windowObj = isNode ? { localStorage: new Map() } : window;
+const storage = windowObj.localStorage;
 
-export default function Blog() {
-  const [posts, setPosts] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [activeCategory, setActiveCategory] = useState('All');
+const toSnakeCase = (str) => {
+	return str.replace(/([A-Z])/g, '_$1').toLowerCase();
+}
 
-  useEffect(() => {
-    (async () => {
-      try {
-        const data = await base44.entities.BlogPost.filter({ status: 'published' }, '-published_date', 50);
-        setPosts(data);
-      } catch (e) { setPosts([]); }
-      setLoading(false);
-    })();
-  }, []);
+const getAppParamValue = (paramName, { defaultValue = undefined, removeFromUrl = false } = {}) => {
+	if (isNode) {
+		return defaultValue;
+	}
+	const storageKey = `base44_${toSnakeCase(paramName)}`;
+	const urlParams = new URLSearchParams(window.location.search);
+	const searchParam = urlParams.get(paramName);
+	if (removeFromUrl) {
+		urlParams.delete(paramName);
+		const newUrl = `${window.location.pathname}${urlParams.toString() ? `?${urlParams.toString()}` : ""
+			}${window.location.hash}`;
+		window.history.replaceState({}, document.title, newUrl);
+	}
+	if (searchParam) {
+		storage.setItem(storageKey, searchParam);
+		return searchParam;
+	}
+	if (defaultValue) {
+		storage.setItem(storageKey, defaultValue);
+		return defaultValue;
+	}
+	const storedValue = storage.getItem(storageKey);
+	if (storedValue) {
+		return storedValue;
+	}
+	return null;
+}
 
-  const categories = ['All', ...new Set(posts.map((p) => p.category).filter(Boolean))];
-  const filtered = activeCategory === 'All' ? posts : posts.filter((p) => p.category === activeCategory);
+const getAppParams = () => {
+	if (getAppParamValue("clear_access_token") === 'true') {
+		storage.removeItem('base44_access_token');
+		storage.removeItem('token');
+	}
+	return {
+		appId: getAppParamValue("app_id", { defaultValue: import.meta.env.VITE_BASE44_APP_ID }),
+		token: getAppParamValue("access_token", { removeFromUrl: true }),
+		fromUrl: getAppParamValue("from_url", { defaultValue: window.location.href }),
+		functionsVersion: getAppParamValue("functions_version", { defaultValue: import.meta.env.VITE_BASE44_FUNCTIONS_VERSION }),
+		appBaseUrl: getAppParamValue("app_base_url", { defaultValue: import.meta.env.VITE_BASE44_APP_BASE_URL }),
+	}
+}
 
-  return (
-    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>
-      <section className="px-4 md:px-8 pt-12 pb-8">
-        <div className="max-w-7xl mx-auto">
-          <SectionHeading eyebrow="Writing" title="Blog" subtitle="Thoughts, insights, and reflections on technology, leadership, and marketing." />
-        </div>
-      </section>
 
-      <section className="px-4 md:px-8 pb-20">
-        <div className="max-w-7xl mx-auto">
-          {categories.length > 1 && (
-            <div className="flex gap-2 overflow-x-auto scrollbar-hide pb-1 mb-10 justify-start md:justify-center">
-              {categories.map((cat) => (
-                <button
-                  key={cat}
-                  onClick={() => setActiveCategory(cat)}
-                  className={`px-4 py-1.5 rounded-full text-sm font-medium whitespace-nowrap transition-premium ${
-                    activeCategory === cat ? 'bg-primary text-primary-foreground' : 'glass text-muted-foreground hover:text-foreground'
-                  }`}
-                >
-                  {cat}
-                </button>
-              ))}
-            </div>
-          )}
-
-          {loading ? (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {[...Array(3)].map((_, i) => <div key={i} className="h-80 rounded-2xl shimmer" />)}
-            </div>
-          ) : filtered.length > 0 ? (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filtered.map((post, i) => <BlogCard key={post.id} post={post} index={i} />)}
-            </div>
-          ) : (
-            <EmptyState title="Publish your first article" description="Your blog posts will appear here once published." />
-          )}
-        </div>
-      </section>
-    </motion.div>
-  );
+export const appParams = {
+	...getAppParams()
 }

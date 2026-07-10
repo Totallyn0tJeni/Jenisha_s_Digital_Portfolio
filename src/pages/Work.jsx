@@ -1,97 +1,54 @@
-import { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
-import { base44 } from '@/api/base44Client';
-import { Search } from 'lucide-react';
-import WorkCard from '@/components/cards/WorkCard';
-import EmptyState from '@/components/EmptyState';
-import SectionHeading from '@/components/SectionHeading';
+const isNode = typeof window === 'undefined';
+const windowObj = isNode ? { localStorage: new Map() } : window;
+const storage = windowObj.localStorage;
 
-const workTypes = [
-  { value: 'all', label: 'All' },
-  { value: 'software_project', label: 'Software' },
-  { value: 'ai_experiment', label: 'AI' },
-  { value: 'marketing_campaign', label: 'Marketing' },
-  { value: 'photography_collection', label: 'Photography' },
-  { value: 'ugc_campaign', label: 'UGC' },
-  { value: 'brand_partnership', label: 'Brand' },
-  { value: 'research', label: 'Research' },
-  { value: 'robotics', label: 'Robotics' },
-  { value: 'design_project', label: 'Design' },
-  { value: 'speaking_engagement', label: 'Speaking' },
-];
+const toSnakeCase = (str) => {
+	return str.replace(/([A-Z])/g, '_$1').toLowerCase();
+}
 
-export default function Work() {
-  const [works, setWorks] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [filter, setFilter] = useState('all');
-  const [search, setSearch] = useState('');
+const getAppParamValue = (paramName, { defaultValue = undefined, removeFromUrl = false } = {}) => {
+	if (isNode) {
+		return defaultValue;
+	}
+	const storageKey = `base44_${toSnakeCase(paramName)}`;
+	const urlParams = new URLSearchParams(window.location.search);
+	const searchParam = urlParams.get(paramName);
+	if (removeFromUrl) {
+		urlParams.delete(paramName);
+		const newUrl = `${window.location.pathname}${urlParams.toString() ? `?${urlParams.toString()}` : ""
+			}${window.location.hash}`;
+		window.history.replaceState({}, document.title, newUrl);
+	}
+	if (searchParam) {
+		storage.setItem(storageKey, searchParam);
+		return searchParam;
+	}
+	if (defaultValue) {
+		storage.setItem(storageKey, defaultValue);
+		return defaultValue;
+	}
+	const storedValue = storage.getItem(storageKey);
+	if (storedValue) {
+		return storedValue;
+	}
+	return null;
+}
 
-  useEffect(() => {
-    (async () => {
-      try {
-        const data = await base44.entities.Work.filter({ status: 'published' }, '-order', 200);
-        setWorks(data);
-      } catch (e) { setWorks([]); }
-      setLoading(false);
-    })();
-  }, []);
+const getAppParams = () => {
+	if (getAppParamValue("clear_access_token") === 'true') {
+		storage.removeItem('base44_access_token');
+		storage.removeItem('token');
+	}
+	return {
+		appId: getAppParamValue("app_id", { defaultValue: import.meta.env.VITE_BASE44_APP_ID }),
+		token: getAppParamValue("access_token", { removeFromUrl: true }),
+		fromUrl: getAppParamValue("from_url", { defaultValue: window.location.href }),
+		functionsVersion: getAppParamValue("functions_version", { defaultValue: import.meta.env.VITE_BASE44_FUNCTIONS_VERSION }),
+		appBaseUrl: getAppParamValue("app_base_url", { defaultValue: import.meta.env.VITE_BASE44_APP_BASE_URL }),
+	}
+}
 
-  const filtered = works.filter((w) => {
-    const matchesFilter = filter === 'all' || w.work_type === filter;
-    const matchesSearch = !search || (w.title || '').toLowerCase().includes(search.toLowerCase()) || (w.tagline || '').toLowerCase().includes(search.toLowerCase()) || (w.tags || []).some((t) => t.toLowerCase().includes(search.toLowerCase()));
-    return matchesFilter && matchesSearch;
-  });
 
-  return (
-    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>
-      <section className="px-4 md:px-8 pt-12 pb-8">
-        <div className="max-w-7xl mx-auto">
-          <SectionHeading eyebrow="Everything I Build" title="Work" subtitle="Software, AI, marketing, photography, and more — unified in one place." />
-        </div>
-      </section>
-
-      <section className="px-4 md:px-8 pb-20">
-        <div className="max-w-7xl mx-auto">
-          {/* Search + Filters */}
-          <div className="flex flex-col gap-4 mb-10">
-            <div className="relative max-w-md">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-              <input
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-                placeholder="Search work..."
-                className="w-full pl-10 pr-4 py-2.5 rounded-full bg-surface border border-border text-foreground placeholder:text-muted-foreground text-sm focus:outline-none focus:border-primary/50"
-              />
-            </div>
-            <div className="flex gap-2 overflow-x-auto scrollbar-hide pb-1">
-              {workTypes.map((type) => (
-                <button
-                  key={type.value}
-                  onClick={() => setFilter(type.value)}
-                  className={`px-4 py-1.5 rounded-full text-sm font-medium whitespace-nowrap transition-premium ${
-                    filter === type.value ? 'bg-primary text-primary-foreground' : 'glass text-muted-foreground hover:text-foreground'
-                  }`}
-                >
-                  {type.label}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* Grid */}
-          {loading ? (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {[...Array(6)].map((_, i) => <div key={i} className="h-72 rounded-2xl shimmer" />)}
-            </div>
-          ) : filtered.length > 0 ? (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filtered.map((work, i) => <WorkCard key={work.id} work={work} index={i} />)}
-            </div>
-          ) : (
-            <EmptyState title="Your first project will appear here" description="Add work from the admin dashboard to showcase your projects, campaigns, and experiments." />
-          )}
-        </div>
-      </section>
-    </motion.div>
-  );
+export const appParams = {
+	...getAppParams()
 }

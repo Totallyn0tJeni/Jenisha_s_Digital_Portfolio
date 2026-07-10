@@ -1,27 +1,21 @@
-import SectionHeading from '../SectionHeading';
+import { motion } from 'framer-motion';
 
-export default function CustomEmbedSection({ config = {}, section }) {
-  const html = config.html || config.url;
-
-  if (!html) {
-    return (
-      <section className="py-20 md:py-28 px-4 md:px-8">
-        <div className="max-w-4xl mx-auto">
-          {section?.title && <SectionHeading title={section.title} />}
-          <div className="rounded-2xl bg-surface border-2 border-dashed border-primary/25 p-12 text-center text-muted-foreground/50">
-            Embed content will appear here once HTML is added.
-          </div>
-        </div>
-      </section>
-    );
-  }
+export default function SectionHeading({ eyebrow, title, subtitle, align = 'center' }) {
+  const alignment = align === 'left' ? 'items-start text-left' : 'items-center text-center';
 
   return (
-    <section className="py-20 md:py-28 px-4 md:px-8">
-      <div className="max-w-4xl mx-auto">
-        {section?.title && <SectionHeading title={section.title} />}
-        <div className="rounded-2xl overflow-hidden glass-card" dangerouslySetInnerHTML={{ __html: html }} />
-      </div>
-    </section>
-  );
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-80px' }}
+      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+      className={`flex flex-col gap-3 ${alignment}`}>
+      
+      {eyebrow &&
+      <span className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">{eyebrow}</span>
+      }
+      <h2 className="font-display font-bold text-3xl md:text-5xl text-foreground leading-tight max-w-3xl">{title}</h2>
+      {subtitle && <p className="text-muted-foreground text-base md:text-lg max-w-2xl leading-relaxed py-2">{subtitle}</p>}
+    </motion.div>);
+
 }

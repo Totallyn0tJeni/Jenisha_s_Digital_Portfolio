@@ -1,81 +1,36 @@
-import { useEffect, useState } from 'react';
-import { base44 } from '@/api/base44Client';
 import { motion } from 'framer-motion';
-import HeroSection from './sections/HeroSection';
-import * as Sections from './sections';
-
-const sectionRenderers = {
-  hero: HeroSection,
-  text: Sections.TextSection,
-  markdown: Sections.MarkdownSection,
-  cards: Sections.CardsSection,
-  gallery: Sections.GallerySection,
-  timeline: Sections.TimelineSection,
-  statistics: Sections.StatisticsSection,
-  testimonials: Sections.TestimonialsSection,
-  cta: Sections.CTASection,
-  video: Sections.VideoSection,
-  faq: Sections.FAQSection,
-  quote: Sections.QuoteSection,
-  newsletter: Sections.NewsletterSection,
-  embed: Sections.CustomEmbedSection,
-  'featured-work': Sections.FeaturedWorkSection,
-  'blog-list': Sections.BlogListSection,
-  'work-list': Sections.WorkListSection,
-  'leadership-spotlight': Sections.LeadershipSpotlightSection,
-};
+import { Sparkles } from 'lucide-react';
 
 /**
- * PageRenderer — fetches a Page entity by slug and renders its CMS-assembled sections.
- * This is the core of the CMS-driven page system.
+ * Empty state component for collections.
+ * Shows an elegant message when no content exists yet.
+ *
+ * Props:
+ * - title: headline (e.g., "Your first project will appear here")
+ * - description: supporting text
+ * - action: optional button { label, onClick }
  */
-export default function PageRenderer({ slug }) {
-  const [page, setPage] = useState(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    (async () => {
-      try {
-        const pages = await base44.entities.Page.filter({ slug, status: 'published' }, 'order', 1);
-        if (pages[0]) setPage(pages[0]);
-      } catch (e) {
-        console.error('Failed to load page:', e);
-      }
-      setLoading(false);
-    })();
-  }, [slug]);
-
-  if (loading) {
-    return (
-      <div className="min-h-[60vh] flex items-center justify-center">
-        <div className="w-8 h-8 border-4 border-primary/20 border-t-primary rounded-full animate-spin" />
-      </div>
-    );
-  }
-
-  if (!page) {
-    return (
-      <div className="min-h-[60vh] flex items-center justify-center text-center px-4">
-        <div>
-          <h1 className="font-display font-bold text-3xl text-foreground mb-3">Page not found</h1>
-          <p className="text-muted-foreground">This page hasn't been created in the CMS yet.</p>
-        </div>
-      </div>
-    );
-  }
-
-  const sections = (page.sections || []).filter((s) => s.is_visible !== false).sort((a, b) => (a.order || 0) - (b.order || 0));
-
+export default function EmptyState({ title, description, action }) {
   return (
-    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>
-      {/* Render hero section if defined, otherwise fall back to HeroSection component */}
-      {page.hero_section && <HeroSection config={page.hero_section} page={page} />}
-
-      {sections.map((section) => {
-        const Renderer = sectionRenderers[section.type];
-        if (!Renderer) return null;
-        return <Renderer key={section.id} section={section} config={section.config || {}} page={page} />;
-      })}
+    <motion.div
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+      className="flex flex-col items-center justify-center text-center py-16 px-6 max-w-md mx-auto"
+    >
+      <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center text-primary/40 mb-5">
+        <Sparkles className="w-7 h-7" strokeWidth={1.5} />
+      </div>
+      <h3 className="font-display font-semibold text-xl text-foreground mb-2">{title}</h3>
+      {description && <p className="text-muted-foreground text-sm leading-relaxed mb-6">{description}</p>}
+      {action && (
+        <button
+          onClick={action.onClick}
+          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold bg-primary text-primary-foreground hover:bg-primary/90 transition-premium"
+        >
+          {action.label}
+        </button>
+      )}
     </motion.div>
   );
 }

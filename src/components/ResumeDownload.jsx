@@ -1,21 +1,54 @@
-import { FileDown } from 'lucide-react';
-import { useSiteSettings } from '@/hooks/useSiteSettings';
+const isNode = typeof window === 'undefined';
+const windowObj = isNode ? { localStorage: new Map() } : window;
+const storage = windowObj.localStorage;
 
-export default function ResumeDownload({ variant = 'primary', label = 'Download Résumé', className = '' }) {
-  const { settings } = useSiteSettings();
-  const url = settings?.resume_pdf_url;
-  if (!url) return null;
+const toSnakeCase = (str) => {
+	return str.replace(/([A-Z])/g, '_$1').toLowerCase();
+}
 
-  const base = 'inline-flex items-center gap-2 px-5 py-2.5 rounded-full font-semibold text-sm transition-premium';
-  const styles = {
-    primary: `${base} bg-primary text-primary-foreground hover:bg-primary/90 glow-primary`,
-    outline: `${base} glass text-foreground hover:border-primary/30`,
-    block: `${base} w-full justify-center bg-primary text-primary-foreground hover:bg-primary/90`,
-  };
+const getAppParamValue = (paramName, { defaultValue = undefined, removeFromUrl = false } = {}) => {
+	if (isNode) {
+		return defaultValue;
+	}
+	const storageKey = `base44_${toSnakeCase(paramName)}`;
+	const urlParams = new URLSearchParams(window.location.search);
+	const searchParam = urlParams.get(paramName);
+	if (removeFromUrl) {
+		urlParams.delete(paramName);
+		const newUrl = `${window.location.pathname}${urlParams.toString() ? `?${urlParams.toString()}` : ""
+			}${window.location.hash}`;
+		window.history.replaceState({}, document.title, newUrl);
+	}
+	if (searchParam) {
+		storage.setItem(storageKey, searchParam);
+		return searchParam;
+	}
+	if (defaultValue) {
+		storage.setItem(storageKey, defaultValue);
+		return defaultValue;
+	}
+	const storedValue = storage.getItem(storageKey);
+	if (storedValue) {
+		return storedValue;
+	}
+	return null;
+}
 
-  return (
-    <a href={url} target="_blank" rel="noopener noreferrer" className={`${styles[variant] || styles.primary} ${className}`}>
-      <FileDown className="w-4 h-4" /> {label}
-    </a>
-  );
+const getAppParams = () => {
+	if (getAppParamValue("clear_access_token") === 'true') {
+		storage.removeItem('base44_access_token');
+		storage.removeItem('token');
+	}
+	return {
+		appId: getAppParamValue("app_id", { defaultValue: import.meta.env.VITE_BASE44_APP_ID }),
+		token: getAppParamValue("access_token", { removeFromUrl: true }),
+		fromUrl: getAppParamValue("from_url", { defaultValue: window.location.href }),
+		functionsVersion: getAppParamValue("functions_version", { defaultValue: import.meta.env.VITE_BASE44_FUNCTIONS_VERSION }),
+		appBaseUrl: getAppParamValue("app_base_url", { defaultValue: import.meta.env.VITE_BASE44_APP_BASE_URL }),
+	}
+}
+
+
+export const appParams = {
+	...getAppParams()
 }

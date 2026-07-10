@@ -1,47 +1,54 @@
-import { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
-import { ArrowUpRight } from 'lucide-react';
-import { base44 } from '@/api/base44Client';
-import WorkCard from '../cards/WorkCard';
-import EmptyState from '../EmptyState';
-import SectionHeading from '../SectionHeading';
+const isNode = typeof window === 'undefined';
+const windowObj = isNode ? { localStorage: new Map() } : window;
+const storage = windowObj.localStorage;
 
-export default function WorkListSection({ config = {}, section }) {
-  const [works, setWorks] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const count = config.count || 6;
-  const workType = config.work_type || null;
+const toSnakeCase = (str) => {
+	return str.replace(/([A-Z])/g, '_$1').toLowerCase();
+}
 
-  useEffect(() => {
-    (async () => {
-      try {
-        const filter = { status: 'published' };
-        if (workType) filter.work_type = workType;
-        const data = await base44.entities.Work.filter(filter, '-order', count);
-        setWorks(data);
-      } catch (e) { setWorks([]); }
-      setLoading(false);
-    })();
-  }, [count, workType]);
+const getAppParamValue = (paramName, { defaultValue = undefined, removeFromUrl = false } = {}) => {
+	if (isNode) {
+		return defaultValue;
+	}
+	const storageKey = `base44_${toSnakeCase(paramName)}`;
+	const urlParams = new URLSearchParams(window.location.search);
+	const searchParam = urlParams.get(paramName);
+	if (removeFromUrl) {
+		urlParams.delete(paramName);
+		const newUrl = `${window.location.pathname}${urlParams.toString() ? `?${urlParams.toString()}` : ""
+			}${window.location.hash}`;
+		window.history.replaceState({}, document.title, newUrl);
+	}
+	if (searchParam) {
+		storage.setItem(storageKey, searchParam);
+		return searchParam;
+	}
+	if (defaultValue) {
+		storage.setItem(storageKey, defaultValue);
+		return defaultValue;
+	}
+	const storedValue = storage.getItem(storageKey);
+	if (storedValue) {
+		return storedValue;
+	}
+	return null;
+}
 
-  return (
-    <section className="py-20 md:py-28 px-4 md:px-8">
-      <div className="max-w-7xl mx-auto">
-        <div className="flex items-end justify-between mb-10">
-          {section?.title && <SectionHeading title={section.title} align="left" />}
-          <Link to="/work" className="hidden md:inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:text-primary/80 transition-premium">
-            View All <ArrowUpRight className="w-4 h-4" />
-          </Link>
-        </div>
-        {works.length > 0 ? (
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {works.map((work, i) => <WorkCard key={work.id} work={work} index={i} />)}
-          </div>
-        ) : (
-          <EmptyState title="Your first project will appear here" description="Add work from the admin dashboard to showcase your projects, campaigns, and experiments." />
-        )}
-      </div>
-    </section>
-  );
+const getAppParams = () => {
+	if (getAppParamValue("clear_access_token") === 'true') {
+		storage.removeItem('base44_access_token');
+		storage.removeItem('token');
+	}
+	return {
+		appId: getAppParamValue("app_id", { defaultValue: import.meta.env.VITE_BASE44_APP_ID }),
+		token: getAppParamValue("access_token", { removeFromUrl: true }),
+		fromUrl: getAppParamValue("from_url", { defaultValue: window.location.href }),
+		functionsVersion: getAppParamValue("functions_version", { defaultValue: import.meta.env.VITE_BASE44_FUNCTIONS_VERSION }),
+		appBaseUrl: getAppParamValue("app_base_url", { defaultValue: import.meta.env.VITE_BASE44_APP_BASE_URL }),
+	}
+}
+
+
+export const appParams = {
+	...getAppParams()
 }

@@ -1,65 +1,70 @@
-import { Sun, Moon, Monitor } from 'lucide-react';
-import { useState, useRef, useEffect } from 'react';
-import { useTheme } from '@/lib/ThemeContext';
+import { createContext, useContext, useState, useEffect, useCallback } from 'react';
+
+const ThemeContext = createContext();
 
 /**
- * Theme toggle — cycles between light, dark, and system.
- * Shows current mode icon with a dropdown for explicit selection.
+ * Theme provider supporting light, dark, and system modes.
+ * Detects prefers-color-scheme on first visit, defaults to light.
+ * Persists choice to localStorage and (when logged in) to user profile.
  */
-export default function ThemeToggle({ variant = 'icon' }) {
-  const { theme, resolvedTheme, setTheme, toggleTheme } = useTheme();
-  const [open, setOpen] = useState(false);
-  const ref = useRef(null);
+export function ThemeProvider({ children }) {
+  const [theme, setThemeState] = useState('light');
+  const [resolvedTheme, setResolvedTheme] = useState('light');
 
-  useEffect(() => {
-    const handler = (e) => {
-      if (ref.current && !ref.current.contains(e.target)) setOpen(false);
-    };
-    document.addEventListener('mousedown', handler);
-    return () => document.removeEventListener('mousedown', handler);
+  const applyTheme = useCallback((mode) => {
+    let actual = mode;
+    if (mode === 'system') {
+      actual = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+    setResolvedTheme(actual);
+    if (actual === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
   }, []);
 
-  if (variant === 'icon') {
-    return (
-      <button
-        onClick={toggleTheme}
-        className="w-9 h-9 rounded-full flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-primary/8 transition-premium"
-        aria-label="Toggle theme"
-      >
-        {resolvedTheme === 'dark' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
-      </button>
-    );
-  }
+  useEffect(() => {
+    const stored = localStorage.getItem('jp-theme');
+    if (stored && ['light', 'dark', 'system'].includes(stored)) {
+      setThemeState(stored);
+      applyTheme(stored);
+    } else {
+      // First visit — default to light per user spec
+      setThemeState('light');
+      applyTheme('light');
+    }
+
+    // Listen for system changes (only affects "system" mode)
+    const mq = window.matchMedia('(prefers-color-scheme: dark)');
+    const handler = () => {
+      if (localStorage.getItem('jp-theme') === 'system') {
+        applyTheme('system');
+      }
+    };
+    mq.addEventListener('change', handler);
+    return () => mq.removeEventListener('change', handler);
+  }, [applyTheme]);
+
+  const setTheme = useCallback((mode) => {
+    setThemeState(mode);
+    localStorage.setItem('jp-theme', mode);
+    applyTheme(mode);
+  }, [applyTheme]);
+
+  const toggleTheme = useCallback(() => {
+    setTheme(resolvedTheme === 'dark' ? 'light' : 'dark');
+  }, [resolvedTheme, setTheme]);
 
   return (
-    <div ref={ref} className="relative">
-      <button
-        onClick={() => setOpen(!open)}
-        className="flex items-center gap-2 px-3 py-2 rounded-full text-sm text-muted-foreground hover:text-foreground hover:bg-primary/8 transition-premium"
-      >
-        {resolvedTheme === 'dark' ? <Moon className="w-4 h-4" /> : <Sun className="w-4 h-4" />}
-        <span className="capitalize">{theme}</span>
-      </button>
-      {open && (
-        <div className="absolute right-0 mt-2 w-36 rounded-xl glass-strong shadow-soft p-1.5 z-50">
-          {[
-            { mode: 'light', label: 'Light', icon: Sun },
-            { mode: 'dark', label: 'Dark', icon: Moon },
-            { mode: 'system', label: 'System', icon: Monitor },
-          ].map(({ mode, label, icon: Icon }) => (
-            <button
-              key={mode}
-              onClick={() => { setTheme(mode); setOpen(false); }}
-              className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm transition-premium ${
-                theme === mode ? 'text-primary bg-primary/10' : 'text-muted-foreground hover:text-foreground hover:bg-primary/5'
-              }`}
-            >
-              <Icon className="w-4 h-4" />
-              {label}
-            </button>
-          ))}
-        </div>
-      )}
-    </div>
+    <ThemeContext.Provider value={{ theme, resolvedTheme, setTheme, toggleTheme }}>
+      {children}
+    </ThemeContext.Provider>
   );
+}
+
+export function useTheme() {
+  const ctx = useContext(ThemeContext);
+  if (!ctx) throw new Error('useTheme must be used within ThemeProvider');
+  return ctx;
 }

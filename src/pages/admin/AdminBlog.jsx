@@ -1,39 +1,54 @@
-import AdminEntityManager from '@/components/AdminEntityManager';
+const isNode = typeof window === 'undefined';
+const windowObj = isNode ? { localStorage: new Map() } : window;
+const storage = windowObj.localStorage;
 
-const fields = [
-  { name: 'title', label: 'Title', type: 'text', required: true },
-  { name: 'slug', label: 'Slug', type: 'text', placeholder: 'url-friendly-name' },
-  { name: 'excerpt', label: 'Excerpt', type: 'textarea' },
-  { name: 'content', label: 'Content (Markdown)', type: 'richtext', required: true },
-  { name: 'cover_image', label: 'Featured Image (Card)', type: 'image' },
-  { name: 'cover_alt_text', label: 'Featured Image Alt Text', type: 'text', placeholder: 'Describe the image for accessibility & SEO' },
-  { name: 'hero_image', label: 'Hero Banner Image', type: 'image' },
-  { name: 'gallery', label: 'Image Gallery', type: 'image-gallery' },
-  { name: 'category', label: 'Category', type: 'text' },
-  { name: 'tags', label: 'Tags', type: 'tags' },
-  { name: 'reading_time', label: 'Reading Time (min)', type: 'number' },
-  { name: 'featured', label: 'Featured', type: 'boolean' },
-  { name: 'status', label: 'Status', type: 'select', options: ['draft', 'published', 'scheduled', 'archived'] },
-  { name: 'published_date', label: 'Publish Date', type: 'date' },
-];
+const toSnakeCase = (str) => {
+	return str.replace(/([A-Z])/g, '_$1').toLowerCase();
+}
 
-const columns = [
-  { key: 'cover_image', label: 'Cover', type: 'image' },
-  { key: 'title', label: 'Title' },
-  { key: 'category', label: 'Category' },
-  { key: 'featured', label: 'Featured', type: 'boolean', toggleField: 'featured' },
-];
+const getAppParamValue = (paramName, { defaultValue = undefined, removeFromUrl = false } = {}) => {
+	if (isNode) {
+		return defaultValue;
+	}
+	const storageKey = `base44_${toSnakeCase(paramName)}`;
+	const urlParams = new URLSearchParams(window.location.search);
+	const searchParam = urlParams.get(paramName);
+	if (removeFromUrl) {
+		urlParams.delete(paramName);
+		const newUrl = `${window.location.pathname}${urlParams.toString() ? `?${urlParams.toString()}` : ""
+			}${window.location.hash}`;
+		window.history.replaceState({}, document.title, newUrl);
+	}
+	if (searchParam) {
+		storage.setItem(storageKey, searchParam);
+		return searchParam;
+	}
+	if (defaultValue) {
+		storage.setItem(storageKey, defaultValue);
+		return defaultValue;
+	}
+	const storedValue = storage.getItem(storageKey);
+	if (storedValue) {
+		return storedValue;
+	}
+	return null;
+}
 
-export default function AdminBlog() {
-  return (
-    <AdminEntityManager
-      entityName="BlogPost"
-      title="Blog Posts"
-      fields={fields}
-      columns={columns}
-      defaultValues={{ status: 'draft', featured: false, reading_time: 1, tags: [], gallery: [] }}
-      searchKeys={['title', 'excerpt', 'category']}
-      filterField="status"
-    />
-  );
+const getAppParams = () => {
+	if (getAppParamValue("clear_access_token") === 'true') {
+		storage.removeItem('base44_access_token');
+		storage.removeItem('token');
+	}
+	return {
+		appId: getAppParamValue("app_id", { defaultValue: import.meta.env.VITE_BASE44_APP_ID }),
+		token: getAppParamValue("access_token", { removeFromUrl: true }),
+		fromUrl: getAppParamValue("from_url", { defaultValue: window.location.href }),
+		functionsVersion: getAppParamValue("functions_version", { defaultValue: import.meta.env.VITE_BASE44_FUNCTIONS_VERSION }),
+		appBaseUrl: getAppParamValue("app_base_url", { defaultValue: import.meta.env.VITE_BASE44_APP_BASE_URL }),
+	}
+}
+
+
+export const appParams = {
+	...getAppParams()
 }
