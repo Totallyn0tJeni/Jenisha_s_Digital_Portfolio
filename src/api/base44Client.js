@@ -1,4 +1,4 @@
-const isNode = typeof window === 'undefined';
+/* const isNode = typeof window === 'undefined';
 const windowObj = isNode ? { localStorage: new Map() } : window;
 const storage = windowObj.localStorage;
 
@@ -52,3 +52,4 @@ const getAppParams = () => {
 export const appParams = {
 	...getAppParams()
 }
+ */

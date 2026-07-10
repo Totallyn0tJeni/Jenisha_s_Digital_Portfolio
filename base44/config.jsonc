@@ -1,4 +1,4 @@
-{
+/* {
   "name": "New App",
   "site": {
     "installCommand": "npm install",
@@ -6,4 +6,4 @@
     "serveCommand": "npm run dev",
     "outputDirectory": "./dist"
   }
-}
+} */
