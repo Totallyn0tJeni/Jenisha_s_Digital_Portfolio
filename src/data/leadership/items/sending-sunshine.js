@@ -1,0 +1,17 @@
+export default {
+  id: "sending-sunshine",
+  organization: "Chinguacousy Sending Sunshine",
+  position: "Advertising Manager",
+  secondary_positions: [],
+  start_date: "",
+  end_date: "",
+  is_current: false,
+  location: "Chinguacousy Secondary School, 1370 Williams Pkwy E, Brampton, ON",
+  description: "Advertising Manager for a school initiative focused on community care packages and outreach.",
+  responsibilities: [],
+  achievements: [],
+  impact_metrics: [],
+  skills: ["Advertising", "Community Outreach"],
+  icon: "megaphone",
+  order: 8,
+}

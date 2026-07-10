@@ -1,0 +1,17 @@
+export default {
+  id: "brampton-library",
+  organization: "Brampton Library",
+  position: "Program Assistant & Volunteer",
+  secondary_positions: [],
+  start_date: "2023-02-01",
+  end_date: "2023-12-01",
+  is_current: false,
+  location: "Brampton, ON",
+  description: "Led interactive educational programs for children aged 3–12, fostering a fun and engaging learning environment.",
+  responsibilities: ["Supervised and supported children in various activities, answering questions and encouraging participation.", "Represented the library at fairs and community outreach events, promoting literacy, mathematics, and STEAM programs to the public.", "Assisted with library operations, including shelving books and writing insightful book reviews to engage the community."],
+  achievements: ["Provided over 93 hours of service, fostering literacy, creativity, and engagement for young participants."],
+  impact_metrics: ["93+ volunteer hours"],
+  skills: ["Community Outreach", "Program Facilitation"],
+  icon: "book-open",
+  order: 7,
+}

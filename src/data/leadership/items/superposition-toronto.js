@@ -1,0 +1,17 @@
+export default {
+  id: "superposition-toronto",
+  organization: "Superposition Toronto",
+  position: "Director of Communications & Social Media Coordinator",
+  secondary_positions: [],
+  start_date: "2025-06-01",
+  end_date: "2026-05-01",
+  is_current: false,
+  location: "Toronto, ON",
+  description: "Directed communications and social media strategy for Superposition Toronto, an organization promoting gender diversity and accessibility in technology and computer science.",
+  responsibilities: ["Managed and created engaging content across multiple social media platforms, including Instagram, LinkedIn, and other digital channels, to increase community engagement and event participation.", "Designed promotional graphics, announcements, and marketing materials to strengthen the organization's online presence and brand identity.", "Coordinated outreach campaigns to students, schools, sponsors, and community partners to expand awareness of Superposition Toronto programs and events.", "Collaborated with executive team members to plan, market, and execute workshops, networking events, and educational initiatives for students interested in STEM.", "Monitored social media analytics and engagement metrics to evaluate campaign performance and optimize communication strategies, while maintaining consistent branding and messaging across all digital platforms."],
+  achievements: ["Helped grow engagement with gender diversity and accessibility initiatives in tech across Toronto-area students."],
+  impact_metrics: ["300+ engaged students reached through programs and campaigns"],
+  skills: ["Social Media Strategy", "Community Building", "Graphic Design", "Analytics"],
+  icon: "heart-handshake",
+  order: 3,
+}

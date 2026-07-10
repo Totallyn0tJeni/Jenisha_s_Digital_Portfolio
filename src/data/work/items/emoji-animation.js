@@ -1,0 +1,14 @@
+export default {
+  id: "emoji-animation",
+  title: "Emoji Animation",
+  tagline: "An interactive emoji animation with CSS transitions and JavaScript.",
+  description: "An interactive emoji animation built with core web technologies — smooth CSS transitions paired with JavaScript for dynamic behaviour and user interaction, with a focus on responsive, readable code.",
+  content: "Web Development",
+  hero_image: "",
+  tech_stack: ["HTML", "CSS", "JavaScript"],
+  category: "Web",
+  work_type: "software_project",
+  featured: false,
+  date: "",
+  order: 7,
+}

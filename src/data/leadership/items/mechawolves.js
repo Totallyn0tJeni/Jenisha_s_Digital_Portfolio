@@ -1,0 +1,17 @@
+export default {
+  id: "mechawolves",
+  organization: "FIRST Robotics Competition (FRC) Team 3560, Mechawolves",
+  position: "Business Co-Lead & Lead Social Media Manager",
+  secondary_positions: ["2023/24 Business Division Vice-Head", "Competition Scouting Lead", "Outreach & Website Manager", "Lead Photographer", "Member of the Programming, Business & Mechanical Divisions"],
+  start_date: "2022-09-01",
+  end_date: "2026-06-01",
+  is_current: false,
+  location: "Chinguacousy Secondary School, 1370 Williams Pkwy E, Brampton, ON",
+  description: "Contributed extensively across multiple divisions of FIRST Robotics Competition (FRC) Team 3560, combining leadership, technical expertise, and community engagement to support the team's success both on and off the competition field.",
+  responsibilities: ["Oversaw the team's branding, marketing, and digital presence — managing and creating content for the team's social media platforms, increasing engagement and promoting team achievements, outreach initiatives, sponsorships, and competition experiences.", "Collaborated with fellow business team members to develop promotional materials, maintain sponsor relationships, and strengthen the team's public image.", "Coordinated business operations, delegated tasks among team members, mentored newer students, and assisted in planning outreach events, fundraising initiatives, and sponsorship campaigns.", "Organized and managed the collection and analysis of match data during competitions across 175+ matches — developing scouting strategies, coordinating scouting teams, and analyzing performance metrics to inform alliance selection and match strategy decisions.", "Coordinated community outreach initiatives and represented the team at STEM events, workshops, and demonstrations.", "Maintained and updated the team's website, ensuring accurate and engaging content for students, sponsors, and community members while enhancing the team's online presence.", "Documented competitions, outreach events, team meetings, and build season activities, producing high-quality visual content used across social media, promotional materials, sponsor presentations, and team archives."],
+  achievements: ["Award of Achievement, Chinguacousy Robotics Mechawolves Team FRC 3560.", "Team Spirit Award, Chinguacousy Robotics FRC Team 3560 (March 2025).", "Scouting data and analysis directly informed alliance-selection strategy across 175+ matches."],
+  impact_metrics: ["175+ matches scouted and analyzed"],
+  skills: ["Marketing", "Data Analysis", "Photography", "Team Leadership", "Sponsorship Management"],
+  icon: "cpu",
+  order: 2,
+}

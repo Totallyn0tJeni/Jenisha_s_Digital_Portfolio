@@ -1,0 +1,17 @@
+export default {
+  id: "sac-videographer",
+  organization: "Chinguacousy Student Activity Council",
+  position: "Videographer",
+  secondary_positions: [],
+  start_date: "2024-06-01",
+  end_date: "2025-06-01",
+  is_current: false,
+  location: "Chinguacousy Secondary School, 1370 Williams Pkwy E, Brampton, ON",
+  description: "Played a key role in organizing major student events, including Grade 9 Orientation and Semi-Formal, ensuring seamless execution and engagement.",
+  responsibilities: ["Created eye-catching promotional materials, including social media content, presentations, and flyers, which helped boost event awareness and attract around 400 attendees.", "Led a media team, capturing high-quality event photography and videography for promotional and archival purposes.", "Assisted in troubleshooting technical and logistical challenges to ensure smooth event operations."],
+  achievements: ["Helped drive attendance of ~400 people to Semi-Formal through promotional campaign work."],
+  impact_metrics: ["~400 event attendees"],
+  skills: ["Videography", "Event Coordination", "Content Creation"],
+  icon: "video",
+  order: 6,
+}

@@ -1,0 +1,14 @@
+export default {
+  id: "cosmic-translator",
+  title: "Cosmic Translator",
+  tagline: "A Python program that converts user input into a custom \"cosmic\" language.",
+  description: "A Python program that converts user input into a custom \"cosmic\" language using string manipulation, functions, and conditional logic — built with a focus on user interaction and clean, well-structured code.",
+  content: "Grade 12 Computer Science Project",
+  hero_image: "",
+  tech_stack: ["Python"],
+  category: "Python",
+  work_type: "software_project",
+  featured: false,
+  date: "",
+  order: 5,
+}

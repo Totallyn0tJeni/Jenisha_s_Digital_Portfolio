@@ -1,0 +1,17 @@
+export default {
+  id: "brampton-fblc",
+  organization: "Brampton FBLC, JEC & TA",
+  position: "Member of the Board of Directors",
+  secondary_positions: ["Vice Chairwoman (Operations), Founder's Den 2026", "Canadian Youth Changemakers Summit Representative", "Chief Director & Board of Administrators", "Deputy Director of the Marketing Department (Dec. 2025 – Jan. 2026)", "Marketing Officer (Oct. – Dec. 2025)"],
+  start_date: "2024-11-01",
+  end_date: "2026-06-01",
+  is_current: false,
+  location: "Brampton, ON",
+  description: "Served on the Board of Directors, providing strategic leadership, governance, and oversight to support the organization's mission and long-term objectives across Brampton's Future Business Leaders of Canada (FBLC), Junior Economic Club (JEC), and Toastmasters (TA) chapters.",
+  responsibilities: ["As Vice Chairwoman (Operations) for Founders Den 2026, directed operational planning, coordinated executive committees, and ensured the successful execution of entrepreneurship programs, networking events, workshops, and organizational initiatives.", "Led cross-functional teams as Chief Director, supervising department leaders, overseeing project timelines, and implementing operational improvements to enhance organizational efficiency.", "Supported board administration by contributing to policy development, preparing meeting agendas, documenting decisions, and monitoring progress on strategic action items.", "As Deputy Director of Marketing and Marketing Officer, planned and executed integrated marketing campaigns across digital and in-person platforms, created promotional content and branding materials, managed social media engagement, and promoted events to increase community participation and organizational visibility.", "Collaborated with executive leadership, volunteers, sponsors, community partners, and educational institutions to strengthen stakeholder relationships, coordinate outreach initiatives, and secure support for organizational programs.", "Assisted with volunteer recruitment, leadership development, event logistics, resource planning, and performance evaluation by analyzing engagement metrics and recommending improvements."],
+  achievements: ["CNLC 2026 Chapter Awards: 2nd Best Chapter, 2nd Best Performing Chapter, and Best Engagement Award.", "Progressed from Marketing Officer → Deputy Director of Marketing → Chief Director & Board of Administrators → Vice Chairwoman (Operations) in under two years."],
+  impact_metrics: [],
+  skills: ["Board Governance", "Strategic Planning", "Operations", "Team Leadership", "Policy Development"],
+  icon: "users",
+  order: 0,
+}

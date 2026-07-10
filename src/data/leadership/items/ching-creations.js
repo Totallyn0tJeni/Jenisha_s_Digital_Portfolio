@@ -1,0 +1,17 @@
+export default {
+  id: "ching-creations",
+  organization: "Ching Creations",
+  position: "Website Builder",
+  secondary_positions: ["Art Club & Arts SHSM"],
+  start_date: "",
+  end_date: "",
+  is_current: false,
+  location: "Chinguacousy Secondary School, 1370 Williams Pkwy E, Brampton, ON",
+  description: "Built the website for Ching Creations, supporting the school's Art Club and Arts SHSM (Specialist High Skills Major) program.",
+  responsibilities: [],
+  achievements: [],
+  impact_metrics: [],
+  skills: ["Web Development", "Design"],
+  icon: "globe",
+  order: 9,
+}

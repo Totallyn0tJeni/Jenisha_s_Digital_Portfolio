@@ -1,0 +1,17 @@
+export default {
+  id: "chinguacousy-scholars",
+  organization: "Chinguacousy Scholars",
+  position: "Executive Marketing Director",
+  secondary_positions: ["Media Manager (2024/25)"],
+  start_date: "2024-09-01",
+  end_date: "2026-06-01",
+  is_current: false,
+  location: "Chinguacousy Secondary School, 1370 Williams Pkwy E, Brampton, ON",
+  description: "Lead the organization's overall marketing strategy and brand development, overseeing social media presence, promotional campaigns, and community outreach.",
+  responsibilities: ["Design and manage high-impact visual content, plan and execute marketing initiatives for events and programs, and ensure consistent messaging across all platforms.", "Coordinate the marketing team through regular planning meetings, delegate tasks, and collaborate with executive members to align marketing goals with the organization's mission."],
+  achievements: [],
+  impact_metrics: [],
+  skills: ["Marketing Strategy", "Brand Development", "Team Coordination"],
+  icon: "sparkles",
+  order: 4,
+}

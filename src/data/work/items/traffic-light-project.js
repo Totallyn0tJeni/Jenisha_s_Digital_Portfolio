@@ -1,0 +1,14 @@
+export default {
+  id: "traffic-light-project",
+  title: "Traffic Light Project",
+  tagline: "A working traffic light model connecting software directly to hardware.",
+  description: "A working traffic light model combining physical hardware with Python-programmed light sequences, control structures, and timing logic — connecting software directly to hardware to simulate a real-world traffic system.",
+  content: "Computer Engineering · Grade 11 Summative",
+  hero_image: "",
+  tech_stack: ["Python", "Hardware"],
+  category: "Hardware",
+  work_type: "robotics",
+  featured: false,
+  date: "",
+  order: 4,
+}

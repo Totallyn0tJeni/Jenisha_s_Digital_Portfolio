@@ -1,0 +1,16 @@
+export default {
+  id: "zebra-robotics",
+  organization: "Zebra Robotics",
+  role_title: "Marketing & Communications Specialist",
+  type: "Work",
+  start_date: "2026-05-01",
+  end_date: "",
+  is_current: true,
+  location: "Brampton East, 20 Maritime Blvd, Brampton, ON",
+  description: "Develop and execute marketing and communications initiatives promoting STEM, robotics, coding, and educational programs to students and families across the local community.",
+  achievements: ["Create digital content — social posts, promotional graphics, photography, and video — captured live during classes, camps, and special events.", "Produce marketing materials including posters, presentations, and email campaigns supporting student recruitment and retention; analyze engagement data to refine outreach.", "Represent Zebra Robotics at community outreach events and STEM initiatives; support the planning and promotion of workshops, camps, and competitions.", "Mentored younger students during the 2023 and 2024 summer camps, supporting hands-on robotics and coding projects.", "Previously a Program Volunteer (June–Sept 2023 & 2024) before joining as Marketing & Communications Specialist."],
+  skills: ["Marketing", "Content Creation", "STEM Outreach", "Social Media Strategy", "Photography & Videography"],
+  icon: "briefcase",
+  icon_color: "violet",
+  order: 0,
+}

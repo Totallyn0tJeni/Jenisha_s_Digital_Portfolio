@@ -1,0 +1,14 @@
+export default {
+  id: "families-in-canada-research",
+  title: "Families in Canada — Personal Research Project",
+  tagline: "Data-driven research exploring family needs, trends, and challenges across Canada.",
+  description: "A personal research and data analysis project examining Canadian families through socioeconomic trends, housing, education, and cost-of-living insights. The project compiles research findings into a structured, accessible format to better understand real-world family experiences in Canada.",
+  content: "",
+  hero_image: "",
+  tech_stack: [],
+  category: "Research",
+  work_type: "research",
+  featured: false,
+  date: "",
+  order: 9,
+}

@@ -1,0 +1,16 @@
+export default {
+  id: "portfolio-website",
+  title: "Portfolio Website",
+  tagline: "A responsive personal portfolio built with modern web technologies showcasing my work and experience.",
+  description: "A responsive personal portfolio built with modern web technologies showcasing my work and experience.",
+  content: "This portfolio is a living digital headquarters, built as a standalone React application with a modular, easy-to-edit data layer. The design uses a dark-mode-first aesthetic with glassmorphism, animated gradients, and Framer Motion transitions. Built to scale from university through career.",
+  hero_image: "",
+  problem: "Needed a professional digital presence that grows with me from university through my career.",
+  solution: "Built a dynamic personal-brand platform with a modular content layer, animated interactions, and dark-mode-first design — an evolution of an earlier version of this same site.",
+  tech_stack: ["React", "Tailwind CSS", "Framer Motion", "React Router"],
+  category: "Web",
+  work_type: "software_project",
+  featured: false,
+  date: "2026-07-03",
+  order: 1,
+}

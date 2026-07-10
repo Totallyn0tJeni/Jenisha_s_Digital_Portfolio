@@ -1,0 +1,17 @@
+export default {
+  id: "gujarati-student-society",
+  organization: "Chinguacousy Gujarati Student Society",
+  position: "Marketing Director & Social Media Coordinator",
+  secondary_positions: ["Media Manager, predecessor role"],
+  start_date: "2025-06-01",
+  end_date: "2026-06-01",
+  is_current: false,
+  location: "Chinguacousy Secondary School, 1370 Williams Pkwy E, Brampton, ON",
+  description: "Lead the organization's overall marketing strategy and oversee its digital presence across all social media platforms.",
+  responsibilities: ["Plan, design, and manage high-impact visual and written content, ensuring consistent branding and messaging across campaigns and initiatives.", "Analyze engagement metrics to optimize content performance, schedule and execute promotional campaigns, and adapt strategies based on audience insights.", "Coordinate marketing efforts across teams, support event promotion, and guide content planning to drive increased visibility, sustained audience growth, and meaningful community engagement."],
+  achievements: [],
+  impact_metrics: [],
+  skills: ["Marketing Strategy", "Analytics", "Content Planning"],
+  icon: "megaphone",
+  order: 5,
+}

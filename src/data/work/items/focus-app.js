@@ -1,0 +1,16 @@
+export default {
+  id: "focus-app",
+  title: "Focus App",
+  tagline: "A productivity-focused app for task organization and focus sessions.",
+  description: "A productivity-focused app inspired by popular focus and organization tools — task organization, focus sessions, and a clean, distraction-minimizing interface. Built with a responsive React + TypeScript front end and a Node.js backend.",
+  content: "Personal Project",
+  hero_image: "",
+  problem: "Students struggle with focus and time management during study sessions.",
+  solution: "Created a focus timer app with a clean interface that helps users build productive habits over time.",
+  tech_stack: ["React", "TypeScript", "Node.js"],
+  category: "Mobile",
+  work_type: "software_project",
+  featured: false,
+  date: "2026-07-03",
+  order: 3,
+}
