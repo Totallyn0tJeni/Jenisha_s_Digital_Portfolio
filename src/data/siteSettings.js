@@ -91,7 +91,7 @@ export const siteSettings = {
 
     learning:
         "Next.js, AI Agents, System Design"
-  }
+  },
 
   social_links: [
     { platform: 'LinkedIn', url: 'https://www.linkedin.com/in/jenisha-patel18' },
