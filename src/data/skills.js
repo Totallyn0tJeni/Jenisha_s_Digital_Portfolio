@@ -30,6 +30,7 @@ export const skills = [
   // ---- Design ----
   { id: 'skill-figma', name: 'Figma', category: 'Design', icon: 'Figma', order: 0 },
   { id: 'skill-canva', name: 'Canva', category: 'Design', icon: 'Palette', order: 1 },
+  { id: 'skill-photoshop', name: 'Adobe Photoshop', category: 'Design', icon: 'Palette', order: 2 },
   { id: 'skill-ui-ux-design', name: 'UI/UX Design', category: 'Design', icon: 'LayoutTemplate', order: 2 },
   { id: 'skill-graphic-design', name: 'Graphic Design', category: 'Design', icon: 'Palette', order: 3 },
   { id: 'skill-branding', name: 'Branding & Visual Identity', category: 'Design', icon: 'Palette', order: 4 },

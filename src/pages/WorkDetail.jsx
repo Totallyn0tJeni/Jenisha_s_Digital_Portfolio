@@ -1,6 +1,6 @@
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowLeft, ExternalLink, Github, Monitor, FileText, Calendar } from 'lucide-react';
+import { ArrowLeft, ExternalLink, Github, Monitor, FileText, Calendar, ArrowUpRight } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import ImagePlaceholder from '@/components/ImagePlaceholder';
 import EmptyState from '@/components/EmptyState';
@@ -41,6 +41,9 @@ export default function WorkDetail() {
             <span className="px-3 py-1 rounded-full text-xs font-semibold capitalize bg-primary/15 text-primary">
               {(work.work_type || 'work').replace(/_/g, ' ')}
             </span>
+            {work.campaign_type && (
+              <span className="px-3 py-1 rounded-full text-xs font-semibold bg-fuchsia-500/15 text-fuchsia-400">{work.campaign_type}</span>
+            )}
             {work.status && work.status !== 'completed' && (
               <span className="px-3 py-1 rounded-full text-xs font-semibold capitalize bg-amber-500/15 text-amber-500">{work.status}</span>
             )}
@@ -102,6 +105,69 @@ export default function WorkDetail() {
                 <div>
                   <h2 className="font-display font-semibold text-xl text-foreground mb-3">The Solution</h2>
                   <p className="text-muted-foreground leading-relaxed">{work.solution}</p>
+                </div>
+              )}
+
+              {/* Case study sections — only rendered when supported by real content */}
+              {work.challenge && (
+                <div>
+                  <h2 className="font-display font-semibold text-xl text-foreground mb-3">Challenge</h2>
+                  <p className="text-muted-foreground leading-relaxed">{work.challenge}</p>
+                </div>
+              )}
+              {work.goals?.length > 0 && (
+                <div>
+                  <h2 className="font-display font-semibold text-xl text-foreground mb-3">Goals</h2>
+                  <ul className="space-y-2">{work.goals.map((g, i) => <li key={i} className="flex gap-2.5 text-muted-foreground leading-relaxed"><span className="text-primary shrink-0">•</span> {g}</li>)}</ul>
+                </div>
+              )}
+              {work.research && (
+                <div>
+                  <h2 className="font-display font-semibold text-xl text-foreground mb-3">Research</h2>
+                  <p className="text-muted-foreground leading-relaxed">{work.research}</p>
+                </div>
+              )}
+              {work.strategy && (
+                <div>
+                  <h2 className="font-display font-semibold text-xl text-foreground mb-3">Strategy</h2>
+                  <p className="text-muted-foreground leading-relaxed">{work.strategy}</p>
+                </div>
+              )}
+              {(work.design_process || work.execution) && (
+                <div>
+                  <h2 className="font-display font-semibold text-xl text-foreground mb-3">{work.design_process ? 'Design Process' : 'Execution'}</h2>
+                  <p className="text-muted-foreground leading-relaxed">{work.design_process || work.execution}</p>
+                </div>
+              )}
+              {work.results && (
+                <div>
+                  <h2 className="font-display font-semibold text-xl text-foreground mb-3">Results</h2>
+                  <p className="text-muted-foreground leading-relaxed">{work.results}</p>
+                </div>
+              )}
+              {work.reflection && (
+                <div>
+                  <h2 className="font-display font-semibold text-xl text-foreground mb-3">Reflection</h2>
+                  <p className="text-muted-foreground leading-relaxed">{work.reflection}</p>
+                </div>
+              )}
+              {work.lessons_learned && (
+                <div>
+                  <h2 className="font-display font-semibold text-xl text-foreground mb-3">Lessons Learned</h2>
+                  <p className="text-muted-foreground leading-relaxed">{work.lessons_learned}</p>
+                </div>
+              )}
+
+              {work.objectives?.length > 0 && (
+                <div>
+                  <h2 className="font-display font-semibold text-xl text-foreground mb-3">Objectives</h2>
+                  <ul className="space-y-2">{work.objectives.map((o, i) => <li key={i} className="flex gap-2.5 text-muted-foreground leading-relaxed"><span className="text-primary shrink-0">•</span> {o}</li>)}</ul>
+                </div>
+              )}
+              {work.deliverables?.length > 0 && (
+                <div>
+                  <h2 className="font-display font-semibold text-xl text-foreground mb-3">Deliverables</h2>
+                  <ul className="space-y-2">{work.deliverables.map((d, i) => <li key={i} className="flex gap-2.5 text-muted-foreground leading-relaxed"><span className="text-primary shrink-0">✓</span> {d}</li>)}</ul>
                 </div>
               )}
               {work.case_study && (
@@ -174,6 +240,15 @@ export default function WorkDetail() {
 
             {/* Sidebar */}
             <aside className="space-y-6">
+              {work.related_experience_id && (
+                <Link to={`/experience/${work.related_experience_id}`} className="glass-card p-5 flex items-center justify-between gap-3 hover:border-primary/30 transition-premium group">
+                  <div>
+                    <h3 className="text-sm font-semibold text-foreground">Related Experience</h3>
+                    <p className="text-xs text-muted-foreground mt-1">{work.role} · {work.organization}</p>
+                  </div>
+                  <ArrowUpRight className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-premium shrink-0" />
+                </Link>
+              )}
               {work.tech_stack && work.tech_stack.length > 0 && (
                 <div className="glass-card p-5">
                   <h3 className="text-sm font-semibold text-foreground mb-3">Tools & Technologies</h3>

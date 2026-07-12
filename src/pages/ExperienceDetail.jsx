@@ -1,9 +1,10 @@
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowLeft, Briefcase, Calendar } from 'lucide-react';
+import { ArrowLeft, Briefcase, Calendar, ArrowUpRight } from 'lucide-react';
 import EmptyState from '@/components/EmptyState';
 import { getRoleById } from '@/data/experienceRoles';
 import { getTimelineEventIdForRole, getTimelineEventById } from '@/data/timelineEvents';
+import { work } from '@/data/work';
 
 const formatDate = (dateStr) => dateStr ? new Date(dateStr).toLocaleDateString('en-US', { year: 'numeric', month: 'short' }) : '';
 
@@ -13,6 +14,7 @@ export default function ExperienceDetail() {
   const role = getRoleById(id);
   const timelineEventId = role ? getTimelineEventIdForRole(role.source, role.id) : null;
   const hasTimelineEntry = timelineEventId && !!getTimelineEventById(timelineEventId);
+  const relatedCampaigns = role ? work.filter((w) => w.related_experience_id === role.id) : [];
 
   if (!role) {
     return (
@@ -121,6 +123,19 @@ export default function ExperienceDetail() {
             </div>
 
             <aside className="space-y-6">
+              {relatedCampaigns.length > 0 && (
+                <div className="glass-card p-5">
+                  <h3 className="text-sm font-semibold text-foreground mb-3">Related Marketing Campaigns</h3>
+                  <div className="space-y-2">
+                    {relatedCampaigns.map((c) => (
+                      <Link key={c.id} to={`/work/${c.slug || c.id}`} className="flex items-center justify-between gap-2 text-sm text-muted-foreground hover:text-primary transition-premium group">
+                        <span>{c.title}</span>
+                        <ArrowUpRight className="w-3.5 h-3.5 shrink-0 opacity-60 group-hover:opacity-100" />
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              )}
               {role.impact_metrics?.length > 0 && (
                 <div className="glass-card p-5">
                   <h3 className="text-sm font-semibold text-foreground mb-3">Impact</h3>
