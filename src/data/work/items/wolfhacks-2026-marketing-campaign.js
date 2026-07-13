@@ -39,7 +39,6 @@ export default {
   ],
   related_experience_id: "stac-wolfhacks",
 
-  hero_image: "/images/marketing/wolfhacks-2026/poster-main.jpg",
   tech_stack: ["Canva", "Instagram", "Google Workspace", "Webflow", "Figma", "Photoshop", "Email Outreach Tools"],
   tags: ["WolfHacks", "marketing", "branding", "social media", "PR", "hackathon", "STEM", "event management", "outreach", "leadership"],
   location: "Brampton, Ontario, Canada",
@@ -51,23 +50,6 @@ export default {
   role: "Director of Marketing & Public Relations (PR)",
   organization: "Chinguacousy SciTech Activity Committee (STAC)",
   status: "completed",
-  gallery: [
-    "/images/marketing/wolfhacks-2026/mission-brief.jpg",
-    "/images/marketing/wolfhacks-2026/social-01-cover.jpg",
-    "/images/marketing/wolfhacks-2026/social-02-team-faq.jpg",
-    "/images/marketing/wolfhacks-2026/social-03-tiktok-promo.jpg",
-    "/images/marketing/wolfhacks-2026/social-04-organizing-committee.jpg",
-    "/images/marketing/wolfhacks-2026/social-05-sponsor-spotlight-stemcanada.jpg",
-    "/images/marketing/wolfhacks-2026/social-06-sponsor-peel-board.jpg",
-    "/images/marketing/wolfhacks-2026/mentor-judge-recruitment.jpg",
-  ],
-  galleries: {
-    sponsor_recognition: [
-      "/images/marketing/wolfhacks-2026/sponsor-liuna-183.jpg",
-      "/images/marketing/wolfhacks-2026/sponsor-stem-canada.jpg",
-      "/images/marketing/wolfhacks-2026/sponsor-unicare.jpg",
-    ],
-  },
   videos: [],
   youtube_urls: [],
   pdfs: [],

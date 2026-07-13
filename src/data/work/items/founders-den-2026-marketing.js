@@ -37,7 +37,6 @@ export default {
   ],
   related_experience_id: "brampton-fblc",
 
-  hero_image: "/images/marketing/founders-den-2026/branding-cover.jpg",
   tech_stack: ["Canva", "Photoshop", "Google Workspace", "Instagram"],
   tags: ["Founder's Den", "marketing", "branding", "event operations", "entrepreneurship", "competition", "signage", "leadership"],
   location: "Brampton, Ontario, Canada",
@@ -49,22 +48,6 @@ export default {
   role: "Vice Chairwoman (Operations) & Chief Director",
   organization: "Brampton FBLC, JEC & TA",
   status: "completed",
-  gallery: [
-    "/images/marketing/founders-den-2026/info-package-cover.jpg",
-    "/images/marketing/founders-den-2026/info-package-overview.jpg",
-    "/images/marketing/founders-den-2026/schedule-cover.jpg",
-    "/images/marketing/founders-den-2026/schedule-finals.jpg",
-    "/images/marketing/founders-den-2026/preliminaries-slide.jpg",
-    "/images/marketing/founders-den-2026/social-run-a-business-club.jpg",
-    "/images/marketing/founders-den-2026/social-staff-applications.jpg",
-    "/images/marketing/founders-den-2026/social-countdown-preliminaries.jpg",
-  ],
-  galleries: {
-    venue_signage: [
-      "/images/marketing/founders-den-2026/signage-staff-office.jpg",
-      "/images/marketing/founders-den-2026/signage-judge-office.jpg",
-    ],
-  },
   videos: [],
   youtube_urls: [],
   pdfs: [],

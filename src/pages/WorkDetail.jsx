@@ -6,6 +6,7 @@ import ImagePlaceholder from '@/components/ImagePlaceholder';
 import EmptyState from '@/components/EmptyState';
 import { getWorkById } from '@/data/work';
 import { getTimelineEventIdForWork, getTimelineEventById } from '@/data/timelineEvents';
+import { getAssetsByCampaign, getSubcampaigns, getCampaignHeroImage } from '@/data/marketingIndex';
 
 const linkIcons = { github: Github, demo: ExternalLink, slides: Monitor, documentation: FileText, external: ExternalLink };
 
@@ -13,6 +14,10 @@ export default function WorkDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
   const work = getWorkById(id);
+  const isCampaign = work?.work_type === 'marketing_campaign';
+  const campaignAssets = isCampaign ? getAssetsByCampaign(work.id) : [];
+  const subcampaigns = isCampaign ? getSubcampaigns(work.id) : [];
+  const heroImage = work?.hero_image || (isCampaign ? getCampaignHeroImage(work.id) : '');
   const timelineEventId = work ? getTimelineEventIdForWork(work.slug || work.id) : null;
   const hasTimelineEntry = timelineEventId && !!getTimelineEventById(timelineEventId);
 
@@ -79,8 +84,8 @@ export default function WorkDetail() {
 
           {/* Hero Image */}
           <div className="rounded-2xl overflow-hidden glass-card mb-12">
-            {work.hero_image ? (
-              <img src={work.hero_image} alt={work.title} className="w-full object-cover" />
+            {heroImage ? (
+              <img src={heroImage} alt={work.title} className="w-full object-cover" />
             ) : (
               <ImagePlaceholder label="Portfolio Media Coming Soon" aspect="wide" />
             )}
@@ -297,33 +302,46 @@ export default function WorkDetail() {
             </aside>
           </div>
 
-          {/* Gallery */}
-          {work.gallery && work.gallery.length > 0 && (
-            <div className="mt-12">
-              <h2 className="font-display font-semibold text-xl text-foreground mb-5">Gallery</h2>
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-                {work.gallery.map((img, i) => (
-                  <div key={i} className="aspect-square rounded-xl overflow-hidden glass-card">
-                    <img src={img} alt="" className="w-full h-full object-cover" />
+          {/* Gallery — sourced from the Assets collection, grouped by sub-campaign */}
+          {isCampaign && campaignAssets.length > 0 ? (
+            <div className="mt-12 space-y-10">
+              {subcampaigns.map((sub) => {
+                const subAssets = campaignAssets.filter((a) => a.collection === sub);
+                if (subAssets.length === 0) return null;
+                return (
+                  <div key={sub}>
+                    <div className="flex items-center justify-between mb-5">
+                      <h2 className="font-display font-semibold text-xl text-foreground">{sub}</h2>
+                      <span className="text-xs font-mono text-muted-foreground">{subAssets.length} asset{subAssets.length > 1 ? 's' : ''}</span>
+                    </div>
+                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                      {subAssets.map((asset) => (
+                        <div key={asset.id} className="group">
+                          <div className="aspect-square rounded-xl overflow-hidden glass-card">
+                            <img src={asset.preview_path} alt={asset.alt_text} loading="lazy" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                          </div>
+                          <p className="text-xs text-muted-foreground mt-1.5 truncate">{asset.title}</p>
+                        </div>
+                      ))}
+                    </div>
                   </div>
-                ))}
-              </div>
+                );
+              })}
             </div>
+          ) : (
+            work.gallery && work.gallery.length > 0 && (
+              <div className="mt-12">
+                <h2 className="font-display font-semibold text-xl text-foreground mb-5">Gallery</h2>
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                  {work.gallery.map((img, i) => (
+                    <div key={i} className="aspect-square rounded-xl overflow-hidden glass-card">
+                      <img src={img} alt="" className="w-full h-full object-cover" />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )
           )}
-
-          {/* Additional named galleries */}
-          {work.galleries && Object.entries(work.galleries).filter(([, imgs]) => imgs?.length > 0).map(([name, imgs]) => (
-            <div key={name} className="mt-12">
-              <h2 className="font-display font-semibold text-xl text-foreground mb-5 capitalize">{name.replace(/_/g, ' ')}</h2>
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-                {imgs.map((img, i) => (
-                  <div key={i} className="aspect-square rounded-xl overflow-hidden glass-card">
-                    <img src={img} alt="" className="w-full h-full object-cover" />
-                  </div>
-                ))}
-              </div>
-            </div>
-          ))}
         </div>
       </article>
     </motion.div>

@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowUpRight, Briefcase } from 'lucide-react';
+import { getCampaignHeroImage } from '@/data/marketingIndex';
 
 const typeColors = {
   software_project: 'bg-violet-500/15 text-violet-400',
@@ -38,6 +39,7 @@ export default function WorkCard({ work, index = 0 }) {
   const typeColor = typeColors[work.work_type] || typeColors.other;
   const typeLabel = typeLabels[work.work_type] || 'Work';
   const link = `/work/${work.slug || work.id}`;
+  const heroImage = work.hero_image || (work.work_type === 'marketing_campaign' ? getCampaignHeroImage(work.id) : '');
 
   return (
     <motion.div
@@ -48,9 +50,9 @@ export default function WorkCard({ work, index = 0 }) {
     >
       <Link to={link} className="block glass-card overflow-hidden h-full group">
         <div className="aspect-video bg-gradient-soft relative overflow-hidden">
-          {work.hero_image ? (
+          {heroImage ? (
             <img
-              src={work.hero_image}
+              src={heroImage}
               alt={work.title}
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
             />

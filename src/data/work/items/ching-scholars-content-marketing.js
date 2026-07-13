@@ -22,7 +22,6 @@ export default {
   ],
   related_experience_id: "chinguacousy-scholars",
 
-  hero_image: "/images/marketing/ching-scholars/welcome-post.jpg",
   tech_stack: ["Canva", "Instagram"],
   tags: ["Chinguacousy Scholars", "content marketing", "education", "social media", "branding"],
   location: "Brampton, Ontario, Canada",
@@ -34,11 +33,6 @@ export default {
   role: "Executive Marketing Director",
   organization: "Chinguacousy Scholars",
   status: "ongoing",
-  gallery: [
-    "/images/marketing/ching-scholars/tip-ask-for-guidance.jpg",
-    "/images/marketing/ching-scholars/we-are-back-post.jpg",
-  ],
-  galleries: {},
   videos: [],
   youtube_urls: [],
   pdfs: [],

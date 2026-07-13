@@ -6,9 +6,21 @@ import SectionHeading from '@/components/SectionHeading';
 import ImagePlaceholder from '@/components/ImagePlaceholder';
 import { photos as photosData } from '@/data/photos';
 import { photographySettings as ps } from '@/data/photographySettings';
+import { assets } from '@/data/assets';
+
+// Photos captured as part of a marketing campaign (event/behind-the-scenes shots
+// tagged category: 'Photography' on their Asset record) show up here too — same
+// underlying record as on the Marketing page, not a separate copy.
+const campaignPhotos = assets
+  .filter((a) => a.category?.includes('Photography'))
+  .map((a) => ({
+    id: a.id, title: a.title, category: a.collection || 'Campaign Photography',
+    image_url: a.web_path, alt_text: a.alt_text, caption: `${a.organization}${a.campaign ? ` · ${a.campaign}` : ''}`,
+    order: 999,
+  }));
 
 export default function Photography() {
-  const photos = photosData;
+  const photos = [...photosData, ...campaignPhotos];
   const [filter, setFilter] = useState('All');
   const [lightbox, setLightbox] = useState(null);
   const [openFaq, setOpenFaq] = useState(null);

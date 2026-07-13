@@ -12,6 +12,7 @@ import { organizations } from '@/data/organizations';
 import { awards } from '@/data/awards';
 import { timeline } from '@/data/timeline';
 import { ugc } from '@/data/ugc';
+import { assets } from '@/data/assets';
 
 export default function Search() {
   const { main, explore } = useNavigation();
@@ -25,6 +26,8 @@ export default function Search() {
 
     return [
       ...work.filter((w) => match(w.title) || match(w.tagline) || match(w.description)).map((w) => ({ type: 'Work', label: w.title, subtitle: w.work_type?.replace(/_/g, ' '), path: `/work/${w.slug || w.id}` })),
+      ...assets.filter((a) => match(a.title) || match(a.organization) || match(a.collection) || (a.tags || []).some(match) || (a.software || []).some(match))
+        .map((a) => ({ type: 'Asset', label: a.title, subtitle: `${a.organization} · ${a.collection}`, path: a.campaign ? `/work/${a.campaign}` : '/marketing' })),
       ...blogPosts.filter((b) => match(b.title) || match(b.excerpt)).map((b) => ({ type: 'Blog', label: b.title, subtitle: b.category, path: `/blog/${b.id}` })),
       ...photos.filter((p) => match(p.title) || match(p.category)).map((p) => ({ type: 'Photo', label: p.title || p.category, subtitle: p.category, path: '/photography' })),
       ...leadership.filter((l) => match(l.organization) || match(l.position)).map((l) => ({ type: 'Leadership', label: l.position, subtitle: l.organization, path: '/experience' })),
