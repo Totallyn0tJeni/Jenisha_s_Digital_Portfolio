@@ -10,6 +10,7 @@ import About from './pages/About';
 import Work from './pages/Work';
 import WorkDetail from './pages/WorkDetail';
 import Marketing from './pages/Marketing';
+import AssetGroupDetail from './pages/AssetGroupDetail';
 import Blog from './pages/Blog';
 import BlogDetail from './pages/BlogDetail';
 import Photography from './pages/Photography';
@@ -46,6 +47,7 @@ function App() {
             <Route path="/work" element={<Work />} />
             <Route path="/work/:id" element={<WorkDetail />} />
             <Route path="/marketing" element={<Marketing />} />
+            <Route path="/marketing/:id" element={<AssetGroupDetail />} />
             <Route path="/blog" element={<Blog />} />
             <Route path="/blog/:id" element={<BlogDetail />} />
             <Route path="/photography" element={<Photography />} />

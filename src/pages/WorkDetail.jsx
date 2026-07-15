@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowLeft, ExternalLink, Github, Monitor, FileText, Calendar, ArrowUpRight } from 'lucide-react';
@@ -7,6 +8,8 @@ import EmptyState from '@/components/EmptyState';
 import { getWorkById } from '@/data/work';
 import { getTimelineEventIdForWork, getTimelineEventById } from '@/data/timelineEvents';
 import { getAssetsByCampaign, getSubcampaigns, getCampaignHeroImage } from '@/data/marketingIndex';
+import { getAssetGroups } from '@/data/assetGroups';
+import AssetGroupCard from '@/components/cards/AssetGroupCard';
 
 const linkIcons = { github: Github, demo: ExternalLink, slides: Monitor, documentation: FileText, external: ExternalLink };
 
@@ -308,24 +311,7 @@ export default function WorkDetail() {
               {subcampaigns.map((sub) => {
                 const subAssets = campaignAssets.filter((a) => a.collection === sub);
                 if (subAssets.length === 0) return null;
-                return (
-                  <div key={sub}>
-                    <div className="flex items-center justify-between mb-5">
-                      <h2 className="font-display font-semibold text-xl text-foreground">{sub}</h2>
-                      <span className="text-xs font-mono text-muted-foreground">{subAssets.length} asset{subAssets.length > 1 ? 's' : ''}</span>
-                    </div>
-                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-                      {subAssets.map((asset) => (
-                        <div key={asset.id} className="group">
-                          <div className="aspect-square rounded-xl overflow-hidden glass-card">
-                            <img src={asset.preview_path} alt={asset.alt_text} loading="lazy" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                          </div>
-                          <p className="text-xs text-muted-foreground mt-1.5 truncate">{asset.title}</p>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                );
+                return <SubcampaignGallery key={sub} title={sub} assets={subAssets} />;
               })}
             </div>
           ) : (
@@ -345,5 +331,33 @@ export default function WorkDetail() {
         </div>
       </article>
     </motion.div>
+  );
+}
+
+const PAGE_SIZE = 12;
+
+function SubcampaignGallery({ title, assets }) {
+  const [visible, setVisible] = useState(PAGE_SIZE);
+  const groups = getAssetGroups((a) => assets.some((x) => x.id === a.id));
+  const shown = groups.slice(0, visible);
+
+  return (
+    <div>
+      <div className="flex items-center justify-between mb-5">
+        <h2 className="font-display font-semibold text-xl text-foreground">{title}</h2>
+        <span className="text-xs font-mono text-muted-foreground">{groups.length} post{groups.length > 1 ? 's' : ''} · {assets.length} image{assets.length > 1 ? 's' : ''}</span>
+      </div>
+      <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+        {shown.map((group, i) => <AssetGroupCard key={group.id} group={group} index={i} />)}
+      </div>
+      {visible < groups.length && (
+        <button
+          onClick={() => setVisible((v) => v + PAGE_SIZE)}
+          className="mt-5 px-5 py-2 rounded-full text-sm font-medium glass text-foreground hover:border-primary/30 transition-premium"
+        >
+          Show {Math.min(PAGE_SIZE, groups.length - visible)} more ({groups.length - visible} remaining)
+        </button>
+      )}
+    </div>
   );
 }

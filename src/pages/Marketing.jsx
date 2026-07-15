@@ -1,27 +1,33 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import SectionHeading from '@/components/SectionHeading';
 import WorkCard from '@/components/cards/WorkCard';
+import AssetGroupCard from '@/components/cards/AssetGroupCard';
 import {
   campaigns, getFeaturedCampaigns, getOrganizations, getCategories, getPortfolioStats,
 } from '@/data/marketingIndex';
-import { assets } from '@/data/assets';
+import { getAssetGroups } from '@/data/assetGroups';
 
 const featuredCampaigns = getFeaturedCampaigns();
 const organizations = getOrganizations();
 const categories = getCategories();
 const stats = getPortfolioStats();
+const allGroups = getAssetGroups();
 
 export default function Marketing() {
   const [orgFilter, setOrgFilter] = useState('All');
   const [categoryFilter, setCategoryFilter] = useState('All');
+  const [visibleCount, setVisibleCount] = useState(24);
 
   const orgFilteredCampaigns = orgFilter === 'All' ? campaigns : campaigns.filter((c) => c.organization === orgFilter);
-  const filteredAssets = assets.filter((a) => {
-    const orgMatch = orgFilter === 'All' || a.organization === orgFilter;
-    const catMatch = categoryFilter === 'All' || a.category?.includes(categoryFilter);
+  const filteredGroups = allGroups.filter((g) => {
+    const orgMatch = orgFilter === 'All' || g.organization === orgFilter;
+    const catMatch = categoryFilter === 'All' || g.assets.some((a) => a.category?.includes(categoryFilter));
     return orgMatch && catMatch;
   });
+  const visibleGroups = filteredGroups.slice(0, visibleCount);
+
+  useEffect(() => { setVisibleCount(24); }, [orgFilter, categoryFilter]);
 
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>
@@ -82,15 +88,15 @@ export default function Marketing() {
               {orgFilteredCampaigns.map((c, i) => <WorkCard key={c.id} work={c} index={i} />)}
             </div>
           ) : (
-            <p className="text-sm text-muted-foreground">No full campaign write-up for {orgFilter} yet — see the assets below.</p>
+            <p className="text-sm text-muted-foreground">No full campaign write-up for {orgFilter} yet — see the posts below.</p>
           )}
         </div>
       </section>
 
-      {/* Asset library — filterable by category, respects the organization filter above */}
+      {/* Post library — grouped deliverables, filterable by category, respects the organization filter above */}
       <section className="px-4 md:px-8 pb-20 border-t border-border/50 pt-16">
         <div className="max-w-6xl mx-auto">
-          <SectionHeading eyebrow="Asset Library" title="Every piece, organized" align="left" />
+          <SectionHeading eyebrow="Post Library" title="Every deliverable, organized" align="left" />
           <div className="flex flex-wrap gap-2 mt-6 mb-2">
             {['All', ...categories.map((c) => c.category)].map((cat) => (
               <button key={cat} onClick={() => setCategoryFilter(cat)} className={`px-4 py-1.5 rounded-full text-sm font-medium transition-premium ${categoryFilter === cat ? 'bg-primary text-primary-foreground' : 'glass text-muted-foreground hover:text-foreground'}`}>
@@ -99,22 +105,25 @@ export default function Marketing() {
             ))}
           </div>
 
-          {filteredAssets.length > 0 ? (
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 mt-6">
-              {filteredAssets.map((asset, i) => (
-                <motion.div key={asset.id} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: (i % 12) * 0.03 }} className="glass-card overflow-hidden group">
-                  <div className="aspect-square">
-                    <img src={asset.thumbnail_path} alt={asset.alt_text} loading="lazy" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                  </div>
-                  <div className="p-3">
-                    <p className="text-sm text-foreground font-medium truncate">{asset.title}</p>
-                    <p className="text-xs text-muted-foreground mt-0.5 truncate">{[asset.organization, asset.collection].filter(Boolean).join(' · ')}</p>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
+          {filteredGroups.length > 0 ? (
+            <>
+              <p className="text-xs text-muted-foreground mb-3">Showing {visibleGroups.length} of {filteredGroups.length} posts ({stats.totalAssets} total images)</p>
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+                {visibleGroups.map((group, i) => <AssetGroupCard key={group.id} group={group} index={i} />)}
+              </div>
+              {visibleCount < filteredGroups.length && (
+                <div className="flex justify-center mt-8">
+                  <button
+                    onClick={() => setVisibleCount((v) => v + 24)}
+                    className="px-6 py-2.5 rounded-full text-sm font-semibold glass text-foreground hover:border-primary/30 transition-premium"
+                  >
+                    Load More ({filteredGroups.length - visibleCount} remaining)
+                  </button>
+                </div>
+              )}
+            </>
           ) : (
-            <p className="text-sm text-muted-foreground mt-6">No assets match this filter.</p>
+            <p className="text-sm text-muted-foreground mt-6">No posts match this filter.</p>
           )}
         </div>
       </section>
