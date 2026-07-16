@@ -18,6 +18,7 @@ import Experience from './pages/Experience';
 import ExperienceDetail from './pages/ExperienceDetail';
 import Leadership from './pages/Leadership';
 import Organizations from './pages/Organizations';
+import OrganizationDetail from './pages/OrganizationDetail';
 import Volunteer from './pages/Volunteer';
 import Speaking from './pages/Speaking';
 import Awards from './pages/Awards';
@@ -55,6 +56,7 @@ function App() {
             <Route path="/experience/:id" element={<ExperienceDetail />} />
             <Route path="/leadership" element={<Leadership />} />
             <Route path="/organizations" element={<Organizations />} />
+            <Route path="/organizations/:id" element={<OrganizationDetail />} />
             <Route path="/volunteer" element={<Volunteer />} />
             <Route path="/speaking" element={<Speaking />} />
             <Route path="/awards" element={<Awards />} />

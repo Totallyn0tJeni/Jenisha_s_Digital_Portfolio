@@ -105,5 +105,7 @@ export const getTimelineEventById = (id) => timelineEvents.find((e) => e.id === 
 /** Stable id helpers so detail pages can link to their own timeline entry without hardcoding the format. */
 export const getTimelineEventIdForRole = (source, roleId) => `${source}-${roleId}-start`;
 export const getTimelineEventIdForWork = (workId) => `work-${workId}`;
+export const getTimelineEventIdForAward = (awardId) => `award-${awardId}`;
+export const getTimelineEventIdForCertification = (certId) => `cert-${certId}`;
 
 export default timelineEvents;

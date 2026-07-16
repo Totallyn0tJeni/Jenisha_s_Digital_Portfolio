@@ -1,12 +1,19 @@
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowLeft, Briefcase, Calendar, ArrowUpRight } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Briefcase, Calendar, ArrowUpRight } from 'lucide-react';
 import EmptyState from '@/components/EmptyState';
-import { getRoleById } from '@/data/experienceRoles';
+import OrganizationLink from '@/components/OrganizationLink';
+import RelatedContentSection from '@/components/RelatedContentSection';
+import { getRoleById, allRoles } from '@/data/experienceRoles';
 import { getTimelineEventIdForRole, getTimelineEventById } from '@/data/timelineEvents';
+import { resolvePrimaryOrganization } from '@/data/organizations/resolve';
 import { work } from '@/data/work';
+import { formatMonthYear, sortByRecency } from '@/lib/dateUtils';
 
-const formatDate = (dateStr) => dateStr ? new Date(dateStr).toLocaleDateString('en-US', { year: 'numeric', month: 'short' }) : '';
+const formatDate = formatMonthYear;
+
+// Roles ordered newest-first (current roles lead), shared by both collections — used for Previous/Next navigation.
+const orderedRoles = sortByRecency(allRoles);
 
 export default function ExperienceDetail() {
   const { id } = useParams();
@@ -15,6 +22,12 @@ export default function ExperienceDetail() {
   const timelineEventId = role ? getTimelineEventIdForRole(role.source, role.id) : null;
   const hasTimelineEntry = timelineEventId && !!getTimelineEventById(timelineEventId);
   const relatedCampaigns = role ? work.filter((w) => w.related_experience_id === role.id) : [];
+  const org = role ? resolvePrimaryOrganization(role.organization) : null;
+
+  const roleIndex = role ? orderedRoles.findIndex((r) => r.id === role.id) : -1;
+  // orderedRoles is newest-first, so "Previous Role" (chronologically earlier) is the next index.
+  const previousRole = roleIndex >= 0 ? orderedRoles[roleIndex + 1] : null;
+  const nextRole = roleIndex > 0 ? orderedRoles[roleIndex - 1] : null;
 
   if (!role) {
     return (
@@ -28,14 +41,21 @@ export default function ExperienceDetail() {
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>
       <article className="px-4 md:px-8 pt-12 pb-20">
         <div className="max-w-4xl mx-auto">
-          <Link to="/experience" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-premium mb-8">
-            <ArrowLeft className="w-4 h-4" /> Back to Experience
-          </Link>
-          {hasTimelineEntry && (
-            <Link to={`/timeline?highlight=${timelineEventId}`} className="inline-flex items-center gap-2 text-sm text-primary hover:text-primary/80 transition-premium mb-8 ml-4">
-              <Calendar className="w-4 h-4" /> View in Timeline
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-2 mb-8">
+            <Link to="/experience" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-premium">
+              <ArrowLeft className="w-4 h-4" /> Back to Experience
             </Link>
-          )}
+            {hasTimelineEntry && (
+              <Link to={`/timeline?highlight=${timelineEventId}`} className="inline-flex items-center gap-2 text-sm text-primary hover:text-primary/80 transition-premium">
+                <Calendar className="w-4 h-4" /> View in Timeline
+              </Link>
+            )}
+            {org && (
+              <Link to={`/organizations/${org.id}`} className="inline-flex items-center gap-2 text-sm text-primary hover:text-primary/80 transition-premium">
+                View Organization
+              </Link>
+            )}
+          </div>
 
           <div className="flex items-center gap-3 mb-4 flex-wrap">
             <span className="px-3 py-1 rounded-full text-xs font-semibold capitalize bg-primary/15 text-primary">
@@ -49,7 +69,7 @@ export default function ExperienceDetail() {
           </div>
 
           <h1 className="font-display font-bold text-4xl md:text-6xl text-foreground leading-tight mb-3">{role.title}</h1>
-          <p className="text-xl text-primary font-medium mb-2">{role.organization}</p>
+          <OrganizationLink organization={role.organization} className="text-xl text-primary font-medium mb-2 inline-block" />
           {role.location && <p className="text-sm text-muted-foreground mb-8">{role.location}</p>}
 
           {role.secondary_positions?.length > 0 && (
@@ -155,6 +175,31 @@ export default function ExperienceDetail() {
                 </div>
               )}
             </aside>
+          </div>
+
+          <div className="mt-16 pt-10 border-t border-border">
+            <RelatedContentSection typeKey={role.source} id={role.id} />
+          </div>
+
+          <div className="mt-16 pt-8 border-t border-border grid sm:grid-cols-2 gap-4">
+            {previousRole ? (
+              <Link to={`/experience/${previousRole.id}`} className="glass-card p-5 flex items-center gap-3 hover:border-primary/30 transition-premium group">
+                <ArrowLeft className="w-4 h-4 shrink-0 text-muted-foreground group-hover:text-primary transition-premium" />
+                <div className="min-w-0">
+                  <p className="text-xs text-muted-foreground mb-0.5">Previous Role</p>
+                  <p className="text-sm font-medium text-foreground truncate">{previousRole.title} — {previousRole.organization}</p>
+                </div>
+              </Link>
+            ) : <div />}
+            {nextRole ? (
+              <Link to={`/experience/${nextRole.id}`} className="glass-card p-5 flex items-center justify-end gap-3 text-right hover:border-primary/30 transition-premium group">
+                <div className="min-w-0">
+                  <p className="text-xs text-muted-foreground mb-0.5">Next Role</p>
+                  <p className="text-sm font-medium text-foreground truncate">{nextRole.title} — {nextRole.organization}</p>
+                </div>
+                <ArrowRight className="w-4 h-4 shrink-0 text-muted-foreground group-hover:text-primary transition-premium" />
+              </Link>
+            ) : <div />}
           </div>
         </div>
       </article>
