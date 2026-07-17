@@ -14,6 +14,25 @@ const categories = getCategories();
 const stats = getPortfolioStats();
 const allGroups = getAssetGroups();
 
+// Groups the Post Library category chips into labeled sections. Any category present in the
+// data but not listed here (e.g. a brand-new category from future content) automatically falls
+// into "Other" rather than being dropped, so every category always has a clickable chip.
+const CATEGORY_GROUPS = [
+  { title: 'Social & Content', categories: ['Social Media', 'Instagram Posts', 'Event Media', 'Behind the Scenes'] },
+  { title: 'Marketing & Promotion', categories: ['Posters', 'Flyers', 'Recruitment', 'Sponsor Recognition', 'Banners'] },
+  { title: 'Brand & Design', categories: ['Branding', 'Templates', 'Resources', 'Web Graphics', 'Digital Signage'] },
+  { title: 'Events & Photography', categories: ['Photography', 'Event Photography', 'Event Graphics'] },
+  { title: 'Print & Publications', categories: ['Print', 'Infographics'] },
+  { title: 'Other', categories: ['Uncategorized'] },
+];
+const groupedCategoryNames = new Set(CATEGORY_GROUPS.flatMap((g) => g.categories));
+const categoryNames = categories.map((c) => c.category);
+const leftoverCategories = categoryNames.filter((c) => !groupedCategoryNames.has(c));
+const categorySections = CATEGORY_GROUPS
+  .map((g) => ({ title: g.title, categories: g.categories.filter((c) => categoryNames.includes(c)) }))
+  .map((g) => (g.title === 'Other' ? { ...g, categories: [...g.categories, ...leftoverCategories] } : g))
+  .filter((g) => g.categories.length > 0);
+
 export default function Marketing() {
   const [orgFilter, setOrgFilter] = useState('All');
   const [categoryFilter, setCategoryFilter] = useState('All');
@@ -97,11 +116,23 @@ export default function Marketing() {
       <section className="px-4 md:px-8 pb-20 border-t border-border/50 pt-16">
         <div className="max-w-6xl mx-auto">
           <SectionHeading eyebrow="Post Library" title="Every deliverable, organized" align="left" />
-          <div className="flex flex-wrap gap-2 mt-6 mb-2">
-            {['All', ...categories.map((c) => c.category)].map((cat) => (
-              <button key={cat} onClick={() => setCategoryFilter(cat)} className={`px-4 py-1.5 rounded-full text-sm font-medium transition-premium ${categoryFilter === cat ? 'bg-primary text-primary-foreground' : 'glass text-muted-foreground hover:text-foreground'}`}>
-                {cat}
+          <div className="mt-6 mb-2 space-y-4">
+            <div className="flex flex-wrap gap-2">
+              <button onClick={() => setCategoryFilter('All')} className={`px-4 py-1.5 rounded-full text-sm font-medium transition-premium ${categoryFilter === 'All' ? 'bg-primary text-primary-foreground' : 'glass text-muted-foreground hover:text-foreground'}`}>
+                All
               </button>
+            </div>
+            {categorySections.map((section) => (
+              <div key={section.title}>
+                <h3 className="text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground mb-2">{section.title}</h3>
+                <div className="flex flex-wrap gap-2">
+                  {section.categories.map((cat) => (
+                    <button key={cat} onClick={() => setCategoryFilter(cat)} className={`px-4 py-1.5 rounded-full text-sm font-medium transition-premium ${categoryFilter === cat ? 'bg-primary text-primary-foreground' : 'glass text-muted-foreground hover:text-foreground'}`}>
+                      {cat}
+                    </button>
+                  ))}
+                </div>
+              </div>
             ))}
           </div>
 
