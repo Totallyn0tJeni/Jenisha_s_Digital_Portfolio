@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { ArrowUpRight } from 'lucide-react';
 import SectionHeading from '@/components/SectionHeading';
 import WorkCard from '@/components/cards/WorkCard';
 import AssetGroupCard from '@/components/cards/AssetGroupCard';
@@ -7,6 +9,7 @@ import {
   campaigns, getFeaturedCampaigns, getOrganizations, getCategories, getPortfolioStats,
 } from '@/data/marketingIndex';
 import { getAssetGroups } from '@/data/assetGroups';
+import { resolvePrimaryOrganization } from '@/data/organizations/resolve';
 
 const featuredCampaigns = getFeaturedCampaigns();
 const organizations = getOrganizations();
@@ -45,6 +48,19 @@ export default function Marketing() {
     return orgMatch && catMatch;
   });
   const visibleGroups = filteredGroups.slice(0, visibleCount);
+
+  // Post Library gallery is organized by organization, not by category — categories stay as filter
+  // chips only. Sections are built from visibleGroups (not the full filteredGroups) so "Load More"
+  // keeps working exactly as before; newly-revealed groups simply populate their org's section.
+  const orgSections = organizations
+    .map((o) => ({
+      name: o.name,
+      org: resolvePrimaryOrganization(o.name),
+      groups: visibleGroups.filter((g) => g.organization === o.name),
+    }))
+    .filter((s) => s.groups.length > 0);
+  const otherGroups = visibleGroups.filter((g) => !g.organization);
+  if (otherGroups.length > 0) orgSections.push({ name: 'Other Organizations', org: null, groups: otherGroups });
 
   useEffect(() => { setVisibleCount(24); }, [orgFilter, categoryFilter]);
 
@@ -139,9 +155,33 @@ export default function Marketing() {
           {filteredGroups.length > 0 ? (
             <>
               <p className="text-xs text-muted-foreground mb-3">Showing {visibleGroups.length} of {filteredGroups.length} posts ({stats.totalAssets} total images)</p>
-              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-                {visibleGroups.map((group, i) => <AssetGroupCard key={group.id} group={group} index={i} />)}
+
+              <div className="space-y-12 mt-8">
+                {orgSections.map((section) => (
+                  <div key={section.name}>
+                    <div className="flex items-baseline justify-between gap-4 mb-4 pb-3 border-b border-border/50">
+                      <div>
+                        {section.org ? (
+                          <Link to={`/organizations/${section.org.id}`} className="group inline-flex items-center gap-2">
+                            <h3 className="font-display font-semibold text-lg text-foreground group-hover:text-primary transition-premium">{section.name}</h3>
+                            <ArrowUpRight className="w-4 h-4 text-muted-foreground opacity-0 group-hover:opacity-100 group-hover:text-primary transition-premium" />
+                          </Link>
+                        ) : (
+                          <h3 className="font-display font-semibold text-lg text-foreground">{section.name}</h3>
+                        )}
+                        {section.org?.description && (
+                          <p className="text-xs text-muted-foreground mt-1 max-w-xl">{section.org.description}</p>
+                        )}
+                      </div>
+                      <span className="text-xs text-muted-foreground shrink-0">{section.groups.length} post{section.groups.length === 1 ? '' : 's'}</span>
+                    </div>
+                    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+                      {section.groups.map((group, i) => <AssetGroupCard key={group.id} group={group} index={i} />)}
+                    </div>
+                  </div>
+                ))}
               </div>
+
               {visibleCount < filteredGroups.length && (
                 <div className="flex justify-center mt-8">
                   <button
