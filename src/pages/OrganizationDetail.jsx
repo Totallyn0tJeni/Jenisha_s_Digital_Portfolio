@@ -2,6 +2,7 @@ import { useParams, Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowLeft, ArrowUpRight, Calendar } from 'lucide-react';
 import EmptyState from '@/components/EmptyState';
+import AssetGroupCard from '@/components/cards/AssetGroupCard';
 import { getOrganizationBySlugOrId } from '@/data/organizations/resolve';
 import { getOrganizationAggregation } from '@/lib/orgAnalytics';
 import { formatShortDate } from '@/lib/dateUtils';
@@ -33,6 +34,9 @@ export default function OrganizationDetail() {
   }
 
   const { grouped, stats, timelineEvents } = getOrganizationAggregation(org.id);
+  // grouped.marketing already carries the raw asset-group object (see relationshipEngine.getContentForOrganization),
+  // so this reuses the same data the existing "Marketing Campaigns" links section uses — no new lookup needed.
+  const marketingAssetGroups = (grouped.marketing || []).map((item) => item.raw).filter(Boolean);
 
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>
@@ -113,6 +117,17 @@ export default function OrganizationDetail() {
                       </div>
                       <ArrowUpRight className="w-4 h-4 shrink-0 text-muted-foreground opacity-60 group-hover:opacity-100 group-hover:text-primary transition-premium" />
                     </Link>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {marketingAssetGroups.length > 0 && (
+              <div>
+                <h2 className="font-display font-semibold text-xl text-foreground mb-3">Marketing Assets</h2>
+                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+                  {marketingAssetGroups.map((group, i) => (
+                    <AssetGroupCard key={group.id} group={group} index={i} />
                   ))}
                 </div>
               </div>
