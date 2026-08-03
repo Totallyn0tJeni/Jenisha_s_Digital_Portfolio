@@ -3,7 +3,7 @@ export const education = [
     id: 'mcmaster',
     institution: 'McMaster University',
     degree: 'Honours Bachelor of Applied Science (B.A.Sc.) in Computer Science',
-    field_of_study: 'Program: Computer Science 1 (Co-op) · Minor in Innovation',
+    field_of_study: 'Program: Computer Science 1 (Co-op) · Minor in Innovation · Minor in AI and Analytics in Business',
     start_date: '2026-09-08',
     end_date: '2030-04-01',
     is_current: true,

@@ -1,0 +1,18 @@
+export default {
+  id: "loop-ugc",
+  organization: "Loop UGC",
+  role_title: "Growth, Marketing & Outreach Intern",
+  type: "Work",
+  start_date: "",
+  end_date: "",
+  is_current: false,
+  location: "",
+  description: "Contributed to expanding Loop UGC's creator-focused platform by supporting market research, community outreach, and university partnership initiatives.",
+  achievements: ["Researched the creator marketing landscape to identify growth opportunities and analyzed trends within the UGC ecosystem.", "Helped develop strategies to increase brand awareness and engagement among student communities.", "Collaborated on outreach campaigns, partnership development, and marketing initiatives aimed at building stronger connections between creators, brands, and emerging campus networks."],
+  skills: ["Growth Marketing", "Market Research", "Community Outreach", "Partnership Development"],
+  icon: "briefcase",
+  icon_color: "violet",
+  order: 1,
+  featured: false,
+  summary: "Supported growth, marketing, and university partnership initiatives for a creator-focused platform.",
+}

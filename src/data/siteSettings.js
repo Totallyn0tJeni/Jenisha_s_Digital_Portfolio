@@ -10,7 +10,7 @@ export const siteSettings = {
   logo_url: '',
   favicon_url: '',
   hero_image_url: '',
-  resume_pdf_url: 'https://media.base44.com/files/public/6a4736c352c574e239e79508/8b525c18b_Jenisha_s_Resume_2026_-_Condensed_V1.pdf',
+  resume_pdf_url: '/documents/jenisha-patel-resume.pdf',
   theme_default: 'system',
 
   hero_title: 'Driven by curiosity. Focused on impact.',
@@ -26,7 +26,9 @@ export const siteSettings = {
 
 My throughline is communication — figuring out how to make something complicated (a robot's scouting data, a hackathon's brand system, a home automation dashboard) legible to the people who actually have to use it. That's shown up as marketing direction for a FIRST Robotics team, board-level governance for a youth business nonprofit, and, increasingly, as code.
 
-Outside of the résumé: I'm usually the one holding the camera at team events, not just posing for them.`,
+Outside of the résumé: I'm usually the one holding the camera at team events, not just posing for them.
+
+Lately that curiosity has pulled toward AI, entrepreneurship, and innovation — I've worked through Anthropic's and Microsoft's AI fluency programs, explored applied AI use cases through AWS, and spent time on the business side through DECA, Target Alpha, and Western University's Founders Journey program. I'm drawn to technology-driven solutions that sit at the intersection of software, business, and impact — understanding not just how a system is built, but why it should exist and who it's built for.`,
 
   quick_facts: [
     { label: 'Studying', value: 'Computer Science 1 (Co-op), McMaster University' },
@@ -67,6 +69,7 @@ Outside of the résumé: I'm usually the one holding the camera at team events, 
     { icon: 'Users', value: '18+', label: 'Executive Titles' },
     { icon: 'Heart', value: '500+', label: 'Volunteer Hours' },
     { icon: 'Trophy', value: '15+', label: 'Awards' },
+    { icon: 'GraduationCap', value: '50+', label: 'Certifications' },
   ],
   secondary_stats: [
     { value: '2+', label: 'Years Coding' },

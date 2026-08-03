@@ -6,8 +6,6 @@ import { resumeFiles } from '@/data/resume';
 
 const allResumes = [
   { id: 'active', version_label: resumeFiles.active.label, file_url: resumeFiles.active.url, is_active: true },
-  { id: 'full', version_label: resumeFiles.full.label, file_url: resumeFiles.full.url, is_active: false },
-  { id: 'highSchool', version_label: resumeFiles.highSchool.label, file_url: resumeFiles.highSchool.url, is_active: false },
 ].filter((r) => r.file_url);
 
 export default function Resume() {

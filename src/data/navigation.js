@@ -14,9 +14,12 @@ export const navigationItems = [
   { path: '/contact', label: 'Contact', icon: 'Mail', group: 'main', order: 9 },
 
   { path: '/marketing', label: 'Marketing', icon: 'Megaphone', group: 'explore', order: 4.5 },
+  { path: '/leadership', label: 'Leadership', icon: 'Users', group: 'explore', order: 5.5 },
   { path: '/timeline', label: 'Timeline', icon: 'Calendar', group: 'explore', order: 6 },
   { path: '/awards', label: 'Awards', icon: 'Trophy', group: 'explore', order: 7 },
+  { path: '/certifications', label: 'Certifications', icon: 'Award', group: 'explore', order: 7.5 },
   { path: '/organizations', label: 'Organizations', icon: 'Building2', group: 'explore', order: 8 },
+  { path: '/education', label: 'Education', icon: 'GraduationCap', group: 'explore', order: 8.5 },
 ];
 
 export const mainNav = navigationItems.filter((i) => i.group === 'main').sort((a, b) => a.order - b.order);
