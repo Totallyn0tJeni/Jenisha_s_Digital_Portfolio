@@ -4,6 +4,8 @@ import { ArrowRight, Code2, Camera, Users, TrendingUp } from 'lucide-react';
 import { useSiteSettings } from '@/hooks/useSiteSettings';
 import SocialIcons from '@/components/SocialIcons';
 import ResumeDownload from '@/components/ResumeDownload';
+import HeroImageCarousel from '@/components/home/HeroImageCarousel';
+import { heroImages } from '@/data/heroImages';
 
 export default function HomeHero() {
   const { settings } = useSiteSettings();
@@ -65,8 +67,8 @@ export default function HomeHero() {
           <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.8, delay: 0.2 }} className="relative aspect-square max-w-md mx-auto flex items-center justify-center">
             <div className="absolute inset-[6%] rounded-full border border-dashed border-border" />
             <div className="absolute inset-[-4%] rounded-full border border-dashed border-border opacity-50" />
-            <div className="w-2/3 aspect-square rounded-full bg-gradient-soft flex items-center justify-center border border-border shadow-glow relative overflow-hidden" style={{ background: 'radial-gradient(circle at 50% 40%, hsl(var(--primary) / 0.25), hsl(var(--surface)) 70%)' }}>
-              <span className="font-display font-bold text-7xl md:text-8xl text-gradient">{initials}</span>
+            <div className="w-2/3 aspect-square rounded-full border border-border shadow-glow relative overflow-hidden">
+              <HeroImageCarousel images={heroImages} initials={initials} />
             </div>
             {iconBadges.map(({ icon: Icon, pos, delay }, i) =>
             <motion.div key={i} animate={{ y: [0, -12, 0] }} transition={{ duration: 6, repeat: Infinity, delay, ease: 'easeInOut' }} className={`absolute ${pos} w-12 h-12 md:w-14 md:h-14 rounded-2xl glass-strong flex items-center justify-center shadow-card`}>
