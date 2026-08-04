@@ -8,6 +8,9 @@ export const education = [
     end_date: '2030-04-01',
     is_current: true,
     timeline_featured: true,
+    timeline_title: 'Started Computer Science Co-op, McMaster University',
+    timeline_description: 'Began a Computer Science Co-op program (B.A.Sc.), with minors in Innovation and AI & Analytics in Business — anticipated graduation April 2030.',
+    timeline_date_display: 'Sep 2026',
     description: 'Undergraduate Engineering Degree. Currently in progress — first-year Computer Science Co-op student.',
     achievements: [],
     courses: [],
@@ -22,8 +25,10 @@ export const education = [
     end_date: '2026-06-25',
     is_current: false,
     timeline_featured: true,
-    timeline_end_description:
-      'Graduated with Honours & Excellence and a ~90% (4.0) overall average — recognized with the SciTech Resilience Award, the Ontario Scholar Award, and Certificates of Distinction in Grade 12 Math and Science.',
+    timeline_title: 'Chinguacousy Secondary School — SciTech Program',
+    timeline_description:
+      'Completed the SciTech (Science & Technology) North Regional Program and graduated with Honours & Excellence at a ~90% (4.0) overall average — recognized with the SciTech Resilience Award, the Ontario Scholar Award, and Certificates of Distinction in Grade 12 Math and Science.',
+    timeline_date_display: '2022 – 2026',
     gpa: '90% ~ 4.0',
     description:
       'Graduated with Honours & Excellence. Completed all components of the SciTech (Science & Technology) North Regional Program. Over 500 volunteer hours earned throughout high school. Overall GPA ~4.0 (90%).',

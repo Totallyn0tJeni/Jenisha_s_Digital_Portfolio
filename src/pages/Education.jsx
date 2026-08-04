@@ -44,7 +44,7 @@ export default function Education() {
                         </div>
                       )}
                       {(() => {
-                        const timelineId = `edu-${item.id}-start`;
+                        const timelineId = `edu-${item.id}`;
                         return getTimelineEventById(timelineId) ? (
                           <Link to={`/timeline?highlight=${timelineId}`} className="inline-flex items-center gap-1.5 text-xs text-primary hover:text-primary/80 transition-premium mt-3">
                             <Calendar className="w-3 h-3" /> View in Timeline

@@ -33,23 +33,17 @@ import { work } from './work';
 import { timeline as handAuthoredEvents } from './timeline';
 
 function fromEducation() {
-  return education.filter((e) => e.timeline_featured).flatMap((e) => {
-    const events = [];
-    if (e.start_date) {
-      events.push({
-        id: `edu-${e.id}-start`, category: 'education', date: e.start_date, date_display: e.timeline_date_display,
-        title: e.timeline_title || `Started at ${e.institution}`, description: e.timeline_description || e.degree || e.field_of_study || '',
-        is_milestone: true, related_entity_type: 'Education', related_entity_id: e.id, related_path: '/education',
-      });
-    }
-    if (e.end_date && !e.is_current) {
-      events.push({
-        id: `edu-${e.id}-end`, category: 'education', date: e.end_date,
-        title: `Graduated ${e.institution}`, description: e.timeline_end_description || e.degree || '',
-        is_milestone: true, related_entity_type: 'Education', related_entity_id: e.id, related_path: '/education',
-      });
-    }
-    return events;
+  return education.filter((e) => e.timeline_featured).map((e) => {
+    // One card per institution — not a separate "started" + "graduated" card —
+    // so the same school doesn't appear to be mentioned twice in a row.
+    const date = e.is_current ? e.start_date : (e.end_date || e.start_date);
+    const title = e.timeline_title || (e.is_current ? `Started at ${e.institution}` : `Graduated ${e.institution}`);
+    const description = e.timeline_description || (e.is_current ? (e.degree || e.field_of_study || '') : (e.timeline_end_description || e.degree || ''));
+    return {
+      id: `edu-${e.id}`, category: 'education', date, date_display: e.timeline_date_display,
+      title, description,
+      is_milestone: true, related_entity_type: 'Education', related_entity_id: e.id, related_path: '/education',
+    };
   });
 }
 
