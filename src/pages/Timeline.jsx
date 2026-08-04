@@ -1,64 +1,48 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Link, useSearchParams } from 'react-router-dom';
-import { ExternalLink, Star, Image as ImageIcon, ChevronDown } from 'lucide-react';
+import {
+  ExternalLink, Image as ImageIcon,
+  GraduationCap, Briefcase, Users, Rocket, Award, Sparkles, HeartHandshake, CalendarDays,
+} from 'lucide-react';
 import EmptyState from '@/components/EmptyState';
 import ContinueExploring from '@/components/ContinueExploring';
 import { timelineEvents } from '@/data/timelineEvents';
 
 const categoryConfig = {
-  career: { color: 'bg-violet-500/15 text-violet-400', dot: 'border-violet-500', label: 'Career' },
-  education: { color: 'bg-blue-500/15 text-blue-400', dot: 'border-blue-500', label: 'Education' },
-  award: { color: 'bg-amber-500/15 text-amber-400', dot: 'border-amber-500', label: 'Award' },
-  certification: { color: 'bg-cyan-500/15 text-cyan-400', dot: 'border-cyan-500', label: 'Certification' },
-  project: { color: 'bg-emerald-500/15 text-emerald-400', dot: 'border-emerald-500', label: 'Project' },
-  event: { color: 'bg-pink-500/15 text-pink-400', dot: 'border-pink-500', label: 'Event' },
-  milestone: { color: 'bg-fuchsia-500/15 text-fuchsia-400', dot: 'border-fuchsia-500', label: 'Milestone' },
-  volunteer: { color: 'bg-rose-500/15 text-rose-400', dot: 'border-rose-500', label: 'Volunteer' },
-  leadership: { color: 'bg-indigo-500/15 text-indigo-400', dot: 'border-indigo-500', label: 'Leadership' },
+  career: { color: 'bg-violet-500/15 text-violet-400', dot: 'border-violet-500', line: 'from-violet-500', label: 'Career', Icon: Briefcase },
+  education: { color: 'bg-blue-500/15 text-blue-400', dot: 'border-blue-500', line: 'from-blue-500', label: 'Education', Icon: GraduationCap },
+  award: { color: 'bg-amber-500/15 text-amber-400', dot: 'border-amber-500', line: 'from-amber-500', label: 'Award', Icon: Award },
+  certification: { color: 'bg-cyan-500/15 text-cyan-400', dot: 'border-cyan-500', line: 'from-cyan-500', label: 'Certification', Icon: Award },
+  project: { color: 'bg-emerald-500/15 text-emerald-400', dot: 'border-emerald-500', line: 'from-emerald-500', label: 'Project', Icon: Rocket },
+  event: { color: 'bg-pink-500/15 text-pink-400', dot: 'border-pink-500', line: 'from-pink-500', label: 'Event', Icon: CalendarDays },
+  milestone: { color: 'bg-fuchsia-500/15 text-fuchsia-400', dot: 'border-fuchsia-500', line: 'from-fuchsia-500', label: 'Milestone', Icon: Sparkles },
+  volunteer: { color: 'bg-rose-500/15 text-rose-400', dot: 'border-rose-500', line: 'from-rose-500', label: 'Volunteer', Icon: HeartHandshake },
+  leadership: { color: 'bg-indigo-500/15 text-indigo-400', dot: 'border-indigo-500', line: 'from-indigo-500', label: 'Leadership', Icon: Users },
 };
 
 export default function Timeline() {
-  const events = timelineEvents;
   const [searchParams] = useSearchParams();
   const highlightId = searchParams.get('highlight');
   const [filter, setFilter] = useState('all');
   const highlightRef = useRef(null);
 
-  // Sort chronologically (newest first)
-  const sorted = [...events].sort((a, b) => new Date(b.date) - new Date(a.date));
-
-  // Get unique categories that exist in the data
+  // Chronological, oldest first — this is a growth story, read top to bottom.
+  const sorted = [...timelineEvents].sort((a, b) => new Date(a.date) - new Date(b.date));
   const availableCategories = [...new Set(sorted.map((e) => e.category))].filter(Boolean);
   const filtered = filter === 'all' ? sorted : sorted.filter((e) => e.category === filter);
-
-  // Group by year — most recent year open by default, or the highlighted event's year if deep-linked
-  const byYear = filtered.reduce((acc, e) => {
-    const year = e.date ? new Date(e.date).getFullYear() : 'Undated';
-    (acc[year] ||= []).push(e);
-    return acc;
-  }, {});
-  const years = Object.keys(byYear).sort((a, b) => b - a);
-  const highlightYear = highlightId ? String(new Date(events.find((e) => e.id === highlightId)?.date || '').getFullYear()) : null;
-  const [openYears, setOpenYears] = useState(() => new Set(highlightYear ? [highlightYear] : years.slice(0, 1)));
-  useEffect(() => { setOpenYears(new Set(highlightYear ? [highlightYear] : years.slice(0, 1))); }, [filter]);
 
   useEffect(() => {
     if (highlightId && highlightRef.current) {
       const timer = setTimeout(() => highlightRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' }), 300);
       return () => clearTimeout(timer);
     }
-  }, [highlightId, openYears]);
+  }, [highlightId, filter]);
 
-  const toggleYear = (year) => {
-    setOpenYears((prev) => {
-      const next = new Set(prev);
-      next.has(year) ? next.delete(year) : next.add(year);
-      return next;
-    });
+  const formatDate = (event) => {
+    if (event.date_display) return event.date_display;
+    return event.date ? new Date(event.date).toLocaleDateString('en-US', { year: 'numeric', month: 'short' }) : '';
   };
-
-  const formatDate = (dateStr) => dateStr ? new Date(dateStr).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }) : '';
 
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>
@@ -72,14 +56,14 @@ export default function Timeline() {
             The story so <span className="text-gradient">far</span>
           </motion.h1>
           <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.2 }} className="text-muted-foreground mt-4 max-w-xl text-[15px] leading-relaxed">
-            From elementary school through university — key moments, milestones, and turning points in chronological order.
+            A handful of turning points — not a full activity log — tracing the path from student to STEM involvement, leadership, technical growth, and what's ahead.
           </motion.p>
         </div>
       </section>
 
       {/* Category Filter */}
       {sorted.length > 0 && (
-        <div className="px-4 md:px-8 pb-6">
+        <div className="px-4 md:px-8 pb-10">
           <div className="max-w-4xl mx-auto flex flex-wrap gap-2">
             <button onClick={() => setFilter('all')} className={`px-4 py-1.5 rounded-full text-sm font-medium whitespace-nowrap transition-premium ${filter === 'all' ? 'bg-primary text-primary-foreground' : 'glass text-muted-foreground hover:text-foreground'}`}>
               All
@@ -96,80 +80,76 @@ export default function Timeline() {
         </div>
       )}
 
-      {/* Timeline */}
+      {/* Timeline rail */}
       <section className="px-4 md:px-8 pb-16">
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-5xl mx-auto">
           {filtered.length > 0 ? (
-            <div className="space-y-4">
-              {years.map((year) => {
-                const isOpen = openYears.has(year);
-                const yearEvents = byYear[year];
-                return (
-                  <div key={year} className="glass-card overflow-hidden">
-                    <button onClick={() => toggleYear(year)} className="w-full flex items-center justify-between gap-4 p-5 text-left hover:bg-primary/5 transition-premium">
-                      <div className="flex items-center gap-3">
-                        <span className="font-display font-bold text-xl text-foreground">{year}</span>
-                        <span className="text-xs font-mono text-muted-foreground px-2.5 py-0.5 rounded-full bg-surface border border-border">{yearEvents.length} event{yearEvents.length > 1 ? 's' : ''}</span>
+            <div className="relative">
+              {/* central rail — left-aligned on mobile, centered on desktop */}
+              <div className="absolute left-[15px] lg:left-1/2 top-2 bottom-2 w-px bg-gradient-to-b from-primary via-primary/30 to-transparent lg:-translate-x-1/2" />
+
+              <div className="space-y-10 lg:space-y-14">
+                {filtered.map((event, i) => {
+                  const cat = categoryConfig[event.category] || categoryConfig.milestone;
+                  const Icon = cat.Icon;
+                  const isHighlighted = event.id === highlightId;
+                  const isRight = i % 2 === 1;
+
+                  return (
+                    <motion.div
+                      key={event.id}
+                      ref={isHighlighted ? highlightRef : null}
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true, margin: '-60px' }}
+                      transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                      className={`relative pl-10 lg:pl-0 lg:grid lg:grid-cols-2 lg:gap-x-10 ${isRight ? '' : ''}`}
+                    >
+                      {/* node */}
+                      <div
+                        className={`absolute left-0 lg:left-1/2 top-1 w-8 h-8 -translate-x-[calc(50%-15px)] lg:-translate-x-1/2 rounded-full bg-background border-2 ${cat.dot} flex items-center justify-center shadow-[0_0_0_5px_hsl(var(--primary)/0.08)] ${event.is_milestone ? 'shadow-glow' : ''}`}
+                      >
+                        <Icon className="w-3.5 h-3.5 text-foreground/80" strokeWidth={2} />
                       </div>
-                      <ChevronDown className={`w-4 h-4 text-muted-foreground transition-transform ${isOpen ? 'rotate-180' : ''}`} />
-                    </button>
-                    {isOpen && (
-                      <div className="relative pl-8 pr-5 pb-6">
-                        <div className="absolute left-6 top-0 bottom-6 w-px bg-gradient-to-b from-primary via-primary/40 to-transparent" />
-                        <div className="space-y-6">
-                          {yearEvents.map((event, i) => {
-                            const cat = categoryConfig[event.category] || categoryConfig.milestone;
-                            const isHighlighted = event.id === highlightId;
-                            return (
-                              <motion.div
-                                key={event.id}
-                                ref={isHighlighted ? highlightRef : null}
-                                initial={{ opacity: 0, y: 12 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: i * 0.04, duration: 0.4 }}
-                                className="relative"
-                              >
-                                <div className={`absolute -left-8 top-1.5 w-3 h-3 rounded-full bg-background border-2 ${cat.dot} shadow-[0_0_0_4px_hsl(var(--primary)/0.08)]`} />
-                                {event.is_milestone && (
-                                  <div className="absolute -left-8 top-1.5 w-3 h-3 rounded-full bg-background border-2 border-amber-400 shadow-[0_0_0_4px_hsl(38_92%_50%/0.15)] animate-pulse" />
-                                )}
-                                <div className={`bg-surface/60 rounded-xl p-4 md:p-5 border transition-premium ${isHighlighted ? 'border-primary ring-2 ring-primary/30' : 'border-border/60'}`}>
-                                  <div className="flex items-center gap-3 mb-2 flex-wrap">
-                                    <span className={`px-2.5 py-0.5 rounded-full text-xs font-semibold ${cat.color}`}>{cat.label}</span>
-                                    <time className="text-xs font-mono text-muted-foreground">{formatDate(event.date)}</time>
-                                    {event.is_milestone && <span className="flex items-center gap-1 text-xs text-amber-400"><Star className="w-3 h-3 fill-amber-400" /> Milestone</span>}
-                                  </div>
-                                  <h3 className="font-display font-semibold text-base text-foreground">{event.title}</h3>
-                                  {event.description && <p className="text-sm text-muted-foreground mt-1.5 leading-relaxed">{event.description}</p>}
 
-                                  {event.image_url ? (
-                                    <div className="mt-3 rounded-xl overflow-hidden border border-border">
-                                      <img src={event.image_url} alt={event.title} className="w-full max-h-64 object-cover" loading="lazy" />
-                                    </div>
-                                  ) : (
-                                    <div className="mt-3 rounded-xl border border-dashed border-primary/20 bg-surface/50 flex items-center justify-center gap-2 py-3 text-xs text-muted-foreground/70">
-                                      <ImageIcon className="w-3.5 h-3.5" /> Photo coming soon
-                                    </div>
-                                  )}
+                      {/* card — alternates sides on desktop, always full-width on mobile */}
+                      <div className={`${isRight ? 'lg:col-start-2 lg:pl-10' : 'lg:col-start-1 lg:pr-10 lg:flex lg:justify-end lg:text-right'}`}>
+                        <div
+                          className={`glass-card p-5 md:p-6 inline-block w-full lg:max-w-md transition-premium ${isHighlighted ? 'border-primary ring-2 ring-primary/30' : ''}`}
+                        >
+                          <div className={`flex items-center gap-2.5 mb-2.5 flex-wrap ${isRight ? '' : 'lg:justify-end'}`}>
+                            <span className={`px-2.5 py-0.5 rounded-full text-xs font-semibold ${cat.color}`}>{cat.label}</span>
+                            <time className="text-xs font-mono text-muted-foreground">{formatDate(event)}</time>
+                          </div>
+                          <h3 className="font-display font-semibold text-lg text-foreground leading-snug">{event.title}</h3>
+                          {event.description && (
+                            <p className="text-sm text-muted-foreground mt-2 leading-relaxed">{event.description}</p>
+                          )}
 
-                                  {event.related_path && (
-                                    <Link to={event.related_path} className="inline-flex items-center gap-1.5 text-xs text-primary hover:text-primary/80 mt-3 transition-premium">
-                                      <ExternalLink className="w-3 h-3" /> View related {event.related_entity_type}
-                                    </Link>
-                                  )}
-                                </div>
-                              </motion.div>
-                            );
-                          })}
+                          {event.image_url ? (
+                            <div className="mt-4 rounded-xl overflow-hidden border border-border">
+                              <img src={event.image_url} alt={event.title} className="w-full max-h-56 object-cover" loading="lazy" />
+                            </div>
+                          ) : (
+                            <div className={`mt-4 rounded-xl border border-dashed border-primary/20 bg-surface/50 flex items-center justify-center gap-2 py-3 text-xs text-muted-foreground/70 ${isRight ? '' : 'lg:justify-end'}`}>
+                              <ImageIcon className="w-3.5 h-3.5" /> Photo coming soon
+                            </div>
+                          )}
+
+                          {event.related_path && (
+                            <Link to={event.related_path} className={`inline-flex items-center gap-1.5 text-xs text-primary hover:text-primary/80 mt-4 transition-premium ${isRight ? '' : 'lg:flex-row-reverse'}`}>
+                              <ExternalLink className="w-3 h-3" /> View related {event.related_entity_type}
+                            </Link>
+                          )}
                         </div>
                       </div>
-                    )}
-                  </div>
-                );
-              })}
+                    </motion.div>
+                  );
+                })}
+              </div>
             </div>
           ) : (
-            <EmptyState title="Your timeline will appear here" description="Populated automatically from education, experience, leadership, awards, certifications, and featured work — add dates to those entries to see them here." />
+            <EmptyState title="Your timeline will appear here" description="Flag records with timeline_featured: true (or add a hand-authored entry in src/data/timeline/items/) to see them here." />
           )}
         </div>
       </section>

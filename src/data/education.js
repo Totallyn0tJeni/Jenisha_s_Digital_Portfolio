@@ -7,6 +7,7 @@ export const education = [
     start_date: '2026-09-08',
     end_date: '2030-04-01',
     is_current: true,
+    timeline_featured: true,
     description: 'Undergraduate Engineering Degree. Currently in progress — first-year Computer Science Co-op student.',
     achievements: [],
     courses: [],
@@ -20,6 +21,9 @@ export const education = [
     start_date: '2022-09-06',
     end_date: '2026-06-25',
     is_current: false,
+    timeline_featured: true,
+    timeline_end_description:
+      'Graduated with Honours & Excellence and a ~90% (4.0) overall average — recognized with the SciTech Resilience Award, the Ontario Scholar Award, and Certificates of Distinction in Grade 12 Math and Science.',
     gpa: '90% ~ 4.0',
     description:
       'Graduated with Honours & Excellence. Completed all components of the SciTech (Science & Technology) North Regional Program. Over 500 volunteer hours earned throughout high school. Overall GPA ~4.0 (90%).',
