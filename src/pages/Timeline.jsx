@@ -21,6 +21,20 @@ const categoryConfig = {
   leadership: { color: 'bg-indigo-500/15 text-indigo-400', dot: 'border-indigo-500', line: 'from-indigo-500', label: 'Leadership', Icon: Users },
 };
 
+/** Smooth "railroad" curve threading through alternating waypoints — one per timeline card. */
+function buildRailPath(n) {
+  if (n < 2) return '';
+  const pts = Array.from({ length: n }, (_, i) => ({ x: i % 2 === 0 ? 38 : 62, y: i * 100 }));
+  let d = `M ${pts[0].x} ${pts[0].y}`;
+  for (let i = 1; i < pts.length; i++) {
+    const p0 = pts[i - 1];
+    const p1 = pts[i];
+    const midY = (p0.y + p1.y) / 2;
+    d += ` C ${p0.x} ${midY} ${p1.x} ${midY} ${p1.x} ${p1.y}`;
+  }
+  return d;
+}
+
 export default function Timeline() {
   const [searchParams] = useSearchParams();
   const highlightId = searchParams.get('highlight');
@@ -85,8 +99,25 @@ export default function Timeline() {
         <div className="max-w-5xl mx-auto">
           {filtered.length > 0 ? (
             <div className="relative">
-              {/* central rail — left-aligned on mobile, centered on desktop */}
-              <div className="absolute left-[15px] lg:left-1/2 top-2 bottom-2 w-px bg-gradient-to-b from-primary via-primary/30 to-transparent lg:-translate-x-1/2" />
+              {/* mobile rail — unchanged straight line */}
+              <div className="absolute left-[15px] lg:hidden top-2 bottom-2 w-px bg-gradient-to-b from-primary via-primary/30 to-transparent" />
+
+              {/* desktop rail — winding "railroad" curve threading between alternating card sides */}
+              <svg
+                className="hidden lg:block absolute inset-0 w-full h-full"
+                viewBox={`0 0 100 ${Math.max(1, filtered.length - 1) * 100}`}
+                preserveAspectRatio="none"
+                fill="none"
+              >
+                <defs>
+                  <linearGradient id="rail-fade" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor="hsl(var(--primary))" stopOpacity="0.55" />
+                    <stop offset="85%" stopColor="hsl(var(--primary))" stopOpacity="0.25" />
+                    <stop offset="100%" stopColor="hsl(var(--primary))" stopOpacity="0" />
+                  </linearGradient>
+                </defs>
+                <path d={buildRailPath(filtered.length)} stroke="url(#rail-fade)" strokeWidth="1.5" vectorEffect="non-scaling-stroke" />
+              </svg>
 
               <div className="space-y-10 lg:space-y-14">
                 {filtered.map((event, i) => {
@@ -94,6 +125,7 @@ export default function Timeline() {
                   const Icon = cat.Icon;
                   const isHighlighted = event.id === highlightId;
                   const isRight = i % 2 === 1;
+                  const railX = isRight ? '62%' : '38%';
 
                   return (
                     <motion.div
@@ -107,7 +139,8 @@ export default function Timeline() {
                     >
                       {/* node */}
                       <div
-                        className={`absolute left-0 lg:left-1/2 top-1 w-8 h-8 -translate-x-[calc(50%-15px)] lg:-translate-x-1/2 rounded-full bg-background border-2 ${cat.dot} flex items-center justify-center shadow-[0_0_0_5px_hsl(var(--primary)/0.08)] ${event.is_milestone ? 'shadow-glow' : ''}`}
+                        style={{ '--rail-x': railX }}
+                        className={`absolute left-0 lg:left-[var(--rail-x)] top-1 w-8 h-8 -translate-x-[calc(50%-15px)] lg:-translate-x-1/2 rounded-full bg-background border-2 ${cat.dot} flex items-center justify-center shadow-[0_0_0_5px_hsl(var(--primary)/0.08)] ${event.is_milestone ? 'shadow-glow' : ''}`}
                       >
                         <Icon className="w-3.5 h-3.5 text-foreground/80" strokeWidth={2} />
                       </div>
