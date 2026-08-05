@@ -10,29 +10,34 @@ import ContinueExploring from '@/components/ContinueExploring';
 import { timelineEvents } from '@/data/timelineEvents';
 
 const categoryConfig = {
-  career: { color: 'bg-violet-500/15 text-violet-400', dot: 'border-violet-500', line: 'from-violet-500', label: 'Career', Icon: Briefcase },
-  education: { color: 'bg-blue-500/15 text-blue-400', dot: 'border-blue-500', line: 'from-blue-500', label: 'Education', Icon: GraduationCap },
-  award: { color: 'bg-amber-500/15 text-amber-400', dot: 'border-amber-500', line: 'from-amber-500', label: 'Award', Icon: Award },
-  certification: { color: 'bg-cyan-500/15 text-cyan-400', dot: 'border-cyan-500', line: 'from-cyan-500', label: 'Certification', Icon: Award },
-  project: { color: 'bg-emerald-500/15 text-emerald-400', dot: 'border-emerald-500', line: 'from-emerald-500', label: 'Project', Icon: Rocket },
-  event: { color: 'bg-pink-500/15 text-pink-400', dot: 'border-pink-500', line: 'from-pink-500', label: 'Event', Icon: CalendarDays },
-  milestone: { color: 'bg-fuchsia-500/15 text-fuchsia-400', dot: 'border-fuchsia-500', line: 'from-fuchsia-500', label: 'Milestone', Icon: Sparkles },
-  volunteer: { color: 'bg-rose-500/15 text-rose-400', dot: 'border-rose-500', line: 'from-rose-500', label: 'Volunteer', Icon: HeartHandshake },
-  leadership: { color: 'bg-indigo-500/15 text-indigo-400', dot: 'border-indigo-500', line: 'from-indigo-500', label: 'Leadership', Icon: Users },
+  career: { color: 'bg-violet-500/15 text-violet-400', dot: 'border-violet-500', hex: '#8b5cf6', label: 'Career', Icon: Briefcase },
+  education: { color: 'bg-blue-500/15 text-blue-400', dot: 'border-blue-500', hex: '#3b82f6', label: 'Education', Icon: GraduationCap },
+  award: { color: 'bg-amber-500/15 text-amber-400', dot: 'border-amber-500', hex: '#f59e0b', label: 'Award', Icon: Award },
+  certification: { color: 'bg-cyan-500/15 text-cyan-400', dot: 'border-cyan-500', hex: '#06b6d4', label: 'Certification', Icon: Award },
+  project: { color: 'bg-emerald-500/15 text-emerald-400', dot: 'border-emerald-500', hex: '#10b981', label: 'Project', Icon: Rocket },
+  event: { color: 'bg-pink-500/15 text-pink-400', dot: 'border-pink-500', hex: '#ec4899', label: 'Event', Icon: CalendarDays },
+  milestone: { color: 'bg-fuchsia-500/15 text-fuchsia-400', dot: 'border-fuchsia-500', hex: '#d946ef', label: 'Milestone', Icon: Sparkles },
+  volunteer: { color: 'bg-rose-500/15 text-rose-400', dot: 'border-rose-500', hex: '#f43f5e', label: 'Volunteer', Icon: HeartHandshake },
+  leadership: { color: 'bg-indigo-500/15 text-indigo-400', dot: 'border-indigo-500', hex: '#6366f1', label: 'Leadership', Icon: Users },
 };
 
-/** Smooth "railroad" curve threading through alternating waypoints — one per timeline card. */
-function buildRailPath(n) {
-  if (n < 2) return '';
-  const pts = Array.from({ length: n }, (_, i) => ({ x: i % 2 === 0 ? 38 : 62, y: i * 100 }));
-  let d = `M ${pts[0].x} ${pts[0].y}`;
+/** Waypoints for the winding "pipe" rail — wide alternating swing for a loopy, rounded turn. */
+function railPoints(n) {
+  return Array.from({ length: n }, (_, i) => ({ x: i % 2 === 0 ? 20 : 80, y: i * 100 }));
+}
+
+/** One smooth bezier segment per pair of consecutive nodes, so each can carry its own gradient. */
+function buildRailSegments(n) {
+  if (n < 2) return [];
+  const pts = railPoints(n);
+  const segments = [];
   for (let i = 1; i < pts.length; i++) {
     const p0 = pts[i - 1];
     const p1 = pts[i];
     const midY = (p0.y + p1.y) / 2;
-    d += ` C ${p0.x} ${midY} ${p1.x} ${midY} ${p1.x} ${p1.y}`;
+    segments.push({ id: `seg-${i}`, d: `M ${p0.x} ${p0.y} C ${p0.x} ${midY} ${p1.x} ${midY} ${p1.x} ${p1.y}` });
   }
-  return d;
+  return segments;
 }
 
 export default function Timeline() {
@@ -72,6 +77,13 @@ export default function Timeline() {
           <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.2 }} className="text-muted-foreground mt-4 max-w-xl text-[15px] leading-relaxed">
             A handful of turning points — not a full activity log — tracing the path from student to STEM involvement, leadership, technical growth, and what's ahead.
           </motion.p>
+          <motion.div
+            initial={{ opacity: 0, scaleX: 0 }}
+            animate={{ opacity: 1, scaleX: 1 }}
+            transition={{ duration: 0.8, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
+            className="h-1 w-full max-w-md rounded-full mt-6 origin-left"
+            style={{ background: 'linear-gradient(90deg, #f59e0b, #ec4899, #d946ef, #8b5cf6, #6366f1, #3b82f6, #06b6d4, #10b981)' }}
+          />
         </div>
       </section>
 
@@ -102,30 +114,37 @@ export default function Timeline() {
               {/* mobile rail — unchanged straight line */}
               <div className="absolute left-[15px] lg:hidden top-2 bottom-2 w-px bg-gradient-to-b from-primary via-primary/30 to-transparent" />
 
-              {/* desktop rail — winding "railroad" curve threading between alternating card sides */}
+              {/* desktop rail — thick winding gradient "pipe" that shifts color milestone to milestone */}
               <svg
-                className="hidden lg:block absolute inset-0 w-full h-full"
+                className="hidden lg:block absolute inset-0 w-full h-full overflow-visible"
                 viewBox={`0 0 100 ${Math.max(1, filtered.length - 1) * 100}`}
                 preserveAspectRatio="none"
                 fill="none"
               >
                 <defs>
-                  <linearGradient id="rail-fade" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="hsl(var(--primary))" stopOpacity="0.55" />
-                    <stop offset="85%" stopColor="hsl(var(--primary))" stopOpacity="0.25" />
-                    <stop offset="100%" stopColor="hsl(var(--primary))" stopOpacity="0" />
-                  </linearGradient>
+                  {buildRailSegments(filtered.length).map((seg, i) => {
+                    const fromHex = (categoryConfig[filtered[i]?.category] || categoryConfig.milestone).hex;
+                    const toHex = (categoryConfig[filtered[i + 1]?.category] || categoryConfig.milestone).hex;
+                    return (
+                      <linearGradient key={seg.id} id={`rail-${seg.id}`} gradientUnits="userSpaceOnUse" x1="0" y1={i * 100} x2="0" y2={(i + 1) * 100}>
+                        <stop offset="0%" stopColor={fromHex} />
+                        <stop offset="100%" stopColor={toHex} />
+                      </linearGradient>
+                    );
+                  })}
                 </defs>
-                <path d={buildRailPath(filtered.length)} stroke="url(#rail-fade)" strokeWidth="1.5" vectorEffect="non-scaling-stroke" />
+                {buildRailSegments(filtered.length).map((seg) => (
+                  <path key={seg.id} d={seg.d} stroke={`url(#rail-${seg.id})`} strokeWidth="22" strokeLinecap="round" vectorEffect="non-scaling-stroke" />
+                ))}
               </svg>
 
-              <div className="space-y-10 lg:space-y-14">
+              <div className="space-y-10 lg:space-y-20">
                 {filtered.map((event, i) => {
                   const cat = categoryConfig[event.category] || categoryConfig.milestone;
                   const Icon = cat.Icon;
                   const isHighlighted = event.id === highlightId;
                   const isRight = i % 2 === 1;
-                  const railX = isRight ? '62%' : '38%';
+                  const railX = isRight ? '80%' : '20%';
 
                   return (
                     <motion.div
@@ -137,16 +156,17 @@ export default function Timeline() {
                       transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
                       className={`relative pl-10 lg:pl-0 lg:grid lg:grid-cols-2 lg:gap-x-10 ${isRight ? '' : ''}`}
                     >
-                      {/* node */}
+                      {/* node — small dot on mobile, large solid badge sitting on the pipe on desktop */}
                       <div
                         style={{ '--rail-x': railX }}
-                        className={`absolute left-0 lg:left-[var(--rail-x)] top-1 w-8 h-8 -translate-x-[calc(50%-15px)] lg:-translate-x-1/2 rounded-full bg-background border-2 ${cat.dot} flex items-center justify-center shadow-[0_0_0_5px_hsl(var(--primary)/0.08)] ${event.is_milestone ? 'shadow-glow' : ''}`}
+                        className={`absolute z-10 left-0 lg:left-[var(--rail-x)] top-1 lg:top-1/2 w-8 h-8 lg:w-14 lg:h-14 -translate-x-[calc(50%-15px)] lg:-translate-x-1/2 lg:-translate-y-1/2 rounded-full bg-background border-2 lg:border-4 lg:border-background ${cat.dot} flex items-center justify-center shadow-[0_0_0_5px_hsl(var(--primary)/0.08)] lg:shadow-lg ${event.is_milestone ? 'shadow-glow' : ''}`}
                       >
-                        <Icon className="w-3.5 h-3.5 text-foreground/80" strokeWidth={2} />
+                        <span className="hidden lg:block absolute inset-0 rounded-full" style={{ backgroundColor: cat.hex }} />
+                        <Icon className="relative w-3.5 h-3.5 lg:w-6 lg:h-6 text-foreground/80 lg:text-white" strokeWidth={2} />
                       </div>
 
                       {/* card — alternates sides on desktop, always full-width on mobile */}
-                      <div className={`${isRight ? 'lg:col-start-2 lg:pl-10' : 'lg:col-start-1 lg:pr-10 lg:flex lg:justify-end lg:text-right'}`}>
+                      <div className={`${isRight ? 'lg:col-start-2 lg:pl-14' : 'lg:col-start-1 lg:pr-14 lg:flex lg:justify-end lg:text-right'}`}>
                         <div
                           className={`glass-card p-5 md:p-6 inline-block w-full lg:max-w-md transition-premium ${isHighlighted ? 'border-primary ring-2 ring-primary/30' : ''}`}
                         >
