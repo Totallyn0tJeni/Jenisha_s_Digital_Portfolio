@@ -10,35 +10,16 @@ import ContinueExploring from '@/components/ContinueExploring';
 import { timelineEvents } from '@/data/timelineEvents';
 
 const categoryConfig = {
-  career: { color: 'bg-violet-500/15 text-violet-400', dot: 'border-violet-500', hex: '#8b5cf6', label: 'Career', Icon: Briefcase },
-  education: { color: 'bg-blue-500/15 text-blue-400', dot: 'border-blue-500', hex: '#3b82f6', label: 'Education', Icon: GraduationCap },
-  award: { color: 'bg-amber-500/15 text-amber-400', dot: 'border-amber-500', hex: '#f59e0b', label: 'Award', Icon: Award },
-  certification: { color: 'bg-cyan-500/15 text-cyan-400', dot: 'border-cyan-500', hex: '#06b6d4', label: 'Certification', Icon: Award },
-  project: { color: 'bg-emerald-500/15 text-emerald-400', dot: 'border-emerald-500', hex: '#10b981', label: 'Project', Icon: Rocket },
-  event: { color: 'bg-pink-500/15 text-pink-400', dot: 'border-pink-500', hex: '#ec4899', label: 'Event', Icon: CalendarDays },
-  milestone: { color: 'bg-fuchsia-500/15 text-fuchsia-400', dot: 'border-fuchsia-500', hex: '#d946ef', label: 'Milestone', Icon: Sparkles },
-  volunteer: { color: 'bg-rose-500/15 text-rose-400', dot: 'border-rose-500', hex: '#f43f5e', label: 'Volunteer', Icon: HeartHandshake },
-  leadership: { color: 'bg-indigo-500/15 text-indigo-400', dot: 'border-indigo-500', hex: '#6366f1', label: 'Leadership', Icon: Users },
+  career: { badge: 'bg-violet-500', pill: 'bg-violet-500/15 text-violet-400', label: 'Career', Icon: Briefcase },
+  education: { badge: 'bg-blue-500', pill: 'bg-blue-500/15 text-blue-400', label: 'Education', Icon: GraduationCap },
+  award: { badge: 'bg-amber-500', pill: 'bg-amber-500/15 text-amber-400', label: 'Award', Icon: Award },
+  certification: { badge: 'bg-cyan-500', pill: 'bg-cyan-500/15 text-cyan-400', label: 'Certification', Icon: Award },
+  project: { badge: 'bg-emerald-500', pill: 'bg-emerald-500/15 text-emerald-400', label: 'Project', Icon: Rocket },
+  event: { badge: 'bg-pink-500', pill: 'bg-pink-500/15 text-pink-400', label: 'Event', Icon: CalendarDays },
+  milestone: { badge: 'bg-fuchsia-500', pill: 'bg-fuchsia-500/15 text-fuchsia-400', label: 'Milestone', Icon: Sparkles },
+  volunteer: { badge: 'bg-rose-500', pill: 'bg-rose-500/15 text-rose-400', label: 'Volunteer', Icon: HeartHandshake },
+  leadership: { badge: 'bg-indigo-500', pill: 'bg-indigo-500/15 text-indigo-400', label: 'Leadership', Icon: Users },
 };
-
-/** Waypoints for the winding "pipe" rail — wide loop like the reference, no card box to avoid. */
-function railPoints(n) {
-  return Array.from({ length: n }, (_, i) => ({ x: i % 2 === 0 ? 18 : 82, y: i * 100 }));
-}
-
-/** One smooth bezier segment per pair of consecutive nodes, so each can carry its own gradient. */
-function buildRailSegments(n) {
-  if (n < 2) return [];
-  const pts = railPoints(n);
-  const segments = [];
-  for (let i = 1; i < pts.length; i++) {
-    const p0 = pts[i - 1];
-    const p1 = pts[i];
-    const midY = (p0.y + p1.y) / 2;
-    segments.push({ id: `seg-${i}`, d: `M ${p0.x} ${p0.y} C ${p0.x} ${midY} ${p1.x} ${midY} ${p1.x} ${p1.y}` });
-  }
-  return segments;
-}
 
 export default function Timeline() {
   const [searchParams] = useSearchParams();
@@ -63,8 +44,6 @@ export default function Timeline() {
     return event.date ? new Date(event.date).toLocaleDateString('en-US', { year: 'numeric', month: 'short' }) : '';
   };
 
-  const badgeLabel = (event) => (event.date ? new Date(event.date).getFullYear() : '');
-
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>
       {/* Page Hero */}
@@ -79,13 +58,6 @@ export default function Timeline() {
           <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.2 }} className="text-muted-foreground mt-4 max-w-xl text-[15px] leading-relaxed">
             A handful of turning points — not a full activity log — tracing the path from student to STEM involvement, leadership, technical growth, and what's ahead.
           </motion.p>
-          <motion.div
-            initial={{ opacity: 0, scaleX: 0 }}
-            animate={{ opacity: 1, scaleX: 1 }}
-            transition={{ duration: 0.8, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
-            className="h-1 w-full max-w-md rounded-full mt-6 origin-left"
-            style={{ background: 'linear-gradient(90deg, #f59e0b, #ec4899, #d946ef, #8b5cf6, #6366f1, #3b82f6, #06b6d4, #10b981)' }}
-          />
         </div>
       </section>
 
@@ -108,39 +80,15 @@ export default function Timeline() {
         </div>
       )}
 
-      {/* Timeline rail */}
+      {/* Timeline */}
       <section className="px-4 md:px-8 pb-16">
-        <div className="max-w-5xl mx-auto">
+        <div className="max-w-4xl mx-auto">
           {filtered.length > 0 ? (
             <div className="relative">
-              {/* mobile rail — unchanged straight line */}
-              <div className="absolute left-[15px] lg:hidden top-2 bottom-2 w-px bg-gradient-to-b from-primary via-primary/30 to-transparent" />
+              {/* single straight line — left-aligned on mobile, centered on desktop. Simple, always correct. */}
+              <div className="absolute left-5 lg:left-1/2 top-0 bottom-0 w-0.5 bg-border lg:-translate-x-1/2" />
 
-              {/* desktop rail — thick winding gradient "pipe" that shifts color milestone to milestone */}
-              <svg
-                className="hidden lg:block absolute inset-0 w-full h-full overflow-visible"
-                viewBox={`0 0 100 ${Math.max(1, filtered.length - 1) * 100}`}
-                preserveAspectRatio="none"
-                fill="none"
-              >
-                <defs>
-                  {buildRailSegments(filtered.length).map((seg, i) => {
-                    const fromHex = (categoryConfig[filtered[i]?.category] || categoryConfig.milestone).hex;
-                    const toHex = (categoryConfig[filtered[i + 1]?.category] || categoryConfig.milestone).hex;
-                    return (
-                      <linearGradient key={seg.id} id={`rail-${seg.id}`} gradientUnits="userSpaceOnUse" x1="0" y1={i * 100} x2="0" y2={(i + 1) * 100}>
-                        <stop offset="0%" stopColor={fromHex} />
-                        <stop offset="100%" stopColor={toHex} />
-                      </linearGradient>
-                    );
-                  })}
-                </defs>
-                {buildRailSegments(filtered.length).map((seg) => (
-                  <path key={seg.id} d={seg.d} stroke={`url(#rail-${seg.id})`} strokeWidth="26" strokeLinecap="round" vectorEffect="non-scaling-stroke" />
-                ))}
-              </svg>
-
-              <div className="space-y-14 lg:space-y-24">
+              <div className="space-y-8">
                 {filtered.map((event, i) => {
                   const cat = categoryConfig[event.category] || categoryConfig.milestone;
                   const Icon = cat.Icon;
@@ -151,35 +99,68 @@ export default function Timeline() {
                     <motion.div
                       key={event.id}
                       ref={isHighlighted ? highlightRef : null}
-                      initial={{ opacity: 0, y: 20 }}
+                      initial={{ opacity: 0, y: 16 }}
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true, margin: '-60px' }}
-                      transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                      className="relative"
+                      transition={{ duration: 0.4 }}
+                      className="relative lg:grid lg:grid-cols-[1fr_3rem_1fr] lg:gap-x-6"
                     >
-                      {/* badge + text are true flex siblings with a fixed gap — they can never overlap, regardless of text length */}
-                      <div
-                        style={{ '--row-offset': isRight ? 'calc(18% - 2.25rem)' : 'calc(18% - 2.25rem)' }}
-                        className={`flex items-start gap-4 lg:gap-6 lg:max-w-[calc(82%-1rem)] ${isRight ? 'lg:flex-row-reverse lg:ml-auto lg:mr-[var(--row-offset)]' : 'lg:ml-[var(--row-offset)]'} ${isHighlighted ? 'ring-2 ring-primary/40 ring-offset-4 ring-offset-background rounded-2xl' : ''}`}
-                      >
-                        {/* badge — always in-flow, fixed size, can't be covered by or cover text */}
-                        <div className="relative shrink-0 w-11 h-11 lg:w-16 lg:h-16 rounded-full border-4 border-background flex items-center justify-center shadow-lg">
-                          <span className="absolute inset-0 rounded-full" style={{ backgroundColor: cat.hex }} />
-                          <span className="relative text-[10px] lg:text-xs font-bold text-white font-mono">{badgeLabel(event)}</span>
+                      {/* badge — a normal grid/flex item, never absolutely positioned, so it can never sit on top of text */}
+                      <div className="absolute left-5 lg:static lg:col-start-2 -translate-x-1/2 lg:translate-x-0 flex justify-center">
+                        <div className={`w-9 h-9 rounded-full ${cat.badge} flex items-center justify-center ring-4 ring-background shadow-md shrink-0`}>
+                          <Icon className="w-4 h-4 text-white" strokeWidth={2} />
                         </div>
+                      </div>
 
-                        {/* text */}
-                        <div className={isRight ? 'lg:text-right' : ''}>
-                          <div className={`flex items-center gap-2 mb-1.5 ${isRight ? 'lg:justify-end' : ''}`}>
-                            <Icon className="w-4 h-4 shrink-0" style={{ color: cat.hex }} strokeWidth={1.75} />
-                            <span className="text-[11px] font-mono text-muted-foreground uppercase tracking-wide">{formatDate(event)}</span>
+                      {/* left column content — used on desktop when this item is on the left; empty otherwise */}
+                      <div className="hidden lg:block lg:col-start-1 lg:row-start-1 lg:text-right">
+                        {!isRight && (
+                          <div className={`glass-card p-5 inline-block text-left w-full max-w-md ${isHighlighted ? 'border-primary ring-2 ring-primary/30' : ''}`}>
+                            <div className="flex items-center gap-2 mb-1.5">
+                              <span className={`px-2 py-0.5 rounded-full text-[11px] font-semibold ${cat.pill}`}>{cat.label}</span>
+                              <time className="text-xs font-mono text-muted-foreground">{formatDate(event)}</time>
+                            </div>
+                            <h3 className="font-display font-semibold text-base text-foreground leading-snug">{event.title}</h3>
+                            {event.description && <p className="text-sm text-muted-foreground mt-1.5 leading-relaxed">{event.description}</p>}
+                            {event.related_path && (
+                              <Link to={event.related_path} className="inline-flex items-center gap-1.5 text-xs text-primary hover:text-primary/80 mt-2 transition-premium">
+                                <ExternalLink className="w-3 h-3" /> View related {event.related_entity_type}
+                              </Link>
+                            )}
                           </div>
-                          <h3 className="font-display font-bold text-lg leading-snug" style={{ color: cat.hex }}>{event.title}</h3>
-                          {event.description && (
-                            <p className="text-sm text-muted-foreground mt-1.5 leading-relaxed">{event.description}</p>
-                          )}
+                        )}
+                      </div>
+
+                      {/* right column content — used on desktop when this item is on the right */}
+                      <div className="hidden lg:block lg:col-start-3 lg:row-start-1">
+                        {isRight && (
+                          <div className={`glass-card p-5 inline-block w-full max-w-md ${isHighlighted ? 'border-primary ring-2 ring-primary/30' : ''}`}>
+                            <div className="flex items-center gap-2 mb-1.5">
+                              <span className={`px-2 py-0.5 rounded-full text-[11px] font-semibold ${cat.pill}`}>{cat.label}</span>
+                              <time className="text-xs font-mono text-muted-foreground">{formatDate(event)}</time>
+                            </div>
+                            <h3 className="font-display font-semibold text-base text-foreground leading-snug">{event.title}</h3>
+                            {event.description && <p className="text-sm text-muted-foreground mt-1.5 leading-relaxed">{event.description}</p>}
+                            {event.related_path && (
+                              <Link to={event.related_path} className="inline-flex items-center gap-1.5 text-xs text-primary hover:text-primary/80 mt-2 transition-premium">
+                                <ExternalLink className="w-3 h-3" /> View related {event.related_entity_type}
+                              </Link>
+                            )}
+                          </div>
+                        )}
+                      </div>
+
+                      {/* mobile — single column, always to the right of the badge, no grid needed */}
+                      <div className="lg:hidden pl-14">
+                        <div className={`glass-card p-5 ${isHighlighted ? 'border-primary ring-2 ring-primary/30' : ''}`}>
+                          <div className="flex items-center gap-2 mb-1.5 flex-wrap">
+                            <span className={`px-2 py-0.5 rounded-full text-[11px] font-semibold ${cat.pill}`}>{cat.label}</span>
+                            <time className="text-xs font-mono text-muted-foreground">{formatDate(event)}</time>
+                          </div>
+                          <h3 className="font-display font-semibold text-base text-foreground leading-snug">{event.title}</h3>
+                          {event.description && <p className="text-sm text-muted-foreground mt-1.5 leading-relaxed">{event.description}</p>}
                           {event.related_path && (
-                            <Link to={event.related_path} className={`inline-flex items-center gap-1.5 text-xs text-primary hover:text-primary/80 mt-2 transition-premium ${isRight ? 'lg:flex-row-reverse' : ''}`}>
+                            <Link to={event.related_path} className="inline-flex items-center gap-1.5 text-xs text-primary hover:text-primary/80 mt-2 transition-premium">
                               <ExternalLink className="w-3 h-3" /> View related {event.related_entity_type}
                             </Link>
                           )}
