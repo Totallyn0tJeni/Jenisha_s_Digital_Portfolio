@@ -21,9 +21,9 @@ const categoryConfig = {
   leadership: { color: 'bg-indigo-500/15 text-indigo-400', dot: 'border-indigo-500', hex: '#6366f1', label: 'Leadership', Icon: Users },
 };
 
-/** Waypoints for the winding "pipe" rail — wide alternating swing for a loopy, rounded turn. */
+/** Waypoints for the winding "pipe" rail — stays in the gutter between the two card columns. */
 function railPoints(n) {
-  return Array.from({ length: n }, (_, i) => ({ x: i % 2 === 0 ? 20 : 80, y: i * 100 }));
+  return Array.from({ length: n }, (_, i) => ({ x: i % 2 === 0 ? 42 : 58, y: i * 100 }));
 }
 
 /** One smooth bezier segment per pair of consecutive nodes, so each can carry its own gradient. */
@@ -144,7 +144,7 @@ export default function Timeline() {
                   const Icon = cat.Icon;
                   const isHighlighted = event.id === highlightId;
                   const isRight = i % 2 === 1;
-                  const railX = isRight ? '80%' : '20%';
+                  const railX = isRight ? '58%' : '42%';
 
                   return (
                     <motion.div
@@ -159,7 +159,7 @@ export default function Timeline() {
                       {/* node — small dot on mobile, large solid badge sitting on the pipe on desktop */}
                       <div
                         style={{ '--rail-x': railX }}
-                        className={`absolute z-10 left-0 lg:left-[var(--rail-x)] top-1 lg:top-1/2 w-8 h-8 lg:w-14 lg:h-14 -translate-x-[calc(50%-15px)] lg:-translate-x-1/2 lg:-translate-y-1/2 rounded-full bg-background border-2 lg:border-4 lg:border-background ${cat.dot} flex items-center justify-center shadow-[0_0_0_5px_hsl(var(--primary)/0.08)] lg:shadow-lg ${event.is_milestone ? 'shadow-glow' : ''}`}
+                        className={`absolute z-10 left-0 lg:left-[var(--rail-x)] top-1 w-8 h-8 lg:w-14 lg:h-14 -translate-x-[calc(50%-15px)] lg:-translate-x-1/2 rounded-full bg-background border-2 lg:border-4 lg:border-background ${cat.dot} flex items-center justify-center shadow-[0_0_0_5px_hsl(var(--primary)/0.08)] lg:shadow-lg ${event.is_milestone ? 'shadow-glow' : ''}`}
                       >
                         <span className="hidden lg:block absolute inset-0 rounded-full" style={{ backgroundColor: cat.hex }} />
                         <Icon className="relative w-3.5 h-3.5 lg:w-6 lg:h-6 text-foreground/80 lg:text-white" strokeWidth={2} />
