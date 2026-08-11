@@ -146,7 +146,6 @@ export default function Timeline() {
                   const Icon = cat.Icon;
                   const isHighlighted = event.id === highlightId;
                   const isRight = i % 2 === 1;
-                  const railX = isRight ? '82%' : '18%';
 
                   return (
                     <motion.div
@@ -156,35 +155,35 @@ export default function Timeline() {
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true, margin: '-60px' }}
                       transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                      className="relative pl-14 lg:pl-0"
+                      className="relative"
                     >
-                      {/* badge — small dot + year on mobile, large badge with year sitting on the pipe on desktop */}
+                      {/* badge + text are true flex siblings with a fixed gap — they can never overlap, regardless of text length */}
                       <div
-                        style={{ '--rail-x': railX }}
-                        className={`absolute z-10 left-0 lg:left-[var(--rail-x)] top-0 w-11 h-11 lg:w-16 lg:h-16 -translate-x-1/2 lg:-translate-x-1/2 rounded-full border-4 border-background flex items-center justify-center shadow-lg ${isHighlighted ? 'ring-2 ring-offset-2 ring-offset-background ring-primary' : ''}`}
+                        style={{ '--row-offset': isRight ? 'calc(18% - 2.25rem)' : 'calc(18% - 2.25rem)' }}
+                        className={`flex items-start gap-4 lg:gap-6 lg:max-w-[calc(82%-1rem)] ${isRight ? 'lg:flex-row-reverse lg:ml-auto lg:mr-[var(--row-offset)]' : 'lg:ml-[var(--row-offset)]'} ${isHighlighted ? 'ring-2 ring-primary/40 ring-offset-4 ring-offset-background rounded-2xl' : ''}`}
                       >
-                        <span className="absolute inset-0 rounded-full" style={{ backgroundColor: cat.hex }} />
-                        <span className="relative text-[10px] lg:text-xs font-bold text-white font-mono">{badgeLabel(event)}</span>
-                      </div>
-
-                      {/* text — plain, no card box, positioned beside the badge and toward center on desktop */}
-                      <div
-                        style={{ '--text-ml': isRight ? '0px' : 'calc(18% + 2.5rem)', '--text-mr': isRight ? 'calc(18% + 2.5rem)' : '0px', '--text-maxw': 'calc(82% - 5rem)' }}
-                        className={`lg:max-w-[var(--text-maxw)] ${isRight ? 'lg:ml-auto lg:mr-[var(--text-mr)] lg:text-right' : 'lg:ml-[var(--text-ml)] lg:text-left'}`}
-                      >
-                        <div className={`flex items-center gap-2 mb-1.5 ${isRight ? '' : 'lg:justify-end'}`}>
-                          <Icon className="w-4 h-4" style={{ color: cat.hex }} strokeWidth={1.75} />
-                          <span className="text-[11px] font-mono text-muted-foreground uppercase tracking-wide">{formatDate(event)}</span>
+                        {/* badge — always in-flow, fixed size, can't be covered by or cover text */}
+                        <div className="relative shrink-0 w-11 h-11 lg:w-16 lg:h-16 rounded-full border-4 border-background flex items-center justify-center shadow-lg">
+                          <span className="absolute inset-0 rounded-full" style={{ backgroundColor: cat.hex }} />
+                          <span className="relative text-[10px] lg:text-xs font-bold text-white font-mono">{badgeLabel(event)}</span>
                         </div>
-                        <h3 className="font-display font-bold text-lg leading-snug" style={{ color: cat.hex }}>{event.title}</h3>
-                        {event.description && (
-                          <p className="text-sm text-muted-foreground mt-1.5 leading-relaxed">{event.description}</p>
-                        )}
-                        {event.related_path && (
-                          <Link to={event.related_path} className={`inline-flex items-center gap-1.5 text-xs text-primary hover:text-primary/80 mt-2 transition-premium ${isRight ? '' : 'lg:flex-row-reverse'}`}>
-                            <ExternalLink className="w-3 h-3" /> View related {event.related_entity_type}
-                          </Link>
-                        )}
+
+                        {/* text */}
+                        <div className={isRight ? 'lg:text-right' : ''}>
+                          <div className={`flex items-center gap-2 mb-1.5 ${isRight ? 'lg:justify-end' : ''}`}>
+                            <Icon className="w-4 h-4 shrink-0" style={{ color: cat.hex }} strokeWidth={1.75} />
+                            <span className="text-[11px] font-mono text-muted-foreground uppercase tracking-wide">{formatDate(event)}</span>
+                          </div>
+                          <h3 className="font-display font-bold text-lg leading-snug" style={{ color: cat.hex }}>{event.title}</h3>
+                          {event.description && (
+                            <p className="text-sm text-muted-foreground mt-1.5 leading-relaxed">{event.description}</p>
+                          )}
+                          {event.related_path && (
+                            <Link to={event.related_path} className={`inline-flex items-center gap-1.5 text-xs text-primary hover:text-primary/80 mt-2 transition-premium ${isRight ? 'lg:flex-row-reverse' : ''}`}>
+                              <ExternalLink className="w-3 h-3" /> View related {event.related_entity_type}
+                            </Link>
+                          )}
+                        </div>
                       </div>
                     </motion.div>
                   );
