@@ -3,10 +3,12 @@
 // labeled placeholder tile instead of breaking the layout.
 
 export const heroImages = [
-  { id: 'profile', src: '', alt: 'Professional headshot', label: 'Profile' },
-  { id: 'robotics', src: '', alt: 'FRC Team 3650 Mechawolves at a robotics competition', label: 'Robotics' },
-  { id: 'hackathon', src: '', alt: 'WolfHacks hackathon event', label: 'Hackathon' },
-  { id: 'community', src: '', alt: 'Community outreach / STEM event', label: 'Community' },
+  { id: 'business', src: '/images/hero/hero-1.jpg', alt: 'Jenisha Patel', label: 'Profile' },
+  { id: 'candid', src: '/images/hero/hero-2.jpg', alt: 'Jenisha Patel outdoors', label: 'Candid' },
+  { id: 'traditional', src: '/images/hero/hero-3.jpg', alt: 'Jenisha Patel', label: 'Portrait' },
+  { id: 'badminton', src: '/images/hero/hero-4.jpg', alt: 'Jenisha Patel at a school event', label: 'Community' },
+  { id: 'graduation', src: '/images/hero/hero-5.jpg', alt: 'Jenisha Patel at graduation', label: 'Graduation' },
+  { id: 'wonderland', src: '/images/hero/hero-6.jpg', alt: 'Jenisha Patel', label: 'Adventure' },
 ];
 
 export default heroImages;

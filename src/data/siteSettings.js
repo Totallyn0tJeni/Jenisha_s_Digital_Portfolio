@@ -9,7 +9,7 @@ export const siteSettings = {
 
   logo_url: '',
   favicon_url: '',
-  hero_image_url: '',
+  hero_image_url: '/images/profile/profile-business.jpg',
   resume_pdf_url: '/documents/jenisha-patel-resume.pdf',
   theme_default: 'system',
 

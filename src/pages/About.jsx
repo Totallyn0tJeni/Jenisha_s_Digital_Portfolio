@@ -5,9 +5,11 @@ import { useSiteSettings } from '@/hooks/useSiteSettings';
 import ResumeDownload from '@/components/ResumeDownload';
 import ContinueExploring from '@/components/ContinueExploring';
 import EmptyState from '@/components/EmptyState';
+import AboutPhotoCarousel from '@/components/AboutPhotoCarousel';
 import { education as educationData } from '@/data/education';
 import { skills as skillsData } from '@/data/skills';
 import { memberships as membershipsData } from '@/data/memberships';
+import { aboutCarouselImages } from '@/data/aboutCarouselImages';
 
 const iconMap = { Search, Users, Camera, TrendingUp };
 const skillIconMap = { Code2, Atom, Server, GitBranch, Database, Plug, Cpu, Layout, Sparkles, Figma, Palette, LayoutTemplate, Eye, Share2, Target, PenTool, BarChart2, Mail, Handshake, Camera, Video, Film, BookOpen, TrendingUp, Briefcase, Rocket, Users, Calendar, Mic, ClipboardList, Landmark, GraduationCap, Puzzle, Clock, MessageCircle, Search, FileText };
@@ -72,7 +74,9 @@ export default function About() {
 
           {/* Portrait + overlapping quick facts card */}
           <motion.div initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ duration: 0.7 }} className="relative">
-            {portrait ? (
+            {aboutCarouselImages.length > 0 ? (
+              <AboutPhotoCarousel images={aboutCarouselImages} />
+            ) : portrait ? (
               <div className="relative aspect-[4/5] rounded-3xl overflow-hidden border border-border shadow-soft">
                 <img src={portrait} alt={settings?.site_name || 'Portrait'} className="w-full h-full object-cover" />
                 <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent" />
