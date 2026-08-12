@@ -84,20 +84,20 @@ export default function HomeHero() {
               <HeroImageCarousel images={heroImages} initials={initials} />
             </div>
             {iconBadges.map(({ icon: Icon, angle, delay }, i) =>
-            <motion.div
-              key={i}
-              animate={{ y: [0, -12, 0] }}
-              transition={{ duration: 6, repeat: Infinity, delay, ease: 'easeInOut' }}
-              style={{ ...posOnCircle(angle, badgeRadius), transform: 'translate(-50%, -50%)' }}
-              className="absolute w-12 h-12 md:w-14 md:h-14 rounded-2xl glass-strong flex items-center justify-center shadow-card">
-                <Icon className="w-5 h-5 md:w-6 md:h-6 text-primary" />
-              </motion.div>
+            <div key={i} style={posOnCircle(angle, badgeRadius)} className="absolute -translate-x-1/2 -translate-y-1/2">
+              <motion.div
+                animate={{ y: [0, -12, 0] }}
+                transition={{ duration: 6, repeat: Infinity, delay, ease: 'easeInOut' }}
+                className="w-12 h-12 md:w-14 md:h-14 rounded-2xl glass-strong flex items-center justify-center shadow-card">
+                  <Icon className="w-5 h-5 md:w-6 md:h-6 text-primary" />
+                </motion.div>
+              </div>
             )}
             {dots.map(({ angle, delay }, i) => (
               <span
                 key={i}
-                style={{ ...posOnCircle(angle, dotRadius), transform: 'translate(-50%, -50%)', animationDelay: delay }}
-                className="absolute w-1.5 h-1.5 rounded-full bg-amber-400 shadow-[0_0_12px_2px] shadow-amber-400/60 animate-pulse"
+                style={{ ...posOnCircle(angle, dotRadius), animationDelay: delay }}
+                className="absolute -translate-x-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full bg-amber-400 shadow-[0_0_12px_2px] shadow-amber-400/60 animate-pulse"
               />
             ))}
           </motion.div>
