@@ -17,11 +17,24 @@ export default function HomeHero() {
   const ctaSecondary = settings?.hero_cta_secondary || { label: "Let's Connect", link: '/contact' };
   const badge = settings?.tagline || 'Computer Science · Builder · Leader';
 
+  // Evenly spaced around the circle's edge (angle measured from center, 0deg = right, clockwise).
   const iconBadges = [
-  { icon: Code2, pos: 'top-[4%] left-[2%]', delay: 0 },
-  { icon: Camera, pos: 'top-[12%] right-[-2%]', delay: 1.1 },
-  { icon: Users, pos: 'bottom-[16%] left-[-6%]', delay: 2.2 },
-  { icon: TrendingUp, pos: 'bottom-[2%] right-[10%]', delay: 3.1 }];
+  { icon: Code2, angle: 315, delay: 0 }, // upper-right
+  { icon: Camera, angle: 45, delay: 1.1 }, // lower-right
+  { icon: Users, angle: 135, delay: 2.2 }, // lower-left
+  { icon: TrendingUp, angle: 225, delay: 3.1 }, // upper-left
+  ];
+  const dots = [
+  { angle: 0, delay: '0s' },
+  { angle: 120, delay: '1.4s' },
+  { angle: 240, delay: '2.4s' },
+  ];
+  const badgeRadius = 42; // % from center — just outside the 66%-diameter circle
+  const dotRadius = 34; // % from center — sits right on the circle's edge
+  const posOnCircle = (angleDeg, radius) => {
+    const rad = (angleDeg * Math.PI) / 180;
+    return { left: `${50 + radius * Math.cos(rad)}%`, top: `${50 + radius * Math.sin(rad)}%` };
+  };
 
 
   return (
@@ -70,14 +83,23 @@ export default function HomeHero() {
             <div className="w-2/3 aspect-square rounded-full border border-border shadow-glow relative overflow-hidden">
               <HeroImageCarousel images={heroImages} initials={initials} />
             </div>
-            {iconBadges.map(({ icon: Icon, pos, delay }, i) =>
-            <motion.div key={i} animate={{ y: [0, -12, 0] }} transition={{ duration: 6, repeat: Infinity, delay, ease: 'easeInOut' }} className={`absolute ${pos} w-12 h-12 md:w-14 md:h-14 rounded-2xl glass-strong flex items-center justify-center shadow-card`}>
+            {iconBadges.map(({ icon: Icon, angle, delay }, i) =>
+            <motion.div
+              key={i}
+              animate={{ y: [0, -12, 0] }}
+              transition={{ duration: 6, repeat: Infinity, delay, ease: 'easeInOut' }}
+              style={{ ...posOnCircle(angle, badgeRadius), transform: 'translate(-50%, -50%)' }}
+              className="absolute w-12 h-12 md:w-14 md:h-14 rounded-2xl glass-strong flex items-center justify-center shadow-card">
                 <Icon className="w-5 h-5 md:w-6 md:h-6 text-primary" />
               </motion.div>
             )}
-            <span className="absolute top-[8%] left-[18%] w-1.5 h-1.5 rounded-full bg-amber-400 shadow-[0_0_12px_2px] shadow-amber-400/60 animate-pulse" />
-            <span className="absolute bottom-[14%] right-[6%] w-1.5 h-1.5 rounded-full bg-amber-400 shadow-[0_0_12px_2px] shadow-amber-400/60 animate-pulse" style={{ animationDelay: '1.4s' }} />
-            <span className="absolute top-[46%] right-[-2%] w-1.5 h-1.5 rounded-full bg-amber-400 shadow-[0_0_12px_2px] shadow-amber-400/60 animate-pulse" style={{ animationDelay: '2.4s' }} />
+            {dots.map(({ angle, delay }, i) => (
+              <span
+                key={i}
+                style={{ ...posOnCircle(angle, dotRadius), transform: 'translate(-50%, -50%)', animationDelay: delay }}
+                className="absolute w-1.5 h-1.5 rounded-full bg-amber-400 shadow-[0_0_12px_2px] shadow-amber-400/60 animate-pulse"
+              />
+            ))}
           </motion.div>
         </div>
       </div>
