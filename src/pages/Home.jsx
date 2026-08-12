@@ -21,6 +21,9 @@ const featuredRoles = getFeaturedRoles();
 export default function Home() {
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>
+      <div style={{ background: 'red', color: 'white', fontSize: '24px', fontWeight: 'bold', textAlign: 'center', padding: '20px', position: 'sticky', top: 0, zIndex: 9999 }}>
+        BUILD-CHECK-9F3K — if you see this red bar, you ARE running the latest files
+      </div>
       <HomeHero />
       <StatsRow />
       <AboutPreview />
