@@ -54,7 +54,7 @@ export default function HeroImageCarousel({ images = [], initials = '', interval
         </motion.div>
       </AnimatePresence>
 
-      {slides.length > 1 && (
+      {slides.length > 1 && slides.length <= 10 && (
         <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-1.5 z-10">
           {slides.map((s, i) => (
             <button
@@ -67,6 +67,11 @@ export default function HeroImageCarousel({ images = [], initials = '', interval
               }`}
             />
           ))}
+        </div>
+      )}
+      {slides.length > 10 && (
+        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-10 px-2.5 py-1 rounded-full bg-background/70 backdrop-blur text-[10px] font-mono text-foreground/80">
+          {index + 1} / {slides.length}
         </div>
       )}
     </div>
