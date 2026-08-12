@@ -77,10 +77,10 @@ export default function HomeHero() {
           </div>
 
           {/* Right: Visual */}
-          <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.8, delay: 0.2 }} className="relative aspect-square max-w-md mx-auto flex items-center justify-center">
+          <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.8, delay: 0.2 }} className="relative aspect-square max-w-md mx-auto flex items-center justify-center border-4 border-red-500">
             <div className="absolute inset-[6%] rounded-full border border-dashed border-border" />
             <div className="absolute inset-[-4%] rounded-full border border-dashed border-border opacity-50" />
-            <div className="w-2/3 aspect-square rounded-full border border-border shadow-glow relative overflow-hidden">
+            <div className="w-2/3 aspect-square rounded-full border-4 border-blue-500 shadow-glow relative overflow-hidden">
               <HeroImageCarousel images={heroImages} initials={initials} />
             </div>
             {iconBadges.map(({ icon: Icon, angle, delay }, i) =>

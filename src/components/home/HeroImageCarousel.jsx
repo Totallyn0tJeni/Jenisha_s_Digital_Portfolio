@@ -20,7 +20,14 @@ export default function HeroImageCarousel({ images = [], initials = '', interval
   const current = slides[index];
 
   return (
-    <div className="relative w-full h-full rounded-full overflow-hidden">
+    <div className="relative w-full h-full rounded-full overflow-hidden bg-yellow-300">
+      {/* TEMPORARY DEBUG — tells us on-screen exactly what this component sees at runtime. Remove once fixed. */}
+      <div className="absolute inset-0 z-50 flex flex-col items-center justify-center text-black text-xs font-mono text-center p-2 gap-1 bg-yellow-300">
+        <div>images.length: {images.length}</div>
+        <div>slides.length: {slides.length}</div>
+        <div className="break-all">current.src: "{current.src}"</div>
+      </div>
+
       <AnimatePresence mode="wait">
         <motion.div
           key={current.id}
