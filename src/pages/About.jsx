@@ -88,7 +88,7 @@ export default function About() {
             )}
             {/* Overlapping quick facts card */}
             {quickFacts.length > 0 && (
-              <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.3, duration: 0.5 }} className="absolute -bottom-6 -left-6 md:-left-12 glass-strong rounded-2xl p-5 md:p-6 max-w-[280px] shadow-card">
+              <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.3, duration: 0.5 }} className="absolute -bottom-28 -left-6 md:-left-12 glass-strong rounded-2xl p-5 md:p-6 max-w-[280px] shadow-card">
                 <h4 className="text-xs font-mono uppercase tracking-[0.08em] text-muted-foreground mb-4">Quick Facts</h4>
                 <div className="space-y-3">
                   {quickFacts.slice(0, 4).map((fact, i) => (
