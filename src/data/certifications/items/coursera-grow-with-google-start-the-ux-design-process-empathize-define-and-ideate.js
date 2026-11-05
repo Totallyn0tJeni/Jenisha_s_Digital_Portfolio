@@ -6,6 +6,6 @@ export default {
   category: "UX & Product Design",
   description: "",
   parent_certification: "Grow with Google UX Design Professional Certificate",
-  credential_url: "",
+  credential_url: "https://www.coursera.org/account/accomplishments/verify/0HH4IPDJT5IK",
   order: 2,
 }
