@@ -23,8 +23,8 @@ export default {
   web_path: "/images/marketing/sending-sunshine/sending-sunshine-instagram-content-chinguacousy-sending-sunshine-39-full.jpg",
   preview_path: "/images/marketing/sending-sunshine/sending-sunshine-instagram-content-chinguacousy-sending-sunshine-39-medium.jpg",
   thumbnail_path: "/images/marketing/sending-sunshine/sending-sunshine-instagram-content-chinguacousy-sending-sunshine-39-thumbnail.jpg",
-  group_id: "sending-sunshine-instagram-content-chinguacousy-sending-sunshine-39",
-  group_index: 0,
-  group_size: 1,
-  group_type: "single",
+  group_id: "other-09-sending-sunshine-template-library",
+  group_index: 15,
+  group_size: 34,
+  group_type: "carousel",
 }

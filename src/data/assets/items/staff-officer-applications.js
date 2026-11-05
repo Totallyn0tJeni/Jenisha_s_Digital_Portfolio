@@ -23,8 +23,8 @@ export default {
   web_path: "/images/marketing/founders-den-2026-marketing/staff-officer-applications-full.jpg",
   preview_path: "/images/marketing/founders-den-2026-marketing/staff-officer-applications-medium.jpg",
   thumbnail_path: "/images/marketing/founders-den-2026-marketing/staff-officer-applications-thumbnail.jpg",
-  group_id: "staff-officer-applications",
-  group_index: 0,
-  group_size: 1,
-  group_type: "single",
+  group_id: "founders-den-2026-marketing-01-recruitment-applications",
+  group_index: 1,
+  group_size: 3,
+  group_type: "carousel",
 }

@@ -23,8 +23,8 @@ export default {
   web_path: "/images/marketing/chinguacousy-scitech-activity-committee-stac/arts-night-history-series-chinguacousy-scitech-act-2-full.jpg",
   preview_path: "/images/marketing/chinguacousy-scitech-activity-committee-stac/arts-night-history-series-chinguacousy-scitech-act-2-medium.jpg",
   thumbnail_path: "/images/marketing/chinguacousy-scitech-activity-committee-stac/arts-night-history-series-chinguacousy-scitech-act-2-thumbnail.jpg",
-  group_id: "arts-night-history-series-chinguacousy-scitech-act-2",
-  group_index: 0,
-  group_size: 1,
-  group_type: "single",
+  group_id: "other-10-arts-night-history-series",
+  group_index: 3,
+  group_size: 9,
+  group_type: "carousel",
 }

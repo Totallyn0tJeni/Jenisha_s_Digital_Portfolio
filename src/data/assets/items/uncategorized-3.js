@@ -23,8 +23,8 @@ export default {
   web_path: "/images/marketing/uncategorized/uncategorized-3-full.jpg",
   preview_path: "/images/marketing/uncategorized/uncategorized-3-medium.jpg",
   thumbnail_path: "/images/marketing/uncategorized/uncategorized-3-thumbnail.jpg",
-  group_id: "uncategorized-3",
-  group_index: 0,
-  group_size: 1,
-  group_type: "single",
+  group_id: "other-02-spring-carnival",
+  group_index: 2,
+  group_size: 3,
+  group_type: "carousel",
 }

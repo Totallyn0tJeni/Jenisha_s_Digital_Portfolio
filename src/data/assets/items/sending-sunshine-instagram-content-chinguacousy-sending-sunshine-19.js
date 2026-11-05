@@ -23,8 +23,8 @@ export default {
   web_path: "/images/marketing/sending-sunshine/sending-sunshine-instagram-content-chinguacousy-sending-sunshine-19-full.jpg",
   preview_path: "/images/marketing/sending-sunshine/sending-sunshine-instagram-content-chinguacousy-sending-sunshine-19-medium.jpg",
   thumbnail_path: "/images/marketing/sending-sunshine/sending-sunshine-instagram-content-chinguacousy-sending-sunshine-19-thumbnail.jpg",
-  group_id: "sending-sunshine-instagram-content-chinguacousy-sending-sunshine-19",
-  group_index: 0,
-  group_size: 1,
-  group_type: "single",
+  group_id: "other-06-sending-sunshine-halloween",
+  group_index: 1,
+  group_size: 2,
+  group_type: "carousel",
 }

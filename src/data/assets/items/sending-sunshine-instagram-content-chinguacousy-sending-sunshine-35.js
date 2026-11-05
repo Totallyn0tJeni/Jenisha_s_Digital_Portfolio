@@ -23,8 +23,8 @@ export default {
   web_path: "/images/marketing/sending-sunshine/sending-sunshine-instagram-content-chinguacousy-sending-sunshine-35-full.jpg",
   preview_path: "/images/marketing/sending-sunshine/sending-sunshine-instagram-content-chinguacousy-sending-sunshine-35-medium.jpg",
   thumbnail_path: "/images/marketing/sending-sunshine/sending-sunshine-instagram-content-chinguacousy-sending-sunshine-35-thumbnail.jpg",
-  group_id: "sending-sunshine-instagram-content-chinguacousy-sending-sunshine-35",
-  group_index: 0,
-  group_size: 1,
-  group_type: "single",
+  group_id: "other-04-sending-sunshine-info-session-card-guidelines",
+  group_index: 4,
+  group_size: 5,
+  group_type: "carousel",
 }

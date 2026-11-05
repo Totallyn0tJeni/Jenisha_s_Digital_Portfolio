@@ -23,8 +23,8 @@ export default {
   web_path: "/images/marketing/ching-scholars-content-marketing/study-tip-ask-for-guidance-full.jpg",
   preview_path: "/images/marketing/ching-scholars-content-marketing/study-tip-ask-for-guidance-medium.jpg",
   thumbnail_path: "/images/marketing/ching-scholars-content-marketing/study-tip-ask-for-guidance-thumbnail.jpg",
-  group_id: "study-tip-ask-for-guidance",
-  group_index: 0,
-  group_size: 1,
-  group_type: "single",
+  group_id: "ching-scholars-content-marketing-03-guide-to-getting-straight-a-s",
+  group_index: 3,
+  group_size: 6,
+  group_type: "carousel",
 }

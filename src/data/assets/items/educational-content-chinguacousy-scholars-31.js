@@ -23,8 +23,8 @@ export default {
   web_path: "/images/marketing/ching-scholars-content-marketing/educational-content-chinguacousy-scholars-31-full.jpg",
   preview_path: "/images/marketing/ching-scholars-content-marketing/educational-content-chinguacousy-scholars-31-medium.jpg",
   thumbnail_path: "/images/marketing/ching-scholars-content-marketing/educational-content-chinguacousy-scholars-31-thumbnail.jpg",
-  group_id: "educational-content-chinguacousy-scholars-31",
-  group_index: 0,
-  group_size: 1,
-  group_type: "single",
+  group_id: "ching-scholars-content-marketing-05-7-study-techniques",
+  group_index: 5,
+  group_size: 6,
+  group_type: "carousel",
 }

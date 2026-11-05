@@ -23,8 +23,8 @@ export default {
   web_path: "/images/marketing/sending-sunshine/sending-sunshine-instagram-content-chinguacousy-sending-sunshine-16-full.jpg",
   preview_path: "/images/marketing/sending-sunshine/sending-sunshine-instagram-content-chinguacousy-sending-sunshine-16-medium.jpg",
   thumbnail_path: "/images/marketing/sending-sunshine/sending-sunshine-instagram-content-chinguacousy-sending-sunshine-16-thumbnail.jpg",
-  group_id: "sending-sunshine-instagram-content-chinguacousy-sending-sunshine-16",
-  group_index: 0,
-  group_size: 1,
-  group_type: "single",
+  group_id: "other-08-sending-sunshine-meet-the-executive-members",
+  group_index: 2,
+  group_size: 5,
+  group_type: "carousel",
 }

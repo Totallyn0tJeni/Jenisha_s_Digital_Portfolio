@@ -8,7 +8,8 @@ const modules = import.meta.glob('./items/*.js', { eager: true });
  * Photography. Add a new asset by creating a file in items/; nothing else
  * references raw image paths directly — everyone queries this collection.
  */
-export const assets = loadItems(modules);
+// Assets marked `status: "hidden"` stay in the repo but are not shown on the site.
+export const assets = loadItems(modules).filter((a) => a.status !== 'hidden');
 
 export const getAssetById = (id) => assets.find((a) => a.id === id);
 export const getAssetsByCampaign = (campaignId) => assets.filter((a) => a.campaign === campaignId);

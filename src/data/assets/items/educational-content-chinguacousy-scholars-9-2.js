@@ -23,8 +23,8 @@ export default {
   web_path: "/images/marketing/ching-scholars-content-marketing/educational-content-chinguacousy-scholars-9-2-full.jpg",
   preview_path: "/images/marketing/ching-scholars-content-marketing/educational-content-chinguacousy-scholars-9-2-medium.jpg",
   thumbnail_path: "/images/marketing/ching-scholars-content-marketing/educational-content-chinguacousy-scholars-9-2-thumbnail.jpg",
-  group_id: "educational-content-chinguacousy-scholars-9-2",
-  group_index: 0,
-  group_size: 1,
-  group_type: "single",
+  group_id: "ching-scholars-content-marketing-08-motivation-monday-study-with-purpose",
+  group_index: 1,
+  group_size: 4,
+  group_type: "carousel",
 }

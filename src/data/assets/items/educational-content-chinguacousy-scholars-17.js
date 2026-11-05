@@ -23,8 +23,8 @@ export default {
   web_path: "/images/marketing/ching-scholars-content-marketing/educational-content-chinguacousy-scholars-17-full.jpg",
   preview_path: "/images/marketing/ching-scholars-content-marketing/educational-content-chinguacousy-scholars-17-medium.jpg",
   thumbnail_path: "/images/marketing/ching-scholars-content-marketing/educational-content-chinguacousy-scholars-17-thumbnail.jpg",
-  group_id: "ching-scholars-content-marketing-educational-content-carousel-educational-content-chinguacousy-scholars-11",
-  group_index: 1,
-  group_size: 3,
+  group_id: "ching-scholars-content-marketing-03-guide-to-getting-straight-a-s",
+  group_index: 5,
+  group_size: 6,
   group_type: "carousel",
 }

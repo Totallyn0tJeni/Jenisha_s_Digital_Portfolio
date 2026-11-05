@@ -23,8 +23,8 @@ export default {
   web_path: "/images/marketing/founders-den-2026-marketing/digital-signage-brampton-fblc-5-full.jpg",
   preview_path: "/images/marketing/founders-den-2026-marketing/digital-signage-brampton-fblc-5-medium.jpg",
   thumbnail_path: "/images/marketing/founders-den-2026-marketing/digital-signage-brampton-fblc-5-thumbnail.jpg",
-  group_id: "founders-den-2026-marketing-digital-signage",
+  group_id: "founders-den-2026-marketing-09-digital-signage",
   group_index: 4,
   group_size: 7,
-  group_type: "deliverable",
+  group_type: "carousel",
 }

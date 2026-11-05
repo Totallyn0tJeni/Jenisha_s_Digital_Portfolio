@@ -23,8 +23,8 @@ export default {
   web_path: "/images/marketing/founders-den-2026-marketing/finals-day-schedule-full.jpg",
   preview_path: "/images/marketing/founders-den-2026-marketing/finals-day-schedule-medium.jpg",
   thumbnail_path: "/images/marketing/founders-den-2026-marketing/finals-day-schedule-thumbnail.jpg",
-  group_id: "founders-den-2026-marketing-participant-resources",
-  group_index: 12,
-  group_size: 15,
-  group_type: "deliverable",
+  group_id: "founders-den-2026-marketing-08-event-schedule",
+  group_index: 2,
+  group_size: 5,
+  group_type: "carousel",
 }
