@@ -65,11 +65,11 @@ Lately that curiosity has pulled toward AI, entrepreneurship, and innovation —
   ],
 
   stats: [
-    { icon: 'Briefcase', value: '9', label: 'Organizations Led' },
-    { icon: 'Users', value: '18+', label: 'Executive Titles' },
-    { icon: 'Heart', value: '500+', label: 'Volunteer Hours' },
-    { icon: 'Trophy', value: '15+', label: 'Awards' },
-    { icon: 'GraduationCap', value: '50+', label: 'Certifications' },
+    { icon: 'Briefcase', value: '9', label: 'Organizations Led', link: '/organizations' },
+    { icon: 'Users', value: '18+', label: 'Executive Titles', link: '/leadership' },
+    { icon: 'Heart', value: '500+', label: 'Volunteer Hours', link: '/volunteer' },
+    { icon: 'Trophy', value: '15+', label: 'Awards', link: '/awards' },
+    { icon: 'GraduationCap', value: '50+', label: 'Certifications', link: '/certifications' },
   ],
   secondary_stats: [
     { value: '2+', label: 'Years Coding' },
