@@ -23,8 +23,8 @@ export default {
   web_path: "/images/marketing/ching-scholars-content-marketing/educational-content-chinguacousy-scholars-25-full.jpg",
   preview_path: "/images/marketing/ching-scholars-content-marketing/educational-content-chinguacousy-scholars-25-medium.jpg",
   thumbnail_path: "/images/marketing/ching-scholars-content-marketing/educational-content-chinguacousy-scholars-25-thumbnail.jpg",
-  group_id: "ching-scholars-content-marketing-educational-content-carousel-educational-content-chinguacousy-scholars-11",
-  group_index: 2,
-  group_size: 3,
+  group_id: "ching-scholars-content-marketing-04-studying-early-in-winter-mornings",
+  group_index: 7,
+  group_size: 8,
   group_type: "carousel",
 }

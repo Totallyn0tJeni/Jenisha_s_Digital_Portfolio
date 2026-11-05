@@ -23,8 +23,8 @@ export default {
   web_path: "/images/marketing/ching-scholars-content-marketing/educational-content-chinguacousy-scholars-19-2-full.jpg",
   preview_path: "/images/marketing/ching-scholars-content-marketing/educational-content-chinguacousy-scholars-19-2-medium.jpg",
   thumbnail_path: "/images/marketing/ching-scholars-content-marketing/educational-content-chinguacousy-scholars-19-2-thumbnail.jpg",
-  group_id: "educational-content-chinguacousy-scholars-19-2",
-  group_index: 0,
-  group_size: 1,
-  group_type: "single",
+  group_id: "ching-scholars-content-marketing-11-holidays-celebrations",
+  group_index: 2,
+  group_size: 3,
+  group_type: "carousel",
 }

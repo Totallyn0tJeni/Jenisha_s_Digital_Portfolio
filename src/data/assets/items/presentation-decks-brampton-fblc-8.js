@@ -23,8 +23,8 @@ export default {
   web_path: "/images/marketing/founders-den-2026-marketing/presentation-decks-brampton-fblc-8-full.jpg",
   preview_path: "/images/marketing/founders-den-2026-marketing/presentation-decks-brampton-fblc-8-medium.jpg",
   thumbnail_path: "/images/marketing/founders-den-2026-marketing/presentation-decks-brampton-fblc-8-thumbnail.jpg",
-  group_id: "founders-den-2026-marketing-presentation-decks",
-  group_index: 10,
+  group_id: "founders-den-2026-marketing-07-preliminaries-finals-presentation-deck",
+  group_index: 7,
   group_size: 12,
-  group_type: "deliverable",
+  group_type: "carousel",
 }

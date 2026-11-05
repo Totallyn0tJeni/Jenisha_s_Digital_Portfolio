@@ -23,7 +23,7 @@ export default {
   web_path: "/images/marketing/mechawolves-team/meet-the-executive-team-first-robotics-competition-frc-team-3560-3-full.jpg",
   preview_path: "/images/marketing/mechawolves-team/meet-the-executive-team-first-robotics-competition-frc-team-3560-3-medium.jpg",
   thumbnail_path: "/images/marketing/mechawolves-team/meet-the-executive-team-first-robotics-competition-frc-team-3560-3-thumbnail.jpg",
-  group_id: "first-robotics-competition-frc-team-3560-meet-the-executive-team",
+  group_id: "other-11-mechawolves-meet-the-team",
   group_index: 2,
   group_size: 9,
   group_type: "carousel",

@@ -23,8 +23,8 @@ export default {
   web_path: "/images/marketing/founders-den-2026-marketing/fpc-2026-brampton-fblc-2-full.jpg",
   preview_path: "/images/marketing/founders-den-2026-marketing/fpc-2026-brampton-fblc-2-medium.jpg",
   thumbnail_path: "/images/marketing/founders-den-2026-marketing/fpc-2026-brampton-fblc-2-thumbnail.jpg",
-  group_id: "fpc-2026-brampton-fblc-2",
-  group_index: 0,
-  group_size: 1,
-  group_type: "single",
+  group_id: "founders-den-2026-marketing-04-fpc-2026-overview-prizes",
+  group_index: 1,
+  group_size: 4,
+  group_type: "carousel",
 }

@@ -23,8 +23,8 @@ export default {
   web_path: "/images/marketing/founders-den-2026-marketing/staff-office-signage-full.jpg",
   preview_path: "/images/marketing/founders-den-2026-marketing/staff-office-signage-medium.jpg",
   thumbnail_path: "/images/marketing/founders-den-2026-marketing/staff-office-signage-thumbnail.jpg",
-  group_id: "founders-den-2026-marketing-digital-signage",
+  group_id: "founders-den-2026-marketing-09-digital-signage",
   group_index: 1,
   group_size: 7,
-  group_type: "deliverable",
+  group_type: "carousel",
 }

@@ -9,7 +9,7 @@ export default {
   category: ["Event Graphics", "Photography"],
   tags: ["Business", "Canva", "Education", "Entrepreneurship", "Event Graphic", "Event Graphics", "Leadership", "Photography", "Portrait", "White"],
   software: ["Canva"],
-  status: "published",
+  status: "hidden",
   featured: false,
   favorite: false,
   orientation: "portrait",

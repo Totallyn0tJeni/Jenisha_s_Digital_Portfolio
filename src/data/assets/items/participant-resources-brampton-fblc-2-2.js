@@ -23,8 +23,8 @@ export default {
   web_path: "/images/marketing/founders-den-2026-marketing/participant-resources-brampton-fblc-2-2-full.jpg",
   preview_path: "/images/marketing/founders-den-2026-marketing/participant-resources-brampton-fblc-2-2-medium.jpg",
   thumbnail_path: "/images/marketing/founders-den-2026-marketing/participant-resources-brampton-fblc-2-2-thumbnail.jpg",
-  group_id: "founders-den-2026-marketing-participant-resources",
-  group_index: 11,
-  group_size: 15,
-  group_type: "deliverable",
+  group_id: "founders-den-2026-marketing-08-event-schedule",
+  group_index: 1,
+  group_size: 5,
+  group_type: "carousel",
 }

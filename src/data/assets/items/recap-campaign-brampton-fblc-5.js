@@ -23,8 +23,8 @@ export default {
   web_path: "/images/marketing/founders-den-2026-marketing/recap-campaign-brampton-fblc-5-full.jpg",
   preview_path: "/images/marketing/founders-den-2026-marketing/recap-campaign-brampton-fblc-5-medium.jpg",
   thumbnail_path: "/images/marketing/founders-den-2026-marketing/recap-campaign-brampton-fblc-5-thumbnail.jpg",
-  group_id: "recap-campaign-brampton-fblc-5",
-  group_index: 0,
-  group_size: 1,
-  group_type: "single",
+  group_id: "founders-den-2026-marketing-02-winter-social-recap",
+  group_index: 4,
+  group_size: 8,
+  group_type: "carousel",
 }

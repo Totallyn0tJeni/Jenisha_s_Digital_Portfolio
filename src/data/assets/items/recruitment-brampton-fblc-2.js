@@ -23,8 +23,8 @@ export default {
   web_path: "/images/marketing/founders-den-2026-marketing/recruitment-brampton-fblc-2-full.jpg",
   preview_path: "/images/marketing/founders-den-2026-marketing/recruitment-brampton-fblc-2-medium.jpg",
   thumbnail_path: "/images/marketing/founders-den-2026-marketing/recruitment-brampton-fblc-2-thumbnail.jpg",
-  group_id: "recruitment-brampton-fblc-2",
-  group_index: 0,
-  group_size: 1,
-  group_type: "single",
+  group_id: "founders-den-2026-marketing-01-recruitment-applications",
+  group_index: 2,
+  group_size: 3,
+  group_type: "carousel",
 }

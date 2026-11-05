@@ -23,8 +23,8 @@ export default {
   web_path: "/images/marketing/chinguacousy-scitech-activity-committee-stac/pyramids-of-giza-arts-night-history-series-full.jpg",
   preview_path: "/images/marketing/chinguacousy-scitech-activity-committee-stac/pyramids-of-giza-arts-night-history-series-medium.jpg",
   thumbnail_path: "/images/marketing/chinguacousy-scitech-activity-committee-stac/pyramids-of-giza-arts-night-history-series-thumbnail.jpg",
-  group_id: "pyramids-of-giza-arts-night-history-series",
-  group_index: 0,
-  group_size: 1,
-  group_type: "single",
+  group_id: "other-10-arts-night-history-series",
+  group_index: 5,
+  group_size: 9,
+  group_type: "carousel",
 }

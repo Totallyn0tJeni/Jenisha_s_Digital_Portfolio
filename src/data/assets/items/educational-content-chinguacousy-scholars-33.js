@@ -9,7 +9,7 @@ export default {
   category: ["Instagram Posts", "Social Media"],
   tags: ["Academic", "Canva", "Education", "Instagram Posts", "Scholarship", "Social Media", "Social Post", "Square", "White"],
   software: ["Canva"],
-  status: "published",
+  status: "hidden",
   featured: false,
   favorite: false,
   orientation: "square",
