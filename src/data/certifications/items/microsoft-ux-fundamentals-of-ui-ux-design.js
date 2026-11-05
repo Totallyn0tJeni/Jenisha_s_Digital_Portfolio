@@ -6,6 +6,6 @@ export default {
   category: "UX & Product Design",
   description: "",
   parent_certification: "Microsoft UX Design Professional Certificate",
-  credential_url: "",
+  credential_url: "https://www.coursera.org/account/accomplishments/verify/4IEDIYZANPNQ",
   order: 41,
 }

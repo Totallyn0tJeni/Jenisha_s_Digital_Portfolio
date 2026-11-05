@@ -6,6 +6,6 @@ export default {
   category: "UX & Product Design",
   description: "In progress, May 2025–Present. Scholarship-funded via the Grow with Google program.",
   parent_certification: "",
-  credential_url: "",
+  credential_url: "https://www.coursera.org/account/accomplishments/specialization/IAWHJD15ZPNU",
   order: 0,
 }

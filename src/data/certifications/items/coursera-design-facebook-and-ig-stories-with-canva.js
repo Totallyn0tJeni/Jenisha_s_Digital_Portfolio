@@ -6,6 +6,6 @@ export default {
   category: "Business & Marketing",
   description: "",
   parent_certification: "",
-  credential_url: "",
+  credential_url: "https://www.coursera.org/account/accomplishments/verify/822J24P905YT",
   order: 50,
 }

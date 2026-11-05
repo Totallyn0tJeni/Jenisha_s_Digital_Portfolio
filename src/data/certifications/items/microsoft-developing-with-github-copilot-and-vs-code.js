@@ -6,6 +6,6 @@ export default {
   category: "AI & Emerging Tech",
   description: "",
   parent_certification: "",
-  credential_url: "",
+  credential_url: "https://www.coursera.org/account/accomplishments/verify/PEB6G3HT1VLT",
   order: 45,
 }
