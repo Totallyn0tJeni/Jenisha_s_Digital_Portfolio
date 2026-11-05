@@ -23,8 +23,8 @@ export default {
   web_path: "/images/marketing/wolfhacks-2026-marketing/team-formation-faq-full.jpg",
   preview_path: "/images/marketing/wolfhacks-2026-marketing/team-formation-faq-medium.jpg",
   thumbnail_path: "/images/marketing/wolfhacks-2026-marketing/team-formation-faq-thumbnail.jpg",
-  group_id: "team-formation-faq",
-  group_index: 0,
-  group_size: 1,
-  group_type: "single",
+  group_id: "wolfhacks-2026-marketing-social-06-application-faq-stories",
+  group_index: 3,
+  group_size: 4,
+  group_type: "carousel",
 }

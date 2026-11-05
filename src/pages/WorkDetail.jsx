@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowLeft, ExternalLink, Github, Monitor, FileText, Calendar, ArrowUpRight } from 'lucide-react';
+import { ArrowLeft, ExternalLink, Github, Monitor, FileText, Calendar, ArrowUpRight, Instagram } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import ImagePlaceholder from '@/components/ImagePlaceholder';
 import EmptyState from '@/components/EmptyState';
@@ -74,10 +74,10 @@ export default function WorkDetail() {
             return (
               <div className="flex flex-wrap gap-3 mb-10">
                 {all.map(([key, url], i) => {
-                  const Icon = linkIcons[key] || ExternalLink;
+                  const Icon = /instagram\.com/.test(url) ? Instagram : (linkIcons[key] || ExternalLink);
                   return (
                     <a key={`${key}-${i}`} href={url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium glass text-foreground hover:border-primary/30 transition-premium">
-                      <Icon className="w-4 h-4" /> <span className="capitalize">{key.replace(/_/g, ' ')}</span>
+                      <Icon className="w-4 h-4" /> <span className={/^[@A-Z]/.test(key) ? '' : 'capitalize'}>{/^[@A-Z]/.test(key) ? key : key.replace(/_/g, ' ')}</span>
                     </a>
                   );
                 })}

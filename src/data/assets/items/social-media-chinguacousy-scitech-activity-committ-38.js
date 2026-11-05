@@ -23,7 +23,7 @@ export default {
   web_path: "/images/marketing/wolfhacks-2026-marketing/social-media-chinguacousy-scitech-activity-committ-38-full.jpg",
   preview_path: "/images/marketing/wolfhacks-2026-marketing/social-media-chinguacousy-scitech-activity-committ-38-medium.jpg",
   thumbnail_path: "/images/marketing/wolfhacks-2026-marketing/social-media-chinguacousy-scitech-activity-committ-38-thumbnail.jpg",
-  group_id: "wolfhacks-2026-marketing-social-media-carousel-social-media-chinguacousy-scitech-activity-committ-31",
+  group_id: "wolfhacks-2026-marketing-social-37-workshop-microbits-arduino",
   group_index: 1,
   group_size: 2,
   group_type: "carousel",

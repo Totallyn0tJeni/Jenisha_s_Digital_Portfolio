@@ -23,8 +23,8 @@ export default {
   web_path: "/images/marketing/wolfhacks-2026-marketing/tiktok-account-launch-full.jpg",
   preview_path: "/images/marketing/wolfhacks-2026-marketing/tiktok-account-launch-medium.jpg",
   thumbnail_path: "/images/marketing/wolfhacks-2026-marketing/tiktok-account-launch-thumbnail.jpg",
-  group_id: "tiktok-account-launch",
-  group_index: 0,
-  group_size: 1,
-  group_type: "single",
+  group_id: "wolfhacks-2026-marketing-social-08-website-release-tiktok-launch-community-love",
+  group_index: 2,
+  group_size: 3,
+  group_type: "carousel",
 }

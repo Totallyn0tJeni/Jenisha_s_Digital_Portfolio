@@ -23,7 +23,7 @@ export default {
   web_path: "/images/marketing/wolfhacks-2026-marketing/social-media-chinguacousy-scitech-activity-committ-49-full.jpg",
   preview_path: "/images/marketing/wolfhacks-2026-marketing/social-media-chinguacousy-scitech-activity-committ-49-medium.jpg",
   thumbnail_path: "/images/marketing/wolfhacks-2026-marketing/social-media-chinguacousy-scitech-activity-committ-49-thumbnail.jpg",
-  group_id: "wolfhacks-2026-marketing-social-media-carousel-social-media-chinguacousy-scitech-activity-committ-48",
+  group_id: "wolfhacks-2026-marketing-social-41-event-schedule-day-1-day-2",
   group_index: 1,
   group_size: 2,
   group_type: "carousel",

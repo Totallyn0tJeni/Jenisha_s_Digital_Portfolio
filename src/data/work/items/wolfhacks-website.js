@@ -20,6 +20,7 @@ export default {
   youtube_urls: [],
   pdfs: [],
   documents: [],
+  links: { "Instagram @wolfhacks_2026": "https://www.instagram.com/wolfhacks_2026/", "Instagram @chingstac": "https://www.instagram.com/chingstac/" },
   embeds: { canva: "https://www.canva.com/d/1Zvo_lleFi81CLi", figma: "", google_drive: "", github: "", website: "" },
   downloads: [],
   collaborators: ["Chinguacousy SciTech Activity Committee (STAC)"],

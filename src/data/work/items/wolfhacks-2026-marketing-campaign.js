@@ -57,6 +57,7 @@ export default {
   youtube_urls: [],
   pdfs: [],
   documents: [],
+  links: { "Instagram @wolfhacks_2026": "https://www.instagram.com/wolfhacks_2026/", "Instagram @chingstac": "https://www.instagram.com/chingstac/" },
   embeds: { canva: "", figma: "", google_drive: "", github: "", website: "https://www.wolfhacks.ca" },
   downloads: [],
   collaborators: ["Chinguacousy SciTech Activity Committee (STAC)", "City of Brampton", "Chinguacousy Secondary School"],
