@@ -9,7 +9,7 @@ export default {
   category: ["Instagram Posts", "Social Media"],
   tags: ["Canva", "Volunteer", "Community", "Instagram Posts", "Social Media"],
   software: ["Canva"],
-  status: "published",
+  status: "hidden",
   featured: false,
   favorite: false,
   orientation: "square",

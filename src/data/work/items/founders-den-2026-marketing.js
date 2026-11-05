@@ -54,7 +54,7 @@ export default {
   documents: [],
   embeds: { canva: "", figma: "", google_drive: "", github: "", website: "" },
   downloads: [],
-  collaborators: ["Brampton FBLC", "JEC Brampton", "Toastmasters (TA)", "yScape Markham"],
+  collaborators: ["Brampton FBLC", "JEC Brampton", "Target Alpha (TA)", "yScape Markham"],
   skills: ["Board Governance", "Strategic Planning", "Operations", "Team Leadership", "Event Branding"],
   metrics: [{ label: "Finalist teams", value: "15" }, { label: "Seed capital pool", value: "$1,500" }, { label: "Sponsors & partners", value: "25+" }],
   outcomes: ["Delivered a fully-branded, multi-venue student competition with 25+ institutional sponsors", "Coordinated finals-day operations for 15 finalist teams at an external venue"],
