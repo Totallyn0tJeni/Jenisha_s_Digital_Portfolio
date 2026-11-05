@@ -23,8 +23,8 @@ export default {
   web_path: "/images/marketing/wolfhacks-2026-marketing/social-media-chinguacousy-scitech-activity-committ-108-full.jpg",
   preview_path: "/images/marketing/wolfhacks-2026-marketing/social-media-chinguacousy-scitech-activity-committ-108-medium.jpg",
   thumbnail_path: "/images/marketing/wolfhacks-2026-marketing/social-media-chinguacousy-scitech-activity-committ-108-thumbnail.jpg",
-  group_id: "wolfhacks-2026-marketing-social-media-carousel-social-media-chinguacousy-scitech-activity-committ-108",
-  group_index: 0,
-  group_size: 2,
+  group_id: "wolfhacks-2026-marketing-social-15-meet-the-team-officers-champions",
+  group_index: 1,
+  group_size: 6,
   group_type: "carousel",
 }

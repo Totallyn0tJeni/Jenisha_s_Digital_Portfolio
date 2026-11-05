@@ -23,8 +23,8 @@ export default {
   web_path: "/images/marketing/wolfhacks-2026-marketing/social-media-chinguacousy-scitech-activity-committ-31-full.jpg",
   preview_path: "/images/marketing/wolfhacks-2026-marketing/social-media-chinguacousy-scitech-activity-committ-31-medium.jpg",
   thumbnail_path: "/images/marketing/wolfhacks-2026-marketing/social-media-chinguacousy-scitech-activity-committ-31-thumbnail.jpg",
-  group_id: "wolfhacks-2026-marketing-social-media-carousel-social-media-chinguacousy-scitech-activity-committ-31",
-  group_index: 0,
+  group_id: "wolfhacks-2026-marketing-social-34-workshop-cad-3d-printing-laser-prototyping",
+  group_index: 1,
   group_size: 2,
   group_type: "carousel",
 }

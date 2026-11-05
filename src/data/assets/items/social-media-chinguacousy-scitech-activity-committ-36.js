@@ -23,8 +23,8 @@ export default {
   web_path: "/images/marketing/wolfhacks-2026-marketing/social-media-chinguacousy-scitech-activity-committ-36-full.jpg",
   preview_path: "/images/marketing/wolfhacks-2026-marketing/social-media-chinguacousy-scitech-activity-committ-36-medium.jpg",
   thumbnail_path: "/images/marketing/wolfhacks-2026-marketing/social-media-chinguacousy-scitech-activity-committ-36-thumbnail.jpg",
-  group_id: "social-media-chinguacousy-scitech-activity-committ-36",
-  group_index: 0,
-  group_size: 1,
-  group_type: "single",
+  group_id: "wolfhacks-2026-marketing-social-36-workshop-presentation-pitching",
+  group_index: 1,
+  group_size: 2,
+  group_type: "carousel",
 }

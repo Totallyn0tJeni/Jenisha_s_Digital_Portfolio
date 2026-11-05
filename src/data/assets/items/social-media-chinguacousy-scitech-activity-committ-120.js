@@ -23,8 +23,8 @@ export default {
   web_path: "/images/marketing/wolfhacks-2026-marketing/social-media-chinguacousy-scitech-activity-committ-120-full.jpg",
   preview_path: "/images/marketing/wolfhacks-2026-marketing/social-media-chinguacousy-scitech-activity-committ-120-medium.jpg",
   thumbnail_path: "/images/marketing/wolfhacks-2026-marketing/social-media-chinguacousy-scitech-activity-committ-120-thumbnail.jpg",
-  group_id: "social-media-chinguacousy-scitech-activity-committ-120",
-  group_index: 0,
-  group_size: 1,
-  group_type: "single",
+  group_id: "wolfhacks-2026-marketing-social-18-sponsor-spotlight-brampton-innovation-district",
+  group_index: 2,
+  group_size: 4,
+  group_type: "carousel",
 }

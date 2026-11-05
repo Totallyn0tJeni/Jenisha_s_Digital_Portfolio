@@ -10,6 +10,7 @@ import { getRoleById } from './experienceRoles';
 import { getTimelineEventById, getTimelineEventIdForRole } from './timelineEvents';
 
 function groupTitle(first, count) {
+  if (first.group_title) return first.group_title;
   if (count > 1) return first.collection || first.title;
   return first.title;
 }

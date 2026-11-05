@@ -23,8 +23,8 @@ export default {
   web_path: "/images/marketing/wolfhacks-2026-marketing/wolfhacks-organizing-committee-2025-26-full.jpg",
   preview_path: "/images/marketing/wolfhacks-2026-marketing/wolfhacks-organizing-committee-2025-26-medium.jpg",
   thumbnail_path: "/images/marketing/wolfhacks-2026-marketing/wolfhacks-organizing-committee-2025-26-thumbnail.jpg",
-  group_id: "wolfhacks-organizing-committee-2025-26",
-  group_index: 0,
-  group_size: 1,
-  group_type: "single",
+  group_id: "wolfhacks-2026-marketing-social-14-meet-the-team-directors",
+  group_index: 1,
+  group_size: 7,
+  group_type: "carousel",
 }
