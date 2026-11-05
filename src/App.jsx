@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import PageNotFound from './pages/PageNotFound';
 import ScrollToTop from './components/ScrollToTop';
 import { ThemeProvider } from '@/lib/ThemeContext';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 
 // Pages
 import Home from './pages/Home';
@@ -75,6 +76,7 @@ function App() {
         </Routes>
         <Toaster />
       </Router>
+      <SpeedInsights />
     </ThemeProvider>
   )
 }
