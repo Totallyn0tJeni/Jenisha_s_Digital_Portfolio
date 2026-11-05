@@ -2,7 +2,7 @@ export default {
   id: "steamworks-2025-marketing",
   title: "STEAMWorks 2025 Marketing Campaign",
   tagline: "Marketing campaign for the STEAMWorks 2025 STEM event.",
-  description: "Led marketing and promotional materials for the STEAMWorks 2025 arts & creative programming track.",
+  description: "Led marketing and promotional materials for the STEAMWorks 2025 arts & creative programming track. Organizer of STEAMWorks 2025 with the Chinguacousy SciTech Activity Committee (STAC); previously led the arts and creative programming event at STEAMWorks 2024, overseeing event planning, coordinating artist collaboration spaces, and integrating STEAM elements to foster innovation at the intersection of technology and the arts.",
   content: "",
   hero_image: "",
   tech_stack: [],
@@ -25,6 +25,6 @@ export default {
   collaborators: ["Chinguacousy SciTech Activity Committee (STAC)"],
   skills: [],
   metrics: [],
-  outcomes: [],
+  outcomes: ["1st Place, Steamworks Arts Event (November 2023)"],
   testimonials: [],
 }

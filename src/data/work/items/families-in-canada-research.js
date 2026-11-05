@@ -10,7 +10,7 @@ export default {
   work_type: "research",
   featured: false,
   date: "",
-  order: 9,
+  order: 14,
   role: "",
   organization: "",
   status: "completed",

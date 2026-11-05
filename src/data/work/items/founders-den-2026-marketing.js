@@ -44,7 +44,7 @@ export default {
   work_type: "marketing_campaign",
   featured: true,
   date: "2026-04-01",
-  order: 1,
+  order: 6,
   role: "Vice Chairwoman (Operations) & Chief Director",
   organization: "Brampton FBLC, JEC & TA",
   status: "completed",

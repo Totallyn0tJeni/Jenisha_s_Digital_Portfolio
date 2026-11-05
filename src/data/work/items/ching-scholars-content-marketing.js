@@ -29,7 +29,7 @@ export default {
   work_type: "marketing_campaign",
   featured: false,
   date: "2025-09-01",
-  order: 2,
+  order: 7,
   role: "Executive Marketing Director",
   organization: "Chinguacousy Scholars",
   status: "ongoing",

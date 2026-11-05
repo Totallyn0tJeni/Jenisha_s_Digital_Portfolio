@@ -49,7 +49,7 @@ export default {
   timeline_featured: true,
   timeline_title: "Led Full Brand & Marketing, WolfHacks 2026",
   timeline_date_display: "2026",
-  order: 0,
+  order: 5,
   role: "Director of Marketing & Public Relations (PR)",
   organization: "Chinguacousy SciTech Activity Committee (STAC)",
   status: "completed",
