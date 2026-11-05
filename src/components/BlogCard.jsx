@@ -24,19 +24,19 @@ export default function BlogCard({ post, index = 0 }) {
               loading="lazy"
             />
           ) : (
-            <div className="w-full h-full bg-gradient-to-br from-violet-600/20 to-cyan-600/20" />
+            <div className="w-full h-full bg-gradient-to-br from-primary/15 to-primary/5" />
           )}
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0A0B14] via-transparent to-transparent opacity-50" />
-          <span className="absolute top-4 left-4 px-3 py-1 rounded-full text-xs font-medium bg-violet-500/20 text-violet-200 border border-violet-500/30 backdrop-blur-md">
+          {post.cover_image && <div className="absolute inset-0 bg-gradient-to-t from-[#0A0B14] via-transparent to-transparent opacity-50" />}
+          <span className="absolute top-4 left-4 px-3 py-1 rounded-full text-xs font-medium bg-background/80 text-primary border border-primary/30 backdrop-blur-md">
             {post.category}
           </span>
         </div>
         <div className="p-6">
-          <h3 className="font-display font-bold text-xl text-white mb-2 group-hover:text-violet-300 transition-colors leading-snug">
+          <h3 className="font-display font-bold text-xl text-foreground mb-2 group-hover:text-primary transition-colors leading-snug">
             {post.title}
           </h3>
-          <p className="text-sm text-slate-400 leading-relaxed mb-4 line-clamp-2">{post.excerpt}</p>
-          <div className="flex items-center gap-4 text-xs text-slate-500">
+          <p className="text-sm text-muted-foreground leading-relaxed mb-4 line-clamp-2">{post.excerpt}</p>
+          <div className="flex items-center gap-4 text-xs text-muted-foreground">
             {formattedDate && (
               <span className="flex items-center gap-1.5">
                 <Calendar className="w-3.5 h-3.5" /> {formattedDate}
@@ -49,9 +49,9 @@ export default function BlogCard({ post, index = 0 }) {
             )}
           </div>
           {post.tags?.length > 0 && (
-            <div className="flex flex-wrap gap-2 mt-4 pt-4 border-t border-white/5">
+            <div className="flex flex-wrap gap-2 mt-4 pt-4 border-t border-border/60">
               {post.tags.map((tag, i) => (
-                <span key={i} className="text-xs text-violet-400/80">#{tag}</span>
+                <span key={i} className="text-xs text-primary/80">#{tag}</span>
               ))}
             </div>
           )}
