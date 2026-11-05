@@ -77,7 +77,7 @@ export default function HomeHero() {
           </div>
 
           {/* Right: Visual */}
-          <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.8, delay: 0.2 }} className="relative w-full aspect-square max-w-md mx-auto flex items-center justify-center">
+          <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.8, delay: 0.2 }} className="relative w-full aspect-square max-w-[15rem] sm:max-w-md mx-auto flex items-center justify-center order-first lg:order-none">
             <div className="absolute inset-[6%] rounded-full border border-dashed border-border" />
             <div className="absolute inset-[-4%] rounded-full border border-dashed border-border opacity-50" />
             <div className="w-2/3 aspect-square rounded-full border border-border shadow-glow relative overflow-hidden">

@@ -4,16 +4,16 @@ import { ArrowUpRight, Briefcase } from 'lucide-react';
 import { getCampaignHeroImage } from '@/data/marketingIndex';
 
 const typeColors = {
-  software_project: 'bg-violet-500/15 text-violet-400',
-  ai_experiment: 'bg-fuchsia-500/15 text-fuchsia-400',
-  marketing_campaign: 'bg-amber-500/15 text-amber-400',
-  photography_collection: 'bg-emerald-500/15 text-emerald-400',
-  ugc_campaign: 'bg-pink-500/15 text-pink-400',
-  brand_partnership: 'bg-blue-500/15 text-blue-400',
-  research: 'bg-cyan-500/15 text-cyan-400',
-  case_study: 'bg-indigo-500/15 text-indigo-400',
-  robotics: 'bg-rose-500/15 text-rose-400',
-  speaking_engagement: 'bg-teal-500/15 text-teal-400',
+  software_project: 'bg-violet-500/15 text-violet-700 dark:text-violet-300',
+  ai_experiment: 'bg-fuchsia-500/15 text-fuchsia-700 dark:text-fuchsia-300',
+  marketing_campaign: 'bg-amber-500/15 text-amber-700 dark:text-amber-300',
+  photography_collection: 'bg-emerald-500/15 text-emerald-700 dark:text-emerald-300',
+  ugc_campaign: 'bg-pink-500/15 text-pink-700 dark:text-pink-300',
+  brand_partnership: 'bg-blue-500/15 text-blue-700 dark:text-blue-300',
+  research: 'bg-cyan-500/15 text-cyan-700 dark:text-cyan-300',
+  case_study: 'bg-indigo-500/15 text-indigo-700 dark:text-indigo-300',
+  robotics: 'bg-rose-500/15 text-rose-700 dark:text-rose-300',
+  speaking_engagement: 'bg-teal-500/15 text-teal-700 dark:text-teal-300',
   other: 'bg-muted text-muted-foreground',
 };
 
@@ -61,8 +61,10 @@ export default function WorkCard({ work, index = 0 }) {
               <Briefcase className="w-12 h-12" strokeWidth={1} />
             </div>
           )}
-          <span className={`absolute top-3 left-3 px-3 py-1 rounded-full text-xs font-semibold capitalize ${typeColor}`}>
-            {typeLabel}
+          <span className="absolute top-3 left-3 rounded-full bg-background/90 backdrop-blur-md shadow-sm">
+            <span className={`block px-3 py-1 rounded-full text-xs font-semibold capitalize ${typeColor}`}>
+              {typeLabel}
+            </span>
           </span>
         </div>
         <div className="p-5">
