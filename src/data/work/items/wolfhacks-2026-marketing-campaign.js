@@ -61,7 +61,7 @@ export default {
   downloads: [],
   collaborators: ["Chinguacousy SciTech Activity Committee (STAC)", "City of Brampton", "Chinguacousy Secondary School"],
   skills: ["Event Management", "Branding", "Web Development", "Outreach", "Public Relations"],
-  metrics: [{ label: "Participants", value: "300+" }, { label: "Outreach contacts", value: "200+" }, { label: "Sponsors recognized", value: "5+" }],
+  metrics: [{ label: "Participants", value: "300+" }, { label: "Outreach contacts", value: "200+" }, { label: "Sponsors recognized", value: "5+" }, { label: "Prizes", value: "$3K+" }, { label: "Edition", value: "8th annual" }],
   outcomes: ["Grew WolfHacks into a 300+ participant hackathon across two consecutive years", "Strengthened sponsor engagement and school partnerships across the Peel Region"],
   testimonials: [],
 }

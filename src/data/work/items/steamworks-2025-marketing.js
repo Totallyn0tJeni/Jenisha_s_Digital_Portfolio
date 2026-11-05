@@ -24,7 +24,7 @@ export default {
   downloads: [],
   collaborators: ["Chinguacousy SciTech Activity Committee (STAC)"],
   skills: [],
-  metrics: [],
+  metrics: [{ label: "Participants", value: "150+" }, { label: "Prizes", value: "$2K+" }],
   outcomes: ["1st Place, Steamworks Arts Event (November 2023)"],
   testimonials: [],
 }
