@@ -22,6 +22,7 @@ export default {
   youtube_urls: [],
   pdfs: [],
   documents: [],
+  links: { "ISU Project Report (Canva)": "https://www.canva.com/d/gjutGZBw7nqhdUi" },
   embeds: { canva: "", figma: "", google_drive: "", github: "https://github.com/Totallyn0tJeni/Smart-display", website: "" },
   downloads: [],
   collaborators: [],
