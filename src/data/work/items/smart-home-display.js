@@ -4,7 +4,7 @@ export default {
   tagline: "An IoT-powered smart home dashboard integrating sensors and automation.",
   description: "Designed and engineered a smart home display system that integrates software, physical hardware, and third-party applications into a centralized home information and control platform. Developed a responsive front-end interface using React and TypeScript to display real-time data and provide intuitive user interaction, supported by a Node.js backend that manages system logic, API requests, and data flow between the interface, external applications, and hardware components. Integrated the system with various applications and services through APIs to aggregate and display relevant information in a unified dashboard. Utilized Python to communicate with hardware components and simulate smart home functionality, enabling features such as device status monitoring and basic control operations. Emphasized full-stack development, hardware-software integration, and real-world problem-solving.",
   content: "Computer Engineering · Grade 12 ISU. Built as a touchscreen-style dashboard (designed for Raspberry Pi displays) with a glassmorphism interface and widgets including a clock, photo gallery, calendar, Spotify player, LED light controls, focus timer, weather display, and media apps.",
-  hero_image: "",
+  hero_image: "/images/work/smart-home-display.jpg",
   problem: "Home automation systems are often fragmented and hard to monitor in one place.",
   solution: "Built a unified dashboard that reads sensor data and controls smart devices through a single interface.",
   tech_stack: ["React", "TypeScript", "Node.js", "Python", "Hardware"],

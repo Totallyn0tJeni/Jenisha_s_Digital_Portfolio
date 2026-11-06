@@ -4,7 +4,7 @@ export default {
   tagline: "An interactive emoji animation with CSS transitions and JavaScript.",
   description: "Developed an interactive emoji animation using core web technologies. Implemented smooth animations and transitions with CSS and added dynamic behaviour and user interaction through JavaScript. Focused on responsive design, performance, and clean, readable code to enhance user experience.",
   content: "Web Development",
-  hero_image: "",
+  hero_image: "/images/work/emoji-animation.jpg",
   tech_stack: ["HTML", "CSS", "JavaScript"],
   category: "Web",
   work_type: "software_project",

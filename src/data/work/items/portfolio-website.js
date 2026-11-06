@@ -4,7 +4,7 @@ export default {
   tagline: "A responsive personal portfolio built with modern web technologies showcasing my work and experience.",
   description: "Designed and developed a fully responsive personal portfolio website to showcase my technical projects, marketing experience, leadership roles, achievements, extracurricular involvement, and resume. Focused on clean information architecture, accessibility, performance, and responsive design across desktop and mobile, with interactive project galleries, dynamic content sections, and smooth animations. The site serves as a centralized platform for networking, professional opportunities, and showcasing ongoing projects, accomplishments, and technical expertise.",
   content: "This portfolio is a living digital headquarters, built as a standalone React application with a modular, easy-to-edit data layer. The design uses a dark-mode-first aesthetic with glassmorphism, animated gradients, and Framer Motion transitions. Built to scale from university through career.",
-  hero_image: "",
+  hero_image: "/images/work/portfolio-website.jpg",
   problem: "Needed a professional digital presence that grows with me from university through my career.",
   solution: "Built a dynamic personal-brand platform with a modular content layer, animated interactions, and dark-mode-first design — an evolution of an earlier version of this same site.",
   tech_stack: ["React", "Tailwind CSS", "Framer Motion", "React Router"],
