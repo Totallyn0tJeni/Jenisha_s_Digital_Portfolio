@@ -42,7 +42,7 @@ export default function Certifications() {
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>
       <section className="px-4 md:px-8 pt-12 pb-20">
         <div className="max-w-5xl mx-auto">
-          <SectionHeading eyebrow="Credentials" title="Certifications" subtitle={`${allCerts.length} certificates, grouped by issuer.`} />
+          <SectionHeading as="h1" eyebrow="Credentials" title="Certifications" subtitle={`${allCerts.length} certificates, grouped by issuer.`} />
           {linkedCount > 0 && (
             <div className="flex justify-center mb-2">
               <button

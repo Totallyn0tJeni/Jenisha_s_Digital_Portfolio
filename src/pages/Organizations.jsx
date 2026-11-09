@@ -11,7 +11,7 @@ export default function Organizations() {
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>
       <section className="px-4 md:px-8 pt-12 pb-20">
         <div className="max-w-7xl mx-auto">
-          <SectionHeading eyebrow="Communities" title="Organizations" subtitle="Clubs, societies, and groups I'm part of." />
+          <SectionHeading as="h1" eyebrow="Communities" title="Organizations" subtitle="Clubs, societies, and groups I'm part of." />
           {orgs.length > 0 ? (
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
               {orgs.map((org, i) => (

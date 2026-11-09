@@ -18,7 +18,7 @@ export default function Resources() {
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>
       <section className="px-4 md:px-8 pt-12 pb-16">
         <div className="max-w-5xl mx-auto">
-          <SectionHeading eyebrow="Downloads" title="Downloadable Materials" subtitle="Media kit, brand assets, and rate cards — grab what you need." />
+          <SectionHeading as="h1" eyebrow="Downloads" title="Downloadable Materials" subtitle="Media kit, brand assets, and rate cards — grab what you need." />
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-8">
             {downloadsByCategory.map(({ category, item }) => (
               <div key={category} className="glass-card p-5 flex items-center gap-4">

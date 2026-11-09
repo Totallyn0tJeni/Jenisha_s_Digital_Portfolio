@@ -38,7 +38,7 @@ export default function Contact() {
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>
       <section className="px-4 md:px-8 pt-12 pb-20">
         <div className="max-w-6xl mx-auto">
-          <SectionHeading eyebrow="Contact" title="Let's connect" subtitle="Have a question, opportunity, or just want to say hello? I'd love to hear from you." />
+          <SectionHeading as="h1" eyebrow="Contact" title="Let's connect" subtitle="Have a question, opportunity, or just want to say hello? I'd love to hear from you." />
 
           <div className="grid md:grid-cols-2 gap-8">
             <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }} className="space-y-6">

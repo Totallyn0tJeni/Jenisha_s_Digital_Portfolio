@@ -35,7 +35,7 @@ export default function Work() {
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>
       <section className="px-4 md:px-8 pt-12 pb-8">
         <div className="max-w-7xl mx-auto">
-          <SectionHeading eyebrow="Everything I Build" title="Work" subtitle="Software, AI, marketing, photography, and more — unified in one place." />
+          <SectionHeading as="h1" eyebrow="Everything I Build" title="Work" subtitle="Software, AI, marketing, photography, and more — unified in one place." />
         </div>
       </section>
 
