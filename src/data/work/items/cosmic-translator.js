@@ -4,7 +4,7 @@ export default {
   tagline: "A Python program that converts user input into a custom \"cosmic\" language.",
   description: "Developed a Python-based translation program that converts user input into a custom \u201ccosmic\u201d language. Implemented string manipulation, functions, and conditional logic to process and transform text. Focused on user interaction, program accuracy, and clean, well-structured code.",
   content: "Grade 12 Computer Science Project",
-  hero_image: "",
+  hero_image: "/images/work/cosmic-translator.jpg",
   tech_stack: ["Python"],
   category: "Python",
   work_type: "software_project",
