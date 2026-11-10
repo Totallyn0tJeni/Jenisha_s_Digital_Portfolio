@@ -4,7 +4,7 @@ export default {
   position: "Summer Cohort — Computation & Startups Track Lead",
   secondary_positions: [],
   start_date: "2026-06-01",
-  end_date: "",
+  end_date: "2026-08-01",
   is_current: false,
   timeline_featured: true,
   timeline_title: "Expanded Into Global Entrepreneurship & Biomedical Innovation",

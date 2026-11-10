@@ -16,7 +16,7 @@ export default function Blog() {
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>
       <section className="px-4 md:px-8 pt-12 pb-8">
         <div className="max-w-7xl mx-auto">
-          <SectionHeading eyebrow="Writing" title="Blog" subtitle="Thoughts, insights, and reflections on technology, leadership, and marketing." />
+          <SectionHeading as="h1" eyebrow="Writing" title="Blog" subtitle="Thoughts, insights, and reflections on technology, leadership, and marketing." />
         </div>
       </section>
 

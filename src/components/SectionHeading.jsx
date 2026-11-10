@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 
-export default function SectionHeading({ eyebrow, title, subtitle, align = 'center' }) {
+export default function SectionHeading({ eyebrow, title, subtitle, align = 'center', as: Tag = 'h2' }) {
   const alignment = align === 'left' ? 'items-start text-left' : 'items-center text-center';
 
   return (
@@ -14,7 +14,7 @@ export default function SectionHeading({ eyebrow, title, subtitle, align = 'cent
       {eyebrow &&
       <span className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">{eyebrow}</span>
       }
-      <h2 className="font-display font-bold text-3xl md:text-5xl text-foreground leading-tight max-w-3xl">{title}</h2>
+      <Tag className="font-display font-bold text-3xl md:text-5xl text-foreground leading-tight max-w-3xl">{title}</Tag>
       {subtitle && <p className="text-muted-foreground text-base md:text-lg max-w-2xl leading-relaxed py-2">{subtitle}</p>}
     </motion.div>);
 

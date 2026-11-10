@@ -11,7 +11,7 @@ export default {
   featured: false,
   date: "",
   order: 19,
-  role: "",
+  role: "Director of Marketing & Public Relations (PR)",
   organization: "Chinguacousy SciTech Activity Committee (STAC)",
   status: "completed",
   gallery: [],

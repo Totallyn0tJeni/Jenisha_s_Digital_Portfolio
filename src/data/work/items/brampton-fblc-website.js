@@ -11,7 +11,7 @@ export default {
   featured: false,
   date: "",
   order: 15,
-  role: "",
+  role: "Deputy Director of Marketing, Brampton FBLC",
   organization: "Brampton FBLC",
   status: "completed",
   gallery: [],

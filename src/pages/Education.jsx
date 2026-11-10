@@ -13,7 +13,7 @@ export default function Education() {
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>
       <section className="px-4 md:px-8 pt-12 pb-20">
         <div className="max-w-4xl mx-auto">
-          <SectionHeading eyebrow="Learning" title="Education" subtitle="Academic background and coursework." />
+          <SectionHeading as="h1" eyebrow="Learning" title="Education" subtitle="Academic background and coursework." />
           {items.length > 0 ? (
             <div className="space-y-4">
               {items.map((item, i) => (

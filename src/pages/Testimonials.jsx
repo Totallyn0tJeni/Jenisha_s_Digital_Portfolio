@@ -49,7 +49,7 @@ export default function Testimonials() {
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>
       <section className="px-4 md:px-8 pt-12 pb-20">
         <div className="max-w-5xl mx-auto">
-          <SectionHeading eyebrow="Kind Words" title="Testimonials" subtitle="What people say about working with me." />
+          <SectionHeading as="h1" eyebrow="Kind Words" title="Testimonials" subtitle="What people say about working with me." />
 
           {testimonialsNote && (
             <p className="text-center text-sm text-muted-foreground mt-4 mb-8">{testimonialsNote}</p>

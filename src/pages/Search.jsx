@@ -46,7 +46,7 @@ export default function Search() {
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>
       <section className="px-4 md:px-8 pt-12 pb-20">
         <div className="max-w-4xl mx-auto">
-          <SectionHeading eyebrow="Discover" title="Search" subtitle="Find anything across the entire site." />
+          <SectionHeading as="h1" eyebrow="Discover" title="Search" subtitle="Find anything across the entire site." />
 
           <div className="relative mb-8">
             <SearchIcon className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
