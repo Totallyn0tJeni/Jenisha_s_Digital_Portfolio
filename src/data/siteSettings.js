@@ -15,7 +15,7 @@ export const siteSettings = {
 
   hero_title: 'Driven by curiosity. Focused on impact.',
   hero_subtitle:
-    'I build software, lead teams, capture stories, and turn STEM communities into places people want to show up for — from robotics pits to hackathon stages to code editors.',
+    'First-year Computer Science co-op student at McMaster. I build software, lead teams, and capture stories — turning STEM communities into places people want to show up for, from robotics pits to hackathon stages to code editors.',
   hero_cta_primary: { label: 'Explore Work', link: '/work' },
   hero_cta_secondary: { label: 'Get in Touch', link: '/contact' },
 
@@ -92,7 +92,7 @@ Lately that curiosity has pulled toward AI, entrepreneurship, and innovation —
 
   // Contact email used by the Contact page (mailto fallback — no backend to store messages anymore).
   contact_email: 'jeni.1245690@gmail.com',
-  contact_phone: '(437) 424-4413',
+  contact_phone: '',
   contact_location: 'Brampton, ON, Canada',
 };
 
