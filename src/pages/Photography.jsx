@@ -20,7 +20,8 @@ const campaignPhotos = assets
   }));
 
 export default function Photography() {
-  const photos = [...photosData, ...campaignPhotos];
+  // Entries without an image yet stay in src/data/photos/items but are hidden until a photo is added.
+  const photos = [...photosData, ...campaignPhotos].filter((p) => p.image_url);
   const [filter, setFilter] = useState('All');
   const [lightbox, setLightbox] = useState(null);
   const [openFaq, setOpenFaq] = useState(null);
