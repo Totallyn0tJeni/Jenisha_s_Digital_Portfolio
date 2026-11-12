@@ -6,7 +6,7 @@ export default {
   campaign: "founders-den-2026-marketing",
   collection: "Recap Campaign",
   asset_type: "Event Graphic",
-  category: ["Event Graphics", "Photography"],
+  category: ["Event Graphics"],
   tags: ["Business", "Canva", "Education", "Entrepreneurship", "Event Graphic", "Event Graphics", "Leadership", "Photography", "Portrait", "White"],
   software: ["Canva"],
   status: "hidden",
