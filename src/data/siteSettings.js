@@ -91,7 +91,7 @@ Lately that curiosity has pulled toward AI, entrepreneurship, and innovation —
   ],
 
   // Contact email used by the Contact page (mailto fallback — no backend to store messages anymore).
-  contact_email: 'jeni.1245690@gmail.com',
+  contact_email: 'jenisha.patel0718@gmail.com',
   contact_phone: '',
   contact_location: 'Brampton, ON, Canada',
 };
