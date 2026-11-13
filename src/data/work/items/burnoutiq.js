@@ -10,7 +10,7 @@ export default {
   work_type: "software_project",
   featured: false,
   date: "",
-  order: 4,
+  order: 0,
   role: "",
   organization: "",
   status: "completed",
