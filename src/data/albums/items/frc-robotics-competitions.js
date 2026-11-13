@@ -15,6 +15,7 @@ export default {
     { id: "18459520261141634", src: "/images/albums/frc-robotics-competitions/18459520261141634.jpg", date: "2026-08-16" },
     { id: "17981045312840774", src: "/images/albums/frc-robotics-competitions/17981045312840774.jpg", date: "2026-05-15" },
     { id: "18470572441100815", src: "/images/albums/frc-robotics-competitions/18470572441100815.jpg", date: "2026-05-15" },
+    { id: "18534031207077310", src: "/images/albums/frc-robotics-competitions/18534031207077310.jpg", date: "2026-05-15" },
     { id: "18122524615653480", src: "/images/albums/frc-robotics-competitions/18122524615653480.jpg", date: "2026-05-15" },
     { id: "18111650317868402", src: "/images/albums/frc-robotics-competitions/18111650317868402.jpg", date: "2026-05-11" },
     { id: "18091332581351291", src: "/images/albums/frc-robotics-competitions/18091332581351291.jpg", date: "2026-05-11" },
@@ -25,6 +26,7 @@ export default {
     { id: "17925558360324174", src: "/images/albums/frc-robotics-competitions/17925558360324174.jpg", date: "2026-05-10" },
     { id: "18113950081765120", src: "/images/albums/frc-robotics-competitions/18113950081765120.jpg", date: "2026-05-10" },
     { id: "18096039392165254", src: "/images/albums/frc-robotics-competitions/18096039392165254.jpg", date: "2026-05-10" },
+    { id: "18091152470582653", src: "/images/albums/frc-robotics-competitions/18091152470582653.jpg", date: "2026-05-10" },
     { id: "17983064939830857", src: "/images/albums/frc-robotics-competitions/17983064939830857.jpg", date: "2026-05-10" },
     { id: "18551306965068422", src: "/images/albums/frc-robotics-competitions/18551306965068422.jpg", date: "2026-04-06" },
     { id: "18009074147854337", src: "/images/albums/frc-robotics-competitions/18009074147854337.jpg", date: "2026-04-06" },
@@ -35,6 +37,7 @@ export default {
     { id: "18089019706923099", src: "/images/albums/frc-robotics-competitions/18089019706923099.jpg", date: "2026-03-18" },
     { id: "18564325528065528", src: "/images/albums/frc-robotics-competitions/18564325528065528.jpg", date: "2026-03-18" },
     { id: "18073367495634383", src: "/images/albums/frc-robotics-competitions/18073367495634383.jpg", date: "2026-03-18" },
+    { id: "18382800205150673", src: "/images/albums/frc-robotics-competitions/18382800205150673.jpg", date: "2025-12-01" },
     { id: "18119408425552871", src: "/images/albums/frc-robotics-competitions/18119408425552871.jpg", date: "2025-12-01" },
     { id: "17917419204237509", src: "/images/albums/frc-robotics-competitions/17917419204237509.jpg", date: "2025-12-01" },
     { id: "17944225482082931", src: "/images/albums/frc-robotics-competitions/17944225482082931.jpg", date: "2025-12-01" },
@@ -44,6 +47,7 @@ export default {
     { id: "18034166657299586", src: "/images/albums/frc-robotics-competitions/18034166657299586.jpg", date: "2025-03-19" },
     { id: "18077242951664071", src: "/images/albums/frc-robotics-competitions/18077242951664071.jpg", date: "2025-03-05" },
     { id: "18000893858753096", src: "/images/albums/frc-robotics-competitions/18000893858753096.jpg", date: "2025-03-05" },
-    { id: "18042677282376561", src: "/images/albums/frc-robotics-competitions/18042677282376561.jpg", date: "2025-03-05" }
+    { id: "18042677282376561", src: "/images/albums/frc-robotics-competitions/18042677282376561.jpg", date: "2025-03-05" },
+    { id: "18343475521147207", src: "/images/albums/frc-robotics-competitions/18343475521147207.jpg", date: "2025-03-05" }
   ],
 };

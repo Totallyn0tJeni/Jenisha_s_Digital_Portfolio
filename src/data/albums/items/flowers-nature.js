@@ -19,6 +19,7 @@ export default {
     { id: "17969658914979959", src: "/images/albums/flowers-nature/17969658914979959.jpg", date: "2025-12-05" },
     { id: "18055486331315843", src: "/images/albums/flowers-nature/18055486331315843.jpg", date: "2025-11-05" },
     { id: "17877114786428409", src: "/images/albums/flowers-nature/17877114786428409.jpg", date: "2025-11-05" },
+    { id: "18073765510970939", src: "/images/albums/flowers-nature/18073765510970939.jpg", date: "2025-10-22" },
     { id: "18094164286770505", src: "/images/albums/flowers-nature/18094164286770505.jpg", date: "2025-10-10" },
     { id: "17943470100026364", src: "/images/albums/flowers-nature/17943470100026364.jpg", date: "2025-09-17" },
     { id: "18041164784406069", src: "/images/albums/flowers-nature/18041164784406069.jpg", date: "2025-09-17" },
@@ -32,6 +33,7 @@ export default {
     { id: "18088689814607684", src: "/images/albums/flowers-nature/18088689814607684.jpg", date: "2025-07-26" },
     { id: "17898625620234054", src: "/images/albums/flowers-nature/17898625620234054.jpg", date: "2025-07-03" },
     { id: "18070220516092621", src: "/images/albums/flowers-nature/18070220516092621.jpg", date: "2025-07-03" },
+    { id: "17940495995877255", src: "/images/albums/flowers-nature/17940495995877255.jpg", date: "2025-05-04" },
     { id: "18077223049839207", src: "/images/albums/flowers-nature/18077223049839207.jpg", date: "2025-05-04" },
     { id: "18049582652355207", src: "/images/albums/flowers-nature/18049582652355207.jpg", date: "2025-04-27" },
     { id: "18380834725188368", src: "/images/albums/flowers-nature/18380834725188368.jpg", date: "2025-04-27" },
@@ -44,6 +46,7 @@ export default {
     { id: "18039825250487971", src: "/images/albums/flowers-nature/18039825250487971.jpg", date: "2023-07-09" },
     { id: "18047392756459588", src: "/images/albums/flowers-nature/18047392756459588.jpg", date: "2023-07-02" },
     { id: "18277881130135545", src: "/images/albums/flowers-nature/18277881130135545.jpg", date: "2023-07-02" },
-    { id: "17882465519882769", src: "/images/albums/flowers-nature/17882465519882769.jpg", date: "2023-06-30" }
+    { id: "17882465519882769", src: "/images/albums/flowers-nature/17882465519882769.jpg", date: "2023-06-30" },
+    { id: "18004040854731350", src: "/images/albums/flowers-nature/18004040854731350.jpg", date: "2023-06-30" }
   ],
 };

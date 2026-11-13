@@ -19,6 +19,7 @@ export default {
     { id: "18144013846517727", src: "/images/albums/niagara-travel/18144013846517727.jpg", date: "2026-08-26" },
     { id: "18128108897504245", src: "/images/albums/niagara-travel/18128108897504245.jpg", date: "2026-08-26" },
     { id: "18128236735735744", src: "/images/albums/niagara-travel/18128236735735744.jpg", date: "2026-08-16" },
+    { id: "18100832813223097", src: "/images/albums/niagara-travel/18100832813223097.jpg", date: "2026-08-16" },
     { id: "17950333368034855", src: "/images/albums/niagara-travel/17950333368034855.jpg", date: "2026-08-16" },
     { id: "18071740148707879", src: "/images/albums/niagara-travel/18071740148707879.jpg", date: "2026-08-16" },
     { id: "18241153939313502", src: "/images/albums/niagara-travel/18241153939313502.jpg", date: "2026-08-16" },
@@ -32,6 +33,7 @@ export default {
     { id: "18090946744590848", src: "/images/albums/niagara-travel/18090946744590848.jpg", date: "2025-07-23" },
     { id: "18133636225386796", src: "/images/albums/niagara-travel/18133636225386796.jpg", date: "2025-07-23" },
     { id: "17943617607033697", src: "/images/albums/niagara-travel/17943617607033697.jpg", date: "2025-07-23" },
+    { id: "18038062790187451", src: "/images/albums/niagara-travel/18038062790187451.jpg", date: "2024-11-01" },
     { id: "18345355744133914", src: "/images/albums/niagara-travel/18345355744133914.jpg", date: "2024-11-01" },
     { id: "18019436567613423", src: "/images/albums/niagara-travel/18019436567613423.jpg", date: "2024-11-01" },
     { id: "18027195527141926", src: "/images/albums/niagara-travel/18027195527141926.jpg", date: "2024-10-10" },
@@ -44,6 +46,7 @@ export default {
     { id: "18281053579161270", src: "/images/albums/niagara-travel/18281053579161270.jpg", date: "2024-02-05" },
     { id: "18410620711031772", src: "/images/albums/niagara-travel/18410620711031772.jpg", date: "2024-02-05" },
     { id: "18031412977834675", src: "/images/albums/niagara-travel/18031412977834675.jpg", date: "2024-02-05" },
-    { id: "18316645489115674", src: "/images/albums/niagara-travel/18316645489115674.jpg", date: "2023-12-12" }
+    { id: "18316645489115674", src: "/images/albums/niagara-travel/18316645489115674.jpg", date: "2023-12-12" },
+    { id: "18029476600695186", src: "/images/albums/niagara-travel/18029476600695186.jpg", date: "2023-12-12" }
   ],
 };

@@ -15,6 +15,7 @@ export default {
     { id: "17907927990571913", src: "/images/albums/cultural-events-celebrations/17907927990571913.jpg", date: "2026-10-15" },
     { id: "17938543554384327", src: "/images/albums/cultural-events-celebrations/17938543554384327.jpg", date: "2026-10-15" },
     { id: "17935423974380751", src: "/images/albums/cultural-events-celebrations/17935423974380751.jpg", date: "2026-09-26" },
+    { id: "17985682409884252", src: "/images/albums/cultural-events-celebrations/17985682409884252.jpg", date: "2026-09-26" },
     { id: "17922828567430505", src: "/images/albums/cultural-events-celebrations/17922828567430505.jpg", date: "2026-09-26" },
     { id: "17945447493315588", src: "/images/albums/cultural-events-celebrations/17945447493315588.jpg", date: "2026-09-07" },
     { id: "17989989354032489", src: "/images/albums/cultural-events-celebrations/17989989354032489.jpg", date: "2026-09-07" },
@@ -25,6 +26,7 @@ export default {
     { id: "18083826737288719", src: "/images/albums/cultural-events-celebrations/18083826737288719.jpg", date: "2026-09-07" },
     { id: "18130749220659827", src: "/images/albums/cultural-events-celebrations/18130749220659827.jpg", date: "2026-09-07" },
     { id: "18131753869710612", src: "/images/albums/cultural-events-celebrations/18131753869710612.jpg", date: "2026-09-07" },
+    { id: "18132782938646954", src: "/images/albums/cultural-events-celebrations/18132782938646954.jpg", date: "2026-09-07" },
     { id: "18135761662619116", src: "/images/albums/cultural-events-celebrations/18135761662619116.jpg", date: "2026-09-07" },
     { id: "18104412683188365", src: "/images/albums/cultural-events-celebrations/18104412683188365.jpg", date: "2026-09-07" },
     { id: "18103543580264243", src: "/images/albums/cultural-events-celebrations/18103543580264243.jpg", date: "2026-09-07" },
@@ -35,6 +37,7 @@ export default {
     { id: "18144617332486149", src: "/images/albums/cultural-events-celebrations/18144617332486149.jpg", date: "2026-09-07" },
     { id: "18432855007135292", src: "/images/albums/cultural-events-celebrations/18432855007135292.jpg", date: "2026-09-07" },
     { id: "18091447930844402", src: "/images/albums/cultural-events-celebrations/18091447930844402.jpg", date: "2025-10-26" },
+    { id: "18061184270574275", src: "/images/albums/cultural-events-celebrations/18061184270574275.jpg", date: "2025-10-26" },
     { id: "17850990144555559", src: "/images/albums/cultural-events-celebrations/17850990144555559.jpg", date: "2025-09-23" },
     { id: "18026058428528923", src: "/images/albums/cultural-events-celebrations/18026058428528923.jpg", date: "2025-09-23" },
     { id: "18174001582355157", src: "/images/albums/cultural-events-celebrations/18174001582355157.jpg", date: "2025-08-29" },
@@ -44,6 +47,7 @@ export default {
     { id: "18012345320081883", src: "/images/albums/cultural-events-celebrations/18012345320081883.jpg", date: "2023-12-15" },
     { id: "17947051925732623", src: "/images/albums/cultural-events-celebrations/17947051925732623.jpg", date: "2023-12-15" },
     { id: "17962818035526814", src: "/images/albums/cultural-events-celebrations/17962818035526814.jpg", date: "2023-11-13" },
-    { id: "17903310557864473", src: "/images/albums/cultural-events-celebrations/17903310557864473.jpg", date: "2023-11-13" }
+    { id: "17903310557864473", src: "/images/albums/cultural-events-celebrations/17903310557864473.jpg", date: "2023-11-13" },
+    { id: "18019978162732387", src: "/images/albums/cultural-events-celebrations/18019978162732387.jpg", date: "2023-11-13" }
   ],
 };
