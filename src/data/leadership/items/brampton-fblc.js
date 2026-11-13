@@ -3,7 +3,7 @@ export default {
   organization: "Brampton FBLC, JEC & TA",
   position: "Member of the Board of Directors",
   secondary_positions: ["Vice Chairwoman (Operations), Founder's Den 2026", "Canadian Youth Changemakers Summit Representative", "Chief Director & Board of Administrators", "Deputy Director of the Marketing Department (Dec. 2025 – Jan. 2026)", "Marketing Officer (Oct. – Dec. 2025)"],
-  start_date: "2024-11-01",
+  start_date: "2024-10-01",
   end_date: "",
   is_current: true,
   timeline_featured: true,
