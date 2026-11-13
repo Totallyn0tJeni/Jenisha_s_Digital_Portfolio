@@ -19,6 +19,13 @@ export default {
     { id: "17896630908378951", src: "/images/albums/august-2026/17896630908378951.jpg", date: "2026-08-17" },
     { id: "18005045099978843", src: "/images/albums/august-2026/18005045099978843.jpg", date: "2026-08-17" },
     { id: "17869960329635819", src: "/images/albums/august-2026/17869960329635819.jpg", date: "2026-08-17" },
-    { id: "18190147330355245", src: "/images/albums/august-2026/18190147330355245.jpg", date: "2026-08-16" }
+    { id: "18190147330355245", src: "/images/albums/august-2026/18190147330355245.jpg", date: "2026-08-16" },
+    { id: "18110415089516844", src: "/images/albums/august-2026/18110415089516844.jpg", date: "2026-08-26" },
+    { id: "18342808570267927", src: "/images/albums/august-2026/18342808570267927.jpg", date: "2026-08-26" },
+    { id: "18103704857175768", src: "/images/albums/august-2026/18103704857175768.jpg", date: "2026-08-26" },
+    { id: "18126298102809302", src: "/images/albums/august-2026/18126298102809302.jpg", date: "2026-08-26" },
+    { id: "18113996518961938", src: "/images/albums/august-2026/18113996518961938.jpg", date: "2026-08-26" },
+    { id: "18376965037229538", src: "/images/albums/august-2026/18376965037229538.jpg", date: "2026-08-17" },
+    { id: "18091687178114281", src: "/images/albums/august-2026/18091687178114281.jpg", date: "2026-08-17" },
   ],
 };

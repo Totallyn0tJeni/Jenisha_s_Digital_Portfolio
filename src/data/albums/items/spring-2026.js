@@ -1,0 +1,28 @@
+export default {
+  id: "spring-2026",
+  title: "Spring 2026",
+  description: "January to May 2026.",
+  cover: "/images/albums/spring-2026/18050697014737549.jpg",
+  order: 20,
+  photos: [
+    { id: "18050697014737549", src: "/images/albums/spring-2026/18050697014737549.jpg", date: "2026-05-07" },
+    { id: "18099335122844016", src: "/images/albums/spring-2026/18099335122844016.jpg", date: "2026-05-07" },
+    { id: "17877920442434776", src: "/images/albums/spring-2026/17877920442434776.jpg", date: "2026-04-21" },
+    { id: "18129551929600730", src: "/images/albums/spring-2026/18129551929600730.jpg", date: "2026-04-21" },
+    { id: "18100284049824078", src: "/images/albums/spring-2026/18100284049824078.jpg", date: "2026-04-21" },
+    { id: "17894618193440638", src: "/images/albums/spring-2026/17894618193440638.jpg", date: "2026-04-11" },
+    { id: "17944575261157629", src: "/images/albums/spring-2026/17944575261157629.jpg", date: "2026-04-11" },
+    { id: "17867120622663736", src: "/images/albums/spring-2026/17867120622663736.jpg", date: "2026-04-07" },
+    { id: "17879666040412883", src: "/images/albums/spring-2026/17879666040412883.jpg", date: "2026-04-07" },
+    { id: "18095018213031439", src: "/images/albums/spring-2026/18095018213031439.jpg", date: "2026-04-07" },
+    { id: "18105285665507106", src: "/images/albums/spring-2026/18105285665507106.jpg", date: "2026-04-07" },
+    { id: "18094694717085748", src: "/images/albums/spring-2026/18094694717085748.jpg", date: "2026-03-19" },
+    { id: "18004718753854587", src: "/images/albums/spring-2026/18004718753854587.jpg", date: "2026-03-19" },
+    { id: "18060176627386215", src: "/images/albums/spring-2026/18060176627386215.jpg", date: "2026-03-19" },
+    { id: "17928908148229013", src: "/images/albums/spring-2026/17928908148229013.jpg", date: "2026-03-19" },
+    { id: "18383130817086408", src: "/images/albums/spring-2026/18383130817086408.jpg", date: "2026-03-14" },
+    { id: "18015046202823916", src: "/images/albums/spring-2026/18015046202823916.jpg", date: "2026-03-14" },
+    { id: "18100322696494769", src: "/images/albums/spring-2026/18100322696494769.jpg", date: "2026-03-14" },
+    { id: "17995276142863441", src: "/images/albums/spring-2026/17995276142863441.jpg", date: "2026-02-07" }
+  ],
+};
