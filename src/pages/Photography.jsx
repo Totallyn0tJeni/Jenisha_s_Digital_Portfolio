@@ -5,6 +5,7 @@ import { ArrowRight, ChevronDown } from 'lucide-react';
 import SectionHeading from '@/components/SectionHeading';
 import ImagePlaceholder from '@/components/ImagePlaceholder';
 import { photos as photosData } from '@/data/photos';
+import { albumsData } from '@/data/albums';
 import { photographySettings as ps } from '@/data/photographySettings';
 import { assets } from '@/data/assets';
 
@@ -25,6 +26,7 @@ export default function Photography() {
   const [filter, setFilter] = useState('All');
   const [lightbox, setLightbox] = useState(null);
   const [openFaq, setOpenFaq] = useState(null);
+  const [openAlbum, setOpenAlbum] = useState(null);
 
   const categories = ['All', ...new Set(photos.map((p) => p.category).filter(Boolean))];
   const filtered = filter === 'All' ? photos : photos.filter((p) => p.category === filter);
@@ -76,6 +78,49 @@ export default function Photography() {
           )}
         </div>
       </section>
+
+      {/* Albums */}
+      {albumsData.length > 0 && (
+        <section id="albums" className="px-4 md:px-8 pb-16 border-t border-border/50 pt-16">
+          <div className="max-w-6xl mx-auto">
+            <SectionHeading eyebrow="Memories" title="Albums" subtitle="Moments from campus, competitions, trips and everyday life." />
+            {!openAlbum ? (
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+                {albumsData.map((album, i) => (
+                  <motion.button
+                    key={album.id}
+                    initial={{ opacity: 0, y: 12 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: (i % 4) * 0.05 }}
+                    onClick={() => setOpenAlbum(album)}
+                    className="relative aspect-square rounded-2xl overflow-hidden glass-card group cursor-pointer text-left"
+                  >
+                    <img src={album.cover} alt={album.title} loading="lazy" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                    <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-background/90 to-transparent p-4">
+                      <h3 className="font-display font-semibold text-foreground text-sm md:text-base">{album.title}</h3>
+                      <p className="text-xs text-muted-foreground">{album.photos.length} photos</p>
+                    </div>
+                  </motion.button>
+                ))}
+              </div>
+            ) : (
+              <div>
+                <button onClick={() => setOpenAlbum(null)} className="mb-4 text-sm text-muted-foreground hover:text-foreground transition-premium">← All albums</button>
+                <h3 className="font-display text-2xl font-semibold text-foreground">{openAlbum.title}</h3>
+                <p className="text-muted-foreground mb-6">{openAlbum.description}</p>
+                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+                  {openAlbum.photos.map((ph) => (
+                    <button key={ph.id} onClick={() => setLightbox({ image_url: ph.src, alt_text: openAlbum.title, title: openAlbum.title })} className="aspect-square rounded-xl overflow-hidden glass-card group cursor-pointer">
+                      <img src={ph.src} alt={openAlbum.title} loading="lazy" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        </section>
+      )}
 
       {/* Services */}
       {ps.services?.length > 0 && (
