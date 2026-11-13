@@ -42,6 +42,11 @@ export default {
     { id: "18025556141529727", src: "/images/albums/graduation-prom-senior-year/18025556141529727.jpg", date: "2025-09-17" },
     { id: "18529857742003220", src: "/images/albums/graduation-prom-senior-year/18529857742003220.jpg", date: "2025-09-17" },
     { id: "17966061485798656", src: "/images/albums/graduation-prom-senior-year/17966061485798656.jpg", date: "2025-09-15" },
-    { id: "17984238407727903", src: "/images/albums/graduation-prom-senior-year/17984238407727903.jpg", date: "2025-09-15" }
+    { id: "17984238407727903", src: "/images/albums/graduation-prom-senior-year/17984238407727903.jpg", date: "2025-09-15" },
+    { id: "18227793598324205", src: "/images/albums/graduation-prom-senior-year/18227793598324205.jpg", date: "2026-08-27" },
+    { id: "18119267350927872", src: "/images/albums/graduation-prom-senior-year/18119267350927872.jpg", date: "2026-08-27" },
+    { id: "18096416570636528", src: "/images/albums/graduation-prom-senior-year/18096416570636528.jpg", date: "2026-08-25" },
+    { id: "17995558806008485", src: "/images/albums/graduation-prom-senior-year/17995558806008485.jpg", date: "2026-08-26" },
+    { id: "18096647567373558", src: "/images/albums/graduation-prom-senior-year/18096647567373558.jpg", date: "2026-08-16" },
   ],
 };

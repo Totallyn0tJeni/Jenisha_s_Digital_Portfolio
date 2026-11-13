@@ -36,6 +36,17 @@ export default {
     { id: "18146030824539317", src: "/images/albums/food-caf-s/18146030824539317.jpg", date: "2026-08-16" },
     { id: "18094795217036896", src: "/images/albums/food-caf-s/18094795217036896.jpg", date: "2026-04-11" },
     { id: "18290803210303067", src: "/images/albums/food-caf-s/18290803210303067.jpg", date: "2026-04-11" },
-    { id: "17967344282818172", src: "/images/albums/food-caf-s/17967344282818172.jpg", date: "2024-12-22" }
+    { id: "17967344282818172", src: "/images/albums/food-caf-s/17967344282818172.jpg", date: "2024-12-22" },
+    { id: "18167528716481909", src: "/images/albums/food-caf-s/18167528716481909.jpg", date: "2026-10-27" },
+    { id: "18162731191497062", src: "/images/albums/food-caf-s/18162731191497062.jpg", date: "2026-10-27" },
+    { id: "18111822011611241", src: "/images/albums/food-caf-s/18111822011611241.jpg", date: "2026-10-15" },
+    { id: "18091211849690070", src: "/images/albums/food-caf-s/18091211849690070.jpg", date: "2026-10-15" },
+    { id: "18076715216442529", src: "/images/albums/food-caf-s/18076715216442529.jpg", date: "2026-10-15" },
+    { id: "17922070923443405", src: "/images/albums/food-caf-s/17922070923443405.jpg", date: "2026-10-15" },
+    { id: "18126126088682690", src: "/images/albums/food-caf-s/18126126088682690.jpg", date: "2026-08-16" },
+    { id: "18404681203085656", src: "/images/albums/food-caf-s/18404681203085656.jpg", date: "2026-08-16" },
+    { id: "18076433492183077", src: "/images/albums/food-caf-s/18076433492183077.jpg", date: "2026-04-11" },
+    { id: "18002673167732670", src: "/images/albums/food-caf-s/18002673167732670.jpg", date: "2026-04-11" },
+    { id: "17992747250775559", src: "/images/albums/food-caf-s/17992747250775559.jpg", date: "2026-04-11" },
   ],
 };

@@ -54,6 +54,17 @@ export default {
     { id: "18105318958362974", src: "/images/albums/toronto-cn-tower/18105318958362974.jpg", date: "2023-12-15" },
     { id: "18051892216520657", src: "/images/albums/toronto-cn-tower/18051892216520657.jpg", date: "2023-12-15" },
     { id: "18032831680567761", src: "/images/albums/toronto-cn-tower/18032831680567761.jpg", date: "2023-11-06" },
-    { id: "18009222560056839", src: "/images/albums/toronto-cn-tower/18009222560056839.jpg", date: "2023-11-06" }
+    { id: "18009222560056839", src: "/images/albums/toronto-cn-tower/18009222560056839.jpg", date: "2023-11-06" },
+    { id: "18131588281783375", src: "/images/albums/toronto-cn-tower/18131588281783375.jpg", date: "2026-10-20" },
+    { id: "18163527901499757", src: "/images/albums/toronto-cn-tower/18163527901499757.jpg", date: "2026-10-20" },
+    { id: "17892159948615308", src: "/images/albums/toronto-cn-tower/17892159948615308.jpg", date: "2026-09-26" },
+    { id: "17909027433499675", src: "/images/albums/toronto-cn-tower/17909027433499675.jpg", date: "2026-09-26" },
+    { id: "18086309834204089", src: "/images/albums/toronto-cn-tower/18086309834204089.jpg", date: "2026-08-17" },
+    { id: "18054677783722444", src: "/images/albums/toronto-cn-tower/18054677783722444.jpg", date: "2026-04-21" },
+    { id: "18114409840663546", src: "/images/albums/toronto-cn-tower/18114409840663546.jpg", date: "2026-03-21" },
+    { id: "18059743330858312", src: "/images/albums/toronto-cn-tower/18059743330858312.jpg", date: "2025-03-22" },
+    { id: "18062951524705665", src: "/images/albums/toronto-cn-tower/18062951524705665.jpg", date: "2024-11-08" },
+    { id: "18045859993663676", src: "/images/albums/toronto-cn-tower/18045859993663676.jpg", date: "2024-04-22" },
+    { id: "18014952592995474", src: "/images/albums/toronto-cn-tower/18014952592995474.jpg", date: "2023-12-15" },
   ],
 };

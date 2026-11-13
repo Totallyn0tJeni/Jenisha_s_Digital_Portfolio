@@ -1,0 +1,28 @@
+export default {
+  id: "september-2026",
+  title: "September 2026",
+  description: "September: first weeks of university.",
+  cover: "/images/albums/september-2026/18000616457798111.jpg",
+  order: 18,
+  photos: [
+    { id: "18000616457798111", src: "/images/albums/september-2026/18000616457798111.jpg", date: "2026-09-26" },
+    { id: "18111763277601303", src: "/images/albums/september-2026/18111763277601303.jpg", date: "2026-09-26" },
+    { id: "18127847803765427", src: "/images/albums/september-2026/18127847803765427.jpg", date: "2026-09-26" },
+    { id: "17973313728133339", src: "/images/albums/september-2026/17973313728133339.jpg", date: "2026-09-26" },
+    { id: "18021382706715068", src: "/images/albums/september-2026/18021382706715068.jpg", date: "2026-09-26" },
+    { id: "17968216388960069", src: "/images/albums/september-2026/17968216388960069.jpg", date: "2026-09-26" },
+    { id: "18411621919085599", src: "/images/albums/september-2026/18411621919085599.jpg", date: "2026-09-26" },
+    { id: "18338550823285917", src: "/images/albums/september-2026/18338550823285917.jpg", date: "2026-09-26" },
+    { id: "18117557531012266", src: "/images/albums/september-2026/18117557531012266.jpg", date: "2026-09-26" },
+    { id: "18063073703784871", src: "/images/albums/september-2026/18063073703784871.jpg", date: "2026-09-13" },
+    { id: "17947524849052880", src: "/images/albums/september-2026/17947524849052880.jpg", date: "2026-09-10" },
+    { id: "18146628871554326", src: "/images/albums/september-2026/18146628871554326.jpg", date: "2026-09-10" },
+    { id: "18166988509482416", src: "/images/albums/september-2026/18166988509482416.jpg", date: "2026-09-10" },
+    { id: "18408764203088039", src: "/images/albums/september-2026/18408764203088039.jpg", date: "2026-09-10" },
+    { id: "18132325273572618", src: "/images/albums/september-2026/18132325273572618.jpg", date: "2026-09-10" },
+    { id: "18168804703457066", src: "/images/albums/september-2026/18168804703457066.jpg", date: "2026-09-10" },
+    { id: "18141763105541803", src: "/images/albums/september-2026/18141763105541803.jpg", date: "2026-09-10" },
+    { id: "18070914080749388", src: "/images/albums/september-2026/18070914080749388.jpg", date: "2026-09-07" },
+    { id: "18625864576026194", src: "/images/albums/september-2026/18625864576026194.jpg", date: "2026-09-07" }
+  ],
+};
