@@ -3,7 +3,6 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ArrowRight, ChevronDown } from 'lucide-react';
 import SectionHeading from '@/components/SectionHeading';
-import ImagePlaceholder from '@/components/ImagePlaceholder';
 import { photos as photosData } from '@/data/photos';
 import { albumsData } from '@/data/albums';
 import { photographySettings as ps } from '@/data/photographySettings';
@@ -20,16 +19,61 @@ const campaignPhotos = assets
     order: 999,
   }));
 
+const SPORTS = /badminton|doubles|serve|smash|rally|medal|ready position|flag football|intramural|gym/i;
+const HACK = /hack/i;
+const CULTURE = /diwali|garba|puja|ganesh|lotus|marigold|ching|holiday|rangoli/i;
+
+// Existing gallery photos are filed into albums by category/title. Nothing is deleted;
+// every record still lives in src/data/photos/items.
+function albumIdFor(p) {
+  if (p.category === 'Robotics') return 'frc-robotics-competitions';
+  if (p.category === 'Nature') return 'flowers-nature';
+  if (p.category === 'Travel') return 'niagara-travel';
+  if (p.category === 'Urban') return 'toronto-cn-tower';
+  if (p.category === 'Portraits') return 'portraits';
+  if (p.category === 'Friends') return 'friends-memories';
+  if (p.category === 'Events') {
+    if (SPORTS.test(p.title || '')) return 'badminton-sports';
+    if (HACK.test(p.title || '')) return 'wolfhacks-2026';
+    if (CULTURE.test(p.title || '')) return 'cultural-events-celebrations';
+    return 'school-events-clubs';
+  }
+  return 'event-campaign-photos';
+}
+
+const EXTRA_ALBUMS = {
+  'portraits': { title: 'Portraits', description: 'Portrait work.' },
+  'friends-memories': { title: 'Friends & Memories', description: 'Moments with people who make it fun.' },
+  'school-events-clubs': { title: 'School Events & Clubs', description: 'Clubs, shows, booths and school events.' },
+  'event-campaign-photos': { title: 'Event Campaign Photos', description: 'Behind-the-scenes shots from marketing campaigns.' },
+};
+
+function buildAlbums(photos) {
+  const map = new Map();
+  albumsData.forEach((a) => map.set(a.id, { ...a, photos: [] }));
+  Object.entries(EXTRA_ALBUMS).forEach(([id, a], i) => map.set(id, { id, ...a, order: 100 + i, photos: [] }));
+  photos.forEach((p) => {
+    const alb = map.get(albumIdFor(p));
+    if (alb) alb.photos.push({ id: `g-${p.id}`, src: p.image_url, title: p.title, caption: p.caption });
+  });
+  albumsData.forEach((a) => {
+    map.get(a.id).photos.push(...a.photos.map((ph) => ({ ...ph, title: undefined })));
+  });
+  return [...map.values()]
+    .filter((a) => a.photos.length > 0)
+    .map((a) => ({ ...a, cover: a.cover && !EXTRA_ALBUMS[a.id] ? a.cover : a.photos[0].src }));
+}
+
 export default function Photography() {
   // Entries without an image yet stay in src/data/photos/items but are hidden until a photo is added.
   const photos = [...photosData, ...campaignPhotos].filter((p) => p.image_url);
-  const [filter, setFilter] = useState('All');
+  const albums = buildAlbums(photos);
   const [lightbox, setLightbox] = useState(null);
   const [openFaq, setOpenFaq] = useState(null);
   const [openAlbum, setOpenAlbum] = useState(null);
-
-  const categories = ['All', ...new Set(photos.map((p) => p.category).filter(Boolean))];
-  const filtered = filter === 'All' ? photos : photos.filter((p) => p.category === filter);
+  const total = albums.reduce((n, a) => n + a.photos.length, 0);
+  const step = (d) => setLightbox((l) => l && { ...l, index: (l.index + d + l.list.length) % l.list.length });
+  const cur = lightbox ? lightbox.list[lightbox.index] : null;
 
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>
@@ -39,54 +83,14 @@ export default function Photography() {
         </div>
       </section>
 
-      <section className="px-4 md:px-8 pb-20">
-        <div className="max-w-7xl mx-auto">
-          {photos.length > 0 && (
-            <div className="flex gap-2 overflow-x-auto scrollbar-hide pb-1 mb-8">
-              {categories.map((cat) => (
-                <button key={cat} onClick={() => setFilter(cat)} className={`px-4 py-1.5 rounded-full text-sm font-medium whitespace-nowrap transition-premium ${filter === cat ? 'bg-primary text-primary-foreground' : 'glass text-muted-foreground hover:text-foreground'}`}>
-                  {cat}
-                </button>
-              ))}
-            </div>
-          )}
-
-          {filtered.length > 0 ? (
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-              {filtered.map((photo, i) => (
-                <motion.button
-                  key={photo.id}
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.04 }}
-                  onClick={() => photo.image_url && setLightbox(photo)}
-                  className="aspect-square rounded-2xl overflow-hidden glass-card group cursor-pointer"
-                >
-                  {photo.image_url ? (
-                    <img src={photo.image_url} alt={photo.alt_text || photo.title || ''} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                  ) : (
-                    <ImagePlaceholder label={photo.title || 'Portfolio Media Coming Soon'} aspect="square" className="border-0 rounded-none h-full" />
-                  )}
-                </motion.button>
-              ))}
-            </div>
-          ) : (
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-              {[...Array(8)].map((_, i) => <ImagePlaceholder key={i} label="Portfolio Media Coming Soon" aspect="square" />)}
-            </div>
-          )}
-        </div>
-      </section>
-
       {/* Albums */}
-      {albumsData.length > 0 && (
-        <section id="albums" className="px-4 md:px-8 pb-16 border-t border-border/50 pt-16">
+      {albums.length > 0 && (
+        <section id="albums" className="px-4 md:px-8 pb-16">
           <div className="max-w-6xl mx-auto">
-            <SectionHeading eyebrow="Memories" title="Albums" subtitle="Moments from campus, competitions, trips and everyday life." />
+            <SectionHeading eyebrow="Memories" title="Albums" subtitle={`${albums.length} albums · ${total} photos`} />
             {!openAlbum ? (
               <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-                {albumsData.map((album, i) => (
+                {albums.map((album, i) => (
                   <motion.button
                     key={album.id}
                     initial={{ opacity: 0, y: 12 }}
@@ -110,9 +114,9 @@ export default function Photography() {
                 <h3 className="font-display text-2xl font-semibold text-foreground">{openAlbum.title}</h3>
                 <p className="text-muted-foreground mb-6">{openAlbum.description}</p>
                 <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
-                  {openAlbum.photos.map((ph) => (
-                    <button key={ph.id} onClick={() => setLightbox({ image_url: ph.src, alt_text: openAlbum.title, title: openAlbum.title })} className="aspect-square rounded-xl overflow-hidden glass-card group cursor-pointer">
-                      <img src={ph.src} alt={openAlbum.title} loading="lazy" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                  {openAlbum.photos.map((ph, idx) => (
+                    <button key={ph.id} onClick={() => setLightbox({ list: openAlbum.photos, index: idx, album: openAlbum.title })} className="aspect-square rounded-xl overflow-hidden glass-card group cursor-pointer">
+                      <img src={ph.src} alt={ph.title || openAlbum.title} loading="lazy" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                     </button>
                   ))}
                 </div>
@@ -237,17 +241,22 @@ export default function Photography() {
         </div>
       </section>
 
-      {lightbox && (
+      {lightbox && cur && (
         <div className="fixed inset-0 z-[90] bg-background/90 backdrop-blur-md flex items-center justify-center p-4" onClick={() => setLightbox(null)}>
           <button className="absolute top-4 right-4 text-muted-foreground hover:text-foreground text-2xl" onClick={() => setLightbox(null)}>✕</button>
+          {lightbox.list.length > 1 && (
+            <>
+              <button aria-label="Previous photo" className="absolute left-3 md:left-6 text-3xl text-muted-foreground hover:text-foreground" onClick={(e) => { e.stopPropagation(); step(-1); }}>‹</button>
+              <button aria-label="Next photo" className="absolute right-3 md:right-6 text-3xl text-muted-foreground hover:text-foreground" onClick={(e) => { e.stopPropagation(); step(1); }}>›</button>
+            </>
+          )}
           <div className="max-w-5xl max-h-[90vh] relative" onClick={(e) => e.stopPropagation()}>
-            <img src={lightbox.image_url} alt={lightbox.alt_text || ''} className="max-w-full max-h-[90vh] object-contain rounded-xl" />
-            {(lightbox.title || lightbox.caption) && (
-              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-background/80 to-transparent p-6 rounded-b-xl">
-                {lightbox.title && <h3 className="font-display font-semibold text-foreground">{lightbox.title}</h3>}
-                {lightbox.caption && <p className="text-sm text-muted-foreground">{lightbox.caption}</p>}
-              </div>
-            )}
+            <img src={cur.src} alt={cur.title || lightbox.album} className="max-w-full max-h-[90vh] object-contain rounded-xl" />
+            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-background/80 to-transparent p-6 rounded-b-xl">
+              <h3 className="font-display font-semibold text-foreground">{cur.title || lightbox.album}</h3>
+              {cur.caption && <p className="text-sm text-muted-foreground">{cur.caption}</p>}
+              <p className="text-xs text-muted-foreground">{lightbox.index + 1} / {lightbox.list.length}</p>
+            </div>
           </div>
         </div>
       )}

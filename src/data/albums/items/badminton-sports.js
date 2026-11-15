@@ -33,6 +33,7 @@ export default {
     { id: "18090705635585785", src: "/images/albums/badminton-sports/18090705635585785.jpg", date: "2026-04-21" },
     { id: "18099925663974197", src: "/images/albums/badminton-sports/18099925663974197.jpg", date: "2026-04-21" },
     { id: "18417879322131222", src: "/images/albums/badminton-sports/18417879322131222.jpg", date: "2026-04-21" },
-    { id: "18100863893068821", src: "/images/albums/badminton-sports/18100863893068821.jpg", date: "2026-04-21" }
+    { id: "18100863893068821", src: "/images/albums/badminton-sports/18100863893068821.jpg", date: "2026-04-21" },
+    { id: "18090305144225184", src: "/images/albums/badminton-sports/18090305144225184.jpg", date: "2026-04-21" },
   ],
 };
