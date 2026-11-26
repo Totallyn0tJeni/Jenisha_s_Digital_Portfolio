@@ -73,6 +73,11 @@ export default {
     { id: "18087927953186997", src: "/images/albums/wolfhacks-2026/18087927953186997.jpg", date: "2026-03-23" },
     { id: "17947698165122864", src: "/images/albums/wolfhacks-2026/17947698165122864.jpg", date: "2026-03-21" },
     { id: "18081880622359148", src: "/images/albums/wolfhacks-2026/18081880622359148.jpg", date: "2026-03-19" },
-    { id: "18004336178855529", src: "/images/albums/wolfhacks-2026/18004336178855529.jpg", date: "2026-03-19" },
+    { id: "18004336178855529", src: "/images/albums/wolfhacks-2026/18004336178855529.jpg", date: "2026-03-19" },,
+    { id: "18141105853575716", src: "/images/albums/wolfhacks-2026/18141105853575716.jpg", date: "2026-08-26" },
+    { id: "18065306366726574", src: "/images/albums/wolfhacks-2026/18065306366726574.jpg", date: "2026-08-26" },
+    { id: "18114867142979300", src: "/images/albums/wolfhacks-2026/18114867142979300.jpg", date: "2026-08-26" },
+    { id: "18096415073318111", src: "/images/albums/wolfhacks-2026/18096415073318111.jpg", date: "2026-08-26" },
+    { id: "18099372566262452", src: "/images/albums/wolfhacks-2026/18099372566262452.jpg", date: "2026-08-24" },
   ],
 };

@@ -73,6 +73,10 @@ export default {
     { id: "18093418996658827", src: "/images/albums/niagara-travel/18093418996658827.jpg", date: "2025-08-23" },
     { id: "18135661987430128", src: "/images/albums/niagara-travel/18135661987430128.jpg", date: "2025-08-23" },
     { id: "18034231349463612", src: "/images/albums/niagara-travel/18034231349463612.jpg", date: "2025-07-23" },
-    { id: "18087926800512727", src: "/images/albums/niagara-travel/18087926800512727.jpg", date: "2024-11-01" },
+    { id: "18087926800512727", src: "/images/albums/niagara-travel/18087926800512727.jpg", date: "2024-11-01" },,
+    { id: "17956844304229666", src: "/images/albums/niagara-travel/17956844304229666.jpg", date: "2026-09-07" },
+    { id: "18405294193089395", src: "/images/albums/niagara-travel/18405294193089395.jpg", date: "2026-09-07" },
+    { id: "18148226476407166", src: "/images/albums/niagara-travel/18148226476407166.jpg", date: "2025-09-06" },
+    { id: "18342357385167513", src: "/images/albums/niagara-travel/18342357385167513.jpg", date: "2025-08-23" },
   ],
 };

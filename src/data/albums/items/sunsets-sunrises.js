@@ -79,6 +79,10 @@ export default {
     { id: "18087261211691582", src: "/images/albums/sunsets-sunrises/18087261211691582.jpg", date: "2025-08-07" },
     { id: "18043800962190340", src: "/images/albums/sunsets-sunrises/18043800962190340.jpg", date: "2025-05-04" },
     { id: "18042030971405743", src: "/images/albums/sunsets-sunrises/18042030971405743.jpg", date: "2025-05-04" },
-    { id: "18012077465538780", src: "/images/albums/sunsets-sunrises/18012077465538780.jpg", date: "2025-05-04" },
+    { id: "18012077465538780", src: "/images/albums/sunsets-sunrises/18012077465538780.jpg", date: "2025-05-04" },,
+    { id: "18112982041997193", src: "/images/albums/sunsets-sunrises/18112982041997193.jpg", date: "2026-08-26" },
+    { id: "18090201095006346", src: "/images/albums/sunsets-sunrises/18090201095006346.jpg", date: "2026-01-24" },
+    { id: "18071827256114463", src: "/images/albums/sunsets-sunrises/18071827256114463.jpg", date: "2025-08-30" },
+    { id: "18188583559312540", src: "/images/albums/sunsets-sunrises/18188583559312540.jpg", date: "2025-05-04" },
   ],
 };

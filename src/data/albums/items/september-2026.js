@@ -23,6 +23,10 @@ export default {
     { id: "18168804703457066", src: "/images/albums/september-2026/18168804703457066.jpg", date: "2026-09-10" },
     { id: "18141763105541803", src: "/images/albums/september-2026/18141763105541803.jpg", date: "2026-09-10" },
     { id: "18070914080749388", src: "/images/albums/september-2026/18070914080749388.jpg", date: "2026-09-07" },
-    { id: "18625864576026194", src: "/images/albums/september-2026/18625864576026194.jpg", date: "2026-09-07" }
+    { id: "18625864576026194", src: "/images/albums/september-2026/18625864576026194.jpg", date: "2026-09-07" },
+    { id: "18218294950342316", src: "/images/albums/september-2026/18218294950342316.jpg", date: "2026-09-26" },
+    { id: "18175655797430598", src: "/images/albums/september-2026/18175655797430598.jpg", date: "2026-09-26" },
+    { id: "17938875927369274", src: "/images/albums/september-2026/17938875927369274.jpg", date: "2026-09-26" },
+    { id: "17896492617656400", src: "/images/albums/september-2026/17896492617656400.jpg", date: "2026-09-10" },
   ],
 };

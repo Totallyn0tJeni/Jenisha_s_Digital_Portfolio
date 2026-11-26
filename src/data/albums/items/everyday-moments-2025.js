@@ -63,6 +63,11 @@ export default {
     { id: "18081219866508924", src: "/images/albums/everyday-moments-2025/18081219866508924.jpg", date: "2025-10-13" },
     { id: "17893329627202892", src: "/images/albums/everyday-moments-2025/17893329627202892.jpg", date: "2025-10-13" },
     { id: "17898135477312887", src: "/images/albums/everyday-moments-2025/17898135477312887.jpg", date: "2025-10-13" },
-    { id: "17885220099382412", src: "/images/albums/everyday-moments-2025/17885220099382412.jpg", date: "2025-10-07" },
+    { id: "17885220099382412", src: "/images/albums/everyday-moments-2025/17885220099382412.jpg", date: "2025-10-07" },,
+    { id: "18081139421173014", src: "/images/albums/everyday-moments-2025/18081139421173014.jpg", date: "2025-12-12" },
+    { id: "18380662597196982", src: "/images/albums/everyday-moments-2025/18380662597196982.jpg", date: "2025-11-06" },
+    { id: "18376663630148569", src: "/images/albums/everyday-moments-2025/18376663630148569.jpg", date: "2025-10-13" },
+    { id: "17886193941367359", src: "/images/albums/everyday-moments-2025/17886193941367359.jpg", date: "2025-10-04" },
+    { id: "18082910827767954", src: "/images/albums/everyday-moments-2025/18082910827767954.jpg", date: "2025-10-01" },
   ],
 };

@@ -23,6 +23,11 @@ export default {
     { id: "18383130817086408", src: "/images/albums/spring-2026/18383130817086408.jpg", date: "2026-03-14" },
     { id: "18015046202823916", src: "/images/albums/spring-2026/18015046202823916.jpg", date: "2026-03-14" },
     { id: "18100322696494769", src: "/images/albums/spring-2026/18100322696494769.jpg", date: "2026-03-14" },
-    { id: "17995276142863441", src: "/images/albums/spring-2026/17995276142863441.jpg", date: "2026-02-07" }
+    { id: "17995276142863441", src: "/images/albums/spring-2026/17995276142863441.jpg", date: "2026-02-07" },
+    { id: "17974392420020201", src: "/images/albums/spring-2026/17974392420020201.jpg", date: "2026-05-07" },
+    { id: "18062865890388487", src: "/images/albums/spring-2026/18062865890388487.jpg", date: "2026-04-21" },
+    { id: "17948808066132104", src: "/images/albums/spring-2026/17948808066132104.jpg", date: "2026-04-07" },
+    { id: "18045299228767091", src: "/images/albums/spring-2026/18045299228767091.jpg", date: "2026-04-07" },
+    { id: "18010987661689753", src: "/images/albums/spring-2026/18010987661689753.jpg", date: "2026-03-24" },
   ],
 };
