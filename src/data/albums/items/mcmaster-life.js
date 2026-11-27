@@ -82,6 +82,11 @@ export default {
     { id: "18119956132948668", src: "/images/albums/mcmaster-life/18119956132948668.jpg", date: "2026-10-15" },
     { id: "18106944025527026", src: "/images/albums/mcmaster-life/18106944025527026.jpg", date: "2025-07-31" },
     { id: "18370093987176019", src: "/images/albums/mcmaster-life/18370093987176019.jpg", date: "2025-07-31" },
-    { id: "18016327867906865", src: "/images/albums/mcmaster-life/18016327867906865.jpg", date: "2023-11-06" },
+    { id: "18016327867906865", src: "/images/albums/mcmaster-life/18016327867906865.jpg", date: "2023-11-06" },,
+    { id: "17952053724316339", src: "/images/albums/mcmaster-life/17952053724316339.jpg", date: "2026-10-27" },
+    { id: "17987365496880105", src: "/images/albums/mcmaster-life/17987365496880105.jpg", date: "2026-10-15" },
+    { id: "17923902672441273", src: "/images/albums/mcmaster-life/17923902672441273.jpg", date: "2026-10-15" },
+    { id: "18117972004972749", src: "/images/albums/mcmaster-life/18117972004972749.jpg", date: "2026-10-15" },
+    { id: "18208453255368007", src: "/images/albums/mcmaster-life/18208453255368007.jpg", date: "2026-10-15" },
   ],
 };

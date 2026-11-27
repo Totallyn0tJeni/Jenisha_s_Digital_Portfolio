@@ -47,6 +47,7 @@ export default {
     { id: "18404681203085656", src: "/images/albums/food-caf-s/18404681203085656.jpg", date: "2026-08-16" },
     { id: "18076433492183077", src: "/images/albums/food-caf-s/18076433492183077.jpg", date: "2026-04-11" },
     { id: "18002673167732670", src: "/images/albums/food-caf-s/18002673167732670.jpg", date: "2026-04-11" },
-    { id: "17992747250775559", src: "/images/albums/food-caf-s/17992747250775559.jpg", date: "2026-04-11" },
+    { id: "17992747250775559", src: "/images/albums/food-caf-s/17992747250775559.jpg", date: "2026-04-11" },,
+    { id: "18107362580119941", src: "/images/albums/food-caf-s/18107362580119941.jpg", date: "2026-08-16" },
   ],
 };

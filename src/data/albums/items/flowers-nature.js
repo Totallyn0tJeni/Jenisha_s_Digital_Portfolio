@@ -61,6 +61,10 @@ export default {
     { id: "18035529530469381", src: "/images/albums/flowers-nature/18035529530469381.jpg", date: "2025-08-14" },
     { id: "18052952486425818", src: "/images/albums/flowers-nature/18052952486425818.jpg", date: "2025-08-14" },
     { id: "18051198041203054", src: "/images/albums/flowers-nature/18051198041203054.jpg", date: "2025-08-14" },
-    { id: "18046836074558626", src: "/images/albums/flowers-nature/18046836074558626.jpg", date: "2025-07-26" },
+    { id: "18046836074558626", src: "/images/albums/flowers-nature/18046836074558626.jpg", date: "2025-07-26" },,
+    { id: "18069841187228072", src: "/images/albums/flowers-nature/18069841187228072.jpg", date: "2025-09-17" },
+    { id: "18036014903678987", src: "/images/albums/flowers-nature/18036014903678987.jpg", date: "2025-08-14" },
+    { id: "18060484109205685", src: "/images/albums/flowers-nature/18060484109205685.jpg", date: "2025-07-26" },
+    { id: "18041125802322245", src: "/images/albums/flowers-nature/18041125802322245.jpg", date: "2025-07-03" },
   ],
 };

@@ -50,6 +50,10 @@ export default {
     { id: "18132022897441045", src: "/images/albums/digi-cam-moments/18132022897441045.jpg", date: "2025-07-08" },
     { id: "17967554438874188", src: "/images/albums/digi-cam-moments/17967554438874188.jpg", date: "2025-05-31" },
     { id: "18048284315150005", src: "/images/albums/digi-cam-moments/18048284315150005.jpg", date: "2025-05-31" },
-    { id: "18059394061810907", src: "/images/albums/digi-cam-moments/18059394061810907.jpg", date: "2025-02-08" },
+    { id: "18059394061810907", src: "/images/albums/digi-cam-moments/18059394061810907.jpg", date: "2025-02-08" },,
+    { id: "18096041363673678", src: "/images/albums/digi-cam-moments/18096041363673678.jpg", date: "2026-10-15" },
+    { id: "17917012602445490", src: "/images/albums/digi-cam-moments/17917012602445490.jpg", date: "2026-09-26" },
+    { id: "17992858997830788", src: "/images/albums/digi-cam-moments/17992858997830788.jpg", date: "2026-08-26" },
+    { id: "18092908579738653", src: "/images/albums/digi-cam-moments/18092908579738653.jpg", date: "2025-09-25" },
   ],
 };
